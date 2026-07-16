@@ -1,7 +1,8 @@
 import type { Chapter, Unit, Card } from "@/lib/types";
 import { chVariables } from "./ch-variables";
+import { chFlow } from "./ch-flow";
 
-const chapters: Chapter[] = [chVariables];
+const chapters: Chapter[] = [chVariables, chFlow];
 
 export function allChapters(): Chapter[] { return chapters; }
 export function getChapter(id: string): Chapter | undefined {
