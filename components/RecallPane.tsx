@@ -23,23 +23,23 @@ export function RecallPane({ cards, onAnswer, onDone }: RecallPaneProps) {
   const next = () => { setAnswered(null); setI(i + 1); };
 
   return (
-    <div className="flex flex-col gap-4">
-      <span className="text-sm tabular-nums text-zinc-400">{i + 1} / {cards.length}</span>
+    <div key={i} className="animate-fade-up flex flex-col gap-4">
+      <span className="text-xs tabular-nums text-zinc-500">{i + 1} / {cards.length}</span>
       <p className="text-xl font-medium text-zinc-100">{card.prompt}</p>
       <div className="flex flex-wrap gap-2">
         {card.options.map((o, idx) => (
           <button key={idx} onClick={() => pick(idx)} disabled={answered !== null}
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-200 hover:border-teal-500 disabled:opacity-60">
+            className="rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-200 transition-all hover:border-teal-500/60 active:scale-[0.98] disabled:opacity-60">
             {o}
           </button>
         ))}
       </div>
-      {answered === false && <p className="rounded-lg border border-red-900 bg-red-950 p-3 text-red-300">{card.explainWrong}</p>}
-      {answered === true && <p className="rounded-lg border border-green-900 bg-green-950 p-3 text-green-300">Correct.</p>}
+      {answered === false && <p className="rounded-xl border border-red-900/60 bg-red-950/40 p-3 text-red-300">{card.explainWrong}</p>}
+      {answered === true && <p className="rounded-xl border border-green-900/60 bg-green-950/40 p-3 text-green-300">Correct.</p>}
       {answered !== null && (
         last
-          ? <button onClick={onDone} className="self-start rounded-lg bg-teal-600 px-5 py-2 text-white">Done</button>
-          : <button onClick={next} className="self-start rounded-lg bg-zinc-800 px-5 py-2 text-zinc-200">Next</button>
+          ? <button onClick={onDone} className="self-start rounded-full bg-teal-600 px-5 py-2 text-white transition-all hover:brightness-110 active:scale-[0.98]">Done</button>
+          : <button onClick={next} className="self-start rounded-full bg-zinc-800 px-5 py-2 text-zinc-200 transition-all hover:bg-zinc-700 active:scale-[0.98]">Next</button>
       )}
     </div>
   );

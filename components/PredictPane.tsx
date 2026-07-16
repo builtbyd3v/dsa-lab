@@ -26,30 +26,30 @@ export function PredictPane({ rung, onPass, onReview }: PredictPaneProps) {
     <div className="flex flex-col gap-4">
       <StepPlayer steps={rung.steps} onFinished={() => setReady(true)} />
       {ready && (
-        <div className="flex flex-col gap-3">
+        <div className="animate-fade-up flex flex-col gap-3">
           <p className="text-lg font-medium text-zinc-100">{rung.prompt}</p>
           <div className="flex flex-wrap gap-2">
             {rung.options.map((o) => (
               <button key={o.id} onClick={() => pick(o.id)} disabled={correct}
-                className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-200 hover:border-teal-500 disabled:opacity-50">
+                className="rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-200 transition-all hover:border-teal-500/60 active:scale-[0.98] disabled:opacity-50">
                 {o.label}
               </button>
             ))}
           </div>
-          {feedback && <p className="rounded-lg border border-red-900 bg-red-950 p-3 text-red-300">{feedback}</p>}
+          {feedback && <p className="rounded-xl border border-red-900/60 bg-red-950/40 p-3 text-red-300">{feedback}</p>}
           {wrongCount >= 2 && !correct && (
             <button onClick={() => onReview(rung.reviewStep)}
-              className="self-start rounded-lg border border-amber-700 bg-amber-950 px-4 py-2 text-amber-300">
+              className="self-start rounded-full border border-amber-700/60 bg-amber-950/40 px-4 py-2 text-amber-300 transition-all active:scale-[0.98]">
               Review this concept
             </button>
           )}
           {correct && (
-            <div className="flex flex-col gap-3">
-              <div className="rounded-xl bg-zinc-950 p-4">
+            <div className="animate-fade-up flex flex-col gap-3">
+              <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
                 <StructViz state={rung.revealStep.state} className="mx-auto max-h-56 w-full" />
               </div>
-              <p className="rounded-lg border border-green-900 bg-green-950 p-3 text-green-300">{rung.revealStep.caption}</p>
-              <button onClick={onPass} className="self-start rounded-lg bg-teal-600 px-5 py-2 font-medium text-white">Continue</button>
+              <p className="rounded-xl border border-green-900/60 bg-green-950/40 p-3 text-green-300">{rung.revealStep.caption}</p>
+              <button onClick={onPass} className="self-start rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Continue</button>
             </div>
           )}
         </div>

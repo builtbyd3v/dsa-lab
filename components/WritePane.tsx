@@ -34,7 +34,7 @@ export function WritePane({ rung, onPass, onReview }: WritePaneProps) {
         onContinue={onPass} onReview={() => onReview(rung.reviewStep)} onRun={run}>
         <textarea aria-label="Code editor" rows={14} value={code} spellCheck={false}
           onChange={(e) => setCode(e.target.value)}
-          className="w-full rounded-xl bg-zinc-950 p-4 font-mono text-sm text-zinc-200 outline-none focus:ring-1 focus:ring-teal-700" />
+          className="w-full rounded-2xl border border-zinc-800 bg-zinc-950 p-4 font-mono text-sm text-zinc-200 outline-none transition-colors focus:border-teal-700 focus:ring-1 focus:ring-teal-700" />
       </CodePane>
     </div>
   );

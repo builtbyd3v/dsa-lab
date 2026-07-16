@@ -40,7 +40,7 @@ export function FillinPane({ rung, onPass, onReview }: FillinPaneProps) {
       <p className="text-lg font-medium text-zinc-100">{rung.prompt}</p>
       <CodePane failures={failures} viz={viz} passed={passed} failCount={failCount} running={running}
         onContinue={onPass} onReview={() => onReview(rung.reviewStep)} onRun={run}>
-        <pre className="whitespace-pre-wrap rounded-xl bg-zinc-950 p-4 font-mono text-sm text-zinc-200">
+        <pre className="whitespace-pre-wrap rounded-2xl border border-zinc-800 bg-zinc-950 p-4 font-mono text-sm text-zinc-200">
           {parts.map((p, i) => {
             const m = p.match(/^\{\{(\w+)\}\}$/);
             if (!m) return <Fragment key={i}>{p}</Fragment>;
@@ -48,7 +48,7 @@ export function FillinPane({ rung, onPass, onReview }: FillinPaneProps) {
             return (
               <input key={i} aria-label={m[1]} value={values[m[1]] ?? ""} placeholder={blank?.placeholder ?? "___"}
                 onChange={(e) => setValues((v) => ({ ...v, [m[1]]: e.target.value }))}
-                className="mx-1 inline-block w-28 rounded border border-teal-700 bg-zinc-900 px-2 py-0.5 text-teal-300" />
+                className="mx-1 inline-block w-28 rounded-md border border-teal-700/70 bg-zinc-900 px-2 py-0.5 text-teal-300 outline-none transition-colors focus:border-teal-500" />
             );
           })}
         </pre>
