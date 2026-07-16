@@ -120,7 +120,7 @@ const boxesUnit: Unit = {
           id: "temp",
           placeholder: "___",
           answer: "temp",
-          explainWrong: "Any name works, but it must be a fresh variable that saves a's value before a is overwritten.",
+          explainWrong: "Use the name temp here so the saved value has somewhere to live before a gets overwritten.",
         },
         {
           id: "fromb",
@@ -690,7 +690,7 @@ const referencesUnit: Unit = {
       prompt:
         "Write two functions on a list of numbers. add_one_inplace(nums) should append 1 to nums directly (mutates it, returns nothing useful). add_one_new(nums) should return a NEW list equal to nums with 1 appended, leaving nums untouched.",
       starter:
-        "def add_one_inplace(nums):\n    # mutate nums directly\n    pass\n\ndef add_one_new(nums):\n    # return a new list, do not touch nums\n    pass\n",
+        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef add_one_inplace(nums):\n    # mutate nums directly\n    pass\n\ndef add_one_new(nums):\n    # return a new list, do not touch nums\n    pass\n",
       tests: [
         {
           name: "inplace mutates the original",
@@ -703,6 +703,7 @@ const referencesUnit: Unit = {
             "original2 = [1, 2]\nresult = add_one_new(original2)\nassert result == [1, 2, 1], \"result should be [1, 2, 1]: add_one_new should return a list with 1 appended\"\nassert original2 == [1, 2], \"original2 should stay [1, 2]: add_one_new must not mutate the list it was given\"",
         },
       ],
+      vizExpr: '_viz("result", add_one_new([1, 2]))',
       reviewStep: 7,
     },
   ],
@@ -795,7 +796,7 @@ const applyVariablesUnit: Unit = {
       prompt:
         "checkout(cart) should return the total of all prices in cart WITHOUT changing cart itself. Then, separately, add_item(cart, price) should add price into cart directly (mutate it) and return nothing meaningful. Write both, being careful that checkout never mutates its input and that a 'backup' you make of cart before checkout stays correct even if cart changes later.",
       starter:
-        "def checkout(cart):\n    # return the sum of prices, do not mutate cart\n    pass\n\ndef add_item(cart, price):\n    # mutate cart in place by adding price\n    pass\n",
+        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef checkout(cart):\n    # return the sum of prices, do not mutate cart\n    pass\n\ndef add_item(cart, price):\n    # mutate cart in place by adding price\n    pass\n",
       tests: [
         {
           name: "checkout totals correctly",
@@ -813,6 +814,7 @@ const applyVariablesUnit: Unit = {
             "cart3 = [4.50, 2.25]\nbackup = list(cart3)\nadd_item(cart3, 5.25)\nassert cart3 == [4.50, 2.25, 5.25], \"cart3 should include the new item: add_item must mutate the same list object it was given\"\nassert backup == [4.50, 2.25], \"backup should still be [4.50, 2.25]: the copy must not change when the original grows\"",
         },
       ],
+      vizExpr: '_viz("cart", (lambda c: (add_item(c, 5.25), c)[1])([4.50, 2.25]))',
       reviewStep: 1,
     },
   ],
