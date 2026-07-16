@@ -12,8 +12,13 @@ export function loadPy(): Promise<Py> {
     const s = document.createElement("script");
     s.src = `${BASE}pyodide.js`;
     s.onload = () => window.loadPyodide!({ indexURL: BASE }).then(resolve, reject);
-    s.onerror = () => reject(new Error("Failed to load Python runtime. Check your connection and reload."));
+    s.onerror = () => {
+      s.remove();
+      reject(new Error("Failed to load Python runtime. Check your connection and retry."));
+    };
     document.head.appendChild(s);
   });
+  // clear cache on failure so a retry can reload the script
+  instance.catch(() => { instance = null; });
   return instance;
 }
