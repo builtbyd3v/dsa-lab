@@ -132,8 +132,12 @@ Every rung carries `reviewStep` — the Watch step its Review link targets — a
 - Unit tests: step generators (algorithm correctness), Leitner scheduler, code-runner feedback mapping.
 - No UI test suite; manual verification of rendering per chapter batch.
 
+## Deployment
+
+- Hosted on Vercel so the app can be shared publicly. Client-only Next.js deploys as-is; per-visitor progress stays in their own localStorage. No env vars, no server config.
+
 ## Out of scope
 
-- Auth, accounts, cloud sync, deployment (runs on localhost).
+- Auth, accounts, cloud sync (per-device localStorage only, even when hosted).
 - Mobile layout (desktop-first; usable, not optimized).
 - Non-Python languages.
