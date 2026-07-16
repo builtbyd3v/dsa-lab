@@ -23,7 +23,7 @@ export default function Dashboard() {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-10 p-8 pb-24">
       <header className="animate-fade-up flex flex-col gap-5 pt-8">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+        <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
           Learn data structures,{" "}
           <span className="animate-gradient bg-gradient-to-r from-orange-200 via-pink-300 to-purple-400 bg-clip-text text-transparent">
             visually
@@ -67,42 +67,65 @@ export default function Dashboard() {
           <section
             key={ph.n}
             style={{ animationDelay: `${120 + phaseIdx * 60}ms` }}
-            className="animate-fade-up flex flex-col gap-4"
+            className="animate-fade-up flex flex-col gap-8"
           >
             <h2 className="text-sm font-medium uppercase tracking-widest text-zinc-500">{ph.title}</h2>
-            {chapters.map((c, chapterIdx) => {
+            {chapters.map((c) => {
+              const chapterNum = chaptersAll.indexOf(c) + 1;
               const doneCount = c.units.filter((u) => isUnitComplete(p, c.id, u.id)).length;
               return (
-                <div
-                  key={c.id}
-                  className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5"
-                >
-                  <div className="mb-1 flex items-baseline gap-3">
+                <div key={c.id} className="flex flex-col">
+                  <div className="flex items-baseline gap-3 pb-2">
                     <span className="font-mono text-xs tabular-nums text-zinc-600">
-                      {String(chapterIdx + 1).padStart(2, "0")}
+                      {String(chapterNum).padStart(2, "0")}
                     </span>
-                    <h3 className="font-medium text-zinc-200">{c.title}</h3>
+                    <h3 className="text-lg font-semibold tracking-tight text-zinc-100">{c.title}</h3>
                     <span className="ml-auto font-mono text-xs tabular-nums text-zinc-500">
                       {doneCount}/{c.units.length}
                     </span>
                   </div>
-                  <div className="mb-4 ml-8 h-px overflow-hidden rounded bg-zinc-800">
+                  <div className="mb-1 h-px overflow-hidden rounded bg-zinc-800/80">
                     <div
                       className="h-full bg-teal-500 transition-all duration-700"
                       style={{ width: `${c.units.length ? (doneCount / c.units.length) * 100 : 0}%` }}
                     />
                   </div>
-                  <div className="ml-8 flex flex-wrap gap-2">
-                    {c.units.map((u) => {
+                  <ol className="flex flex-col">
+                    {c.units.map((u, unitIdx) => {
                       const done = isUnitComplete(p, c.id, u.id);
                       return (
-                        <Link key={u.id} href={`/learn/${c.id}/${u.id}`}
-                          className={`rounded-full px-3 py-1 text-sm transition-all active:scale-[0.98] ${done ? "bg-teal-600 text-white hover:brightness-110" : "border border-zinc-700 text-zinc-300 hover:border-teal-500/60 hover:text-zinc-100"}`}>
-                          {u.title}
-                        </Link>
+                        <li key={u.id} className={unitIdx > 0 ? "border-t border-zinc-800/50" : ""}>
+                          <Link
+                            href={`/learn/${c.id}/${u.id}`}
+                            className="group flex items-center gap-4 rounded-lg px-2 py-3.5 transition-colors hover:bg-zinc-900/60 active:scale-[0.995]"
+                          >
+                            <span className="font-mono text-xs tabular-nums text-zinc-600 transition-colors group-hover:text-teal-500">
+                              {chapterNum}.{unitIdx + 1}
+                            </span>
+                            <span
+                              className={`text-[15px] transition-colors ${
+                                done ? "text-zinc-500" : "text-zinc-200"
+                              } group-hover:text-zinc-50`}
+                            >
+                              {u.title}
+                            </span>
+                            {done ? (
+                              <span className="ml-auto font-mono text-sm text-teal-500" aria-label="Completed">
+                                ✓
+                              </span>
+                            ) : (
+                              <span
+                                className="ml-auto -translate-x-1 font-mono text-sm text-zinc-500 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100"
+                                aria-hidden="true"
+                              >
+                                →
+                              </span>
+                            )}
+                          </Link>
+                        </li>
                       );
                     })}
-                  </div>
+                  </ol>
                 </div>
               );
             })}
