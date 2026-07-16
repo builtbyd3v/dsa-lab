@@ -31,10 +31,10 @@ export function UnitPlayer({ unit, onComplete, onRecallAnswer }: UnitPlayerProps
           autoPlay={phase.returnTo === null} onFinished={() => setWatchDone(true)} />
         {phase.returnTo !== null ? (
           <button onClick={() => toRung(phase.returnTo!)}
-            className="self-center rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Back to exercise</button>
+            className="self-center rounded-lg bg-primary px-5 py-2 font-medium text-white transition-colors hover:bg-primary-active active:scale-[0.98]">Back to exercise</button>
         ) : watchDone ? (
           <button onClick={() => toRung(0)}
-            className="self-center rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Start doing</button>
+            className="self-center rounded-lg bg-primary px-5 py-2 font-medium text-white transition-colors hover:bg-primary-active active:scale-[0.98]">Start doing</button>
         ) : null}
       </div>
     );
@@ -54,5 +54,5 @@ export function UnitPlayer({ unit, onComplete, onRecallAnswer }: UnitPlayerProps
       onDone={() => { setPhase({ kind: "done" }); onComplete(); }} />;
   }
 
-  return <p className="animate-fade-up rounded-xl border border-green-900/60 bg-green-950/40 p-4 text-green-300">Unit complete.</p>;
+  return <p className="animate-fade-up rounded-xl border border-success/30 bg-card p-4 text-success">Unit complete.</p>;
 }

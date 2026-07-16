@@ -11,14 +11,14 @@ export default function LearnPage() {
   const [completed, setCompleted] = useState(false);
   const u = getUnit(chapter, unit);
   const c = getChapter(chapter);
-  if (!u || !c) return <main className="p-8 pt-24"><Link href="/" className="text-teal-400 hover:text-teal-300">Unit not found — back to dashboard</Link></main>;
+  if (!u || !c) return <main className="p-8 pt-24"><Link href="/" className="text-primary hover:text-primary-active">Unit not found. Back to dashboard</Link></main>;
   const next = nextUnit(chapter, unit);
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-6 p-8 pt-8">
+    <main className="mx-auto flex max-w-3xl flex-col gap-6 p-8 pt-10">
       <header className="animate-fade-up flex items-baseline justify-between">
-        <h1 className="text-xl font-semibold tracking-tight">{u.title}</h1>
-        <Link href="/" className="text-sm text-zinc-500 hover:text-teal-400">{c.title}</Link>
+        <h1 className="text-[26px] font-normal tracking-[-0.0125em] text-ink">{u.title}</h1>
+        <Link href="/" className="text-sm text-muted transition-colors hover:text-ink">{c.title}</Link>
       </header>
       <div className="animate-fade-up" style={{ animationDelay: "60ms" }}>
         <UnitPlayer
@@ -29,8 +29,8 @@ export default function LearnPage() {
       </div>
       {completed && (
         next
-          ? <Link href={`/learn/${next.chapterId}/${next.unitId}`} className="animate-fade-up self-start rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Next unit →</Link>
-          : <Link href="/" className="animate-fade-up self-start rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Back to dashboard</Link>
+          ? <Link href={`/learn/${next.chapterId}/${next.unitId}`} className="animate-fade-up self-start rounded-lg bg-primary px-5 py-2 font-medium text-white transition-colors hover:bg-primary-active active:scale-[0.98]">Next unit →</Link>
+          : <Link href="/" className="animate-fade-up self-start rounded-lg bg-primary px-5 py-2 font-medium text-white transition-colors hover:bg-primary-active active:scale-[0.98]">Back to dashboard</Link>
       )}
     </main>
   );

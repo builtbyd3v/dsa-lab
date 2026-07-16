@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Step } from "@/lib/types";
+import { boundsOf } from "@/lib/viz/layout";
 import { StructViz } from "./StructViz";
 
 export interface StepPlayerProps {
@@ -31,26 +32,28 @@ export function StepPlayer({ steps, autoPlay = true, startAt = 0, onFinished }: 
 
   const manual = (n: number) => { setPlaying(false); setI(n); };
   const step = steps[i];
+  // constant drawing bounds across all steps so the frame never rescales
+  const bounds = useMemo(() => boundsOf(steps.map((s) => s.state)), [steps]);
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="viz-canvas overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
-        <StructViz state={step.state} className="mx-auto max-h-96 w-full" />
+      <div className="viz-canvas flex h-96 items-center justify-center overflow-hidden rounded-xl border border-hairline p-8">
+        <StructViz state={step.state} bounds={bounds} className="h-full w-full" />
       </div>
-      <p key={i} className="animate-caption min-h-12 text-center text-xl text-zinc-100">{step.caption}</p>
+      <p key={i} className="animate-caption min-h-16 text-center text-xl leading-relaxed text-ink">{step.caption}</p>
       <div className="flex items-center justify-center gap-2">
         <button aria-label="Previous step" disabled={i === 0} onClick={() => manual(i - 1)}
-          className="rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-zinc-400 transition-colors hover:text-zinc-200 disabled:opacity-30">←</button>
+          className="rounded-lg border border-hairline-strong bg-card px-3 py-1.5 text-sm text-body transition-colors hover:text-ink disabled:opacity-30">←</button>
         <button aria-label={playing ? "Pause" : "Play"} onClick={() => setPlaying(!playing)}
-          className="rounded-full bg-teal-600 px-4 py-1.5 text-sm text-white transition-all hover:brightness-110 active:scale-[0.98]">{playing ? "❚❚" : "▶"}</button>
+          className="rounded-lg bg-ink px-4 py-1.5 text-sm text-canvas transition-all hover:opacity-90 active:scale-[0.98]">{playing ? "❚❚" : "▶"}</button>
         <button aria-label="Next step" disabled={i === steps.length - 1} onClick={() => manual(i + 1)}
-          className="rounded-full bg-zinc-900 px-3 py-1.5 text-sm text-zinc-400 transition-colors hover:text-zinc-200 disabled:opacity-30">→</button>
-        <span className="ml-2 text-xs tabular-nums text-zinc-500">{i + 1} / {steps.length}</span>
+          className="rounded-lg border border-hairline-strong bg-card px-3 py-1.5 text-sm text-body transition-colors hover:text-ink disabled:opacity-30">→</button>
+        <span className="ml-2 font-mono text-xs tabular-nums text-muted">{i + 1} / {steps.length}</span>
       </div>
       <div className="flex justify-center gap-1.5">
         {steps.map((_, n) => (
           <button key={n} aria-label={`Go to step ${n + 1}`} onClick={() => manual(n)}
-            className={`h-1.5 w-4 rounded-full transition-colors ${n <= i ? "bg-teal-500" : "bg-zinc-800"}`} />
+            className={`h-1.5 w-4 rounded-full transition-colors ${n <= i ? "bg-ink" : "bg-hairline"}`} />
         ))}
       </div>
     </div>
