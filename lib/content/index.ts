@@ -1,6 +1,7 @@
 import type { Chapter, Unit, Card } from "@/lib/types";
+import { chVariables } from "./ch-variables";
 
-const chapters: Chapter[] = []; // content tasks push imports here
+const chapters: Chapter[] = [chVariables];
 
 export function allChapters(): Chapter[] { return chapters; }
 export function getChapter(id: string): Chapter | undefined {
