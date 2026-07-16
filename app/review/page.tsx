@@ -12,7 +12,9 @@ export default function ReviewPage() {
 
   useEffect(() => {
     const cards = allCards();
-    const ids = new Set(dueCardIds(loadProgress(), cards.map((c) => c.id), Date.now()));
+    const p = loadProgress();
+    // only cards already met in a unit's recall are reviewable
+    const ids = new Set(dueCardIds(p, Object.keys(p.cards), Date.now()));
     setDue(cards.filter((c) => ids.has(c.id)));
   }, []);
 

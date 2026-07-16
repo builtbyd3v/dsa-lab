@@ -41,7 +41,7 @@ export function CodePane({ failures, viz, passed, failCount, running, onContinue
       {passed && (
         <div className="animate-fade-up flex flex-col gap-3">
           {isStructState(viz) && (
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4"><StructViz state={viz} className="mx-auto max-h-56 w-full" /></div>
+            <div className="viz-canvas overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 p-4"><StructViz state={viz} className="mx-auto max-h-56 w-full" /></div>
           )}
           <p className="rounded-xl border border-green-900/60 bg-green-950/40 p-3 text-green-300">All checks passed. This is your structure.</p>
           <button onClick={onContinue} className="self-start rounded-full bg-teal-600 px-5 py-2 font-medium text-white transition-all hover:brightness-110 active:scale-[0.98]">Continue</button>

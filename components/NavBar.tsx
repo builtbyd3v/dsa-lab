@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { allCards } from "@/lib/content";
 import { loadProgress, dueCardIds } from "@/lib/engine/progress";
 
 export function NavBar() {
@@ -10,7 +9,7 @@ export function NavBar() {
 
   useEffect(() => {
     const p = loadProgress();
-    setDue(dueCardIds(p, allCards().map((c) => c.id), Date.now()).length);
+    setDue(dueCardIds(p, Object.keys(p.cards), Date.now()).length);
     setStreak(p.streak.count);
   }, []);
 
@@ -23,8 +22,11 @@ export function NavBar() {
         </Link>
         <div className="flex items-center gap-1.5">
           {streak > 0 && (
-            <span className="hidden items-center gap-1 rounded-full px-2.5 py-1 text-xs tabular-nums text-zinc-400 sm:inline-flex">
-              🔥 {streak}
+            <span
+              title={`${streak} day streak`}
+              className="hidden items-center rounded-full px-2.5 py-1 font-mono text-xs tabular-nums text-zinc-400 sm:inline-flex"
+            >
+              {streak}d
             </span>
           )}
           <Link

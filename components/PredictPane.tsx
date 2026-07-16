@@ -45,7 +45,7 @@ export function PredictPane({ rung, onPass, onReview }: PredictPaneProps) {
           )}
           {correct && (
             <div className="animate-fade-up flex flex-col gap-3">
-              <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
+              <div className="viz-canvas overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 p-4">
                 <StructViz state={rung.revealStep.state} className="mx-auto max-h-56 w-full" />
               </div>
               <p className="rounded-xl border border-green-900/60 bg-green-950/40 p-3 text-green-300">{rung.revealStep.caption}</p>

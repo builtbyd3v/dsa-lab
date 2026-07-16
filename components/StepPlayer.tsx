@@ -34,7 +34,7 @@ export function StepPlayer({ steps, autoPlay = true, startAt = 0, onFinished }: 
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
+      <div className="viz-canvas overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
         <StructViz state={step.state} className="mx-auto max-h-96 w-full" />
       </div>
       <p key={i} className="animate-caption min-h-12 text-center text-xl text-zinc-100">{step.caption}</p>
