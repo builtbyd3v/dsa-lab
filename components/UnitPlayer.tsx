@@ -11,11 +11,14 @@ export interface UnitPlayerProps {
   unit: Unit;
   onComplete: () => void;
   onRecallAnswer: (cardId: string, correct: boolean) => void;
+  onRungResult?: (rungIndex: number, passed: boolean) => void;
+  onRungReveal?: (rungIndex: number) => void;
+  draftKeyPrefix?: string;
 }
 
 type Phase = { kind: "watch"; startAt: number; returnTo: number | null } | { kind: "rung"; index: number } | { kind: "recall" } | { kind: "done" };
 
-export function UnitPlayer({ unit, onComplete, onRecallAnswer }: UnitPlayerProps) {
+export function UnitPlayer({ unit, onComplete, onRecallAnswer, onRungResult, onRungReveal, draftKeyPrefix }: UnitPlayerProps) {
   const [phase, setPhase] = useState<Phase>({ kind: "watch", startAt: 0, returnTo: null });
   const [watchDone, setWatchDone] = useState(false);
 
@@ -46,7 +49,10 @@ export function UnitPlayer({ unit, onComplete, onRecallAnswer }: UnitPlayerProps
     const onReview = review(phase.index);
     if (rung.kind === "predict") return <PredictPane rung={rung} onPass={onPass} onReview={onReview} />;
     if (rung.kind === "fillin") return <FillinPane rung={rung} onPass={onPass} onReview={onReview} />;
-    return <WritePane rung={rung} onPass={onPass} onReview={onReview} />;
+    return <WritePane rung={rung} onPass={onPass} onReview={onReview}
+      onResult={(passed) => onRungResult?.(phase.index, passed)}
+      onReveal={() => onRungReveal?.(phase.index)}
+      draftKey={draftKeyPrefix ? `${draftKeyPrefix}/${phase.index}` : undefined} />;
   }
 
   if (phase.kind === "recall") {

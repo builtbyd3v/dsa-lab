@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { UnitPlayer } from "@/components/UnitPlayer";
 import { getUnit, getChapter, nextUnit } from "@/lib/content";
-import { loadProgress, saveProgress, completeUnit, recordReview } from "@/lib/engine/progress";
+import { loadProgress, saveProgress, completeUnit, recordReview, recordRungResult, markRevealed, rungKey } from "@/lib/engine/progress";
 
 export default function LearnPage() {
   const { chapter, unit } = useParams<{ chapter: string; unit: string }>();
@@ -25,6 +25,11 @@ export default function LearnPage() {
           unit={u}
           onComplete={() => { saveProgress(completeUnit(loadProgress(), chapter, unit, Date.now())); setCompleted(true); }}
           onRecallAnswer={(id, correct) => saveProgress(recordReview(loadProgress(), id, correct, Date.now()))}
+          onRungResult={(rungIndex, passed) =>
+            saveProgress(recordRungResult(loadProgress(), rungKey(chapter, unit, rungIndex), passed, Date.now()))}
+          onRungReveal={(rungIndex) =>
+            saveProgress(markRevealed(loadProgress(), rungKey(chapter, unit, rungIndex)))}
+          draftKeyPrefix={`${chapter}/${unit}`}
         />
       </div>
       {completed && (
