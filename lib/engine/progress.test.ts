@@ -1,5 +1,15 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { loadProgress, saveProgress, completeUnit, recordReview, dueCardIds, isUnitComplete } from "./progress";
+import {
+  loadProgress,
+  saveProgress,
+  completeUnit,
+  recordReview,
+  dueCardIds,
+  isUnitComplete,
+  rungKey,
+  recordRungResult,
+  markRevealed,
+} from "./progress";
 
 const DAY = 86_400_000;
 
@@ -39,5 +49,49 @@ describe("progress", () => {
     expect(dueCardIds(p, ["a", "b"], DAY)).toEqual(["a", "b"]);
     p = recordReview(p, "b", false, 0);
     expect(dueCardIds(p, ["a", "b"], 0)).toContain("b");
+  });
+
+  it("migration: defaults rungs and requeue when absent from stored payload", () => {
+    localStorage.setItem(
+      "dsa-lab-progress-v1",
+      JSON.stringify({ completedUnits: [], cards: {}, streak: { count: 0, lastDay: "" } })
+    );
+    const p = loadProgress();
+    expect(p.rungs).toEqual({});
+    expect(p.requeue).toEqual([]);
+  });
+
+  it("migration: fresh progress also has rungs and requeue", () => {
+    const p = loadProgress();
+    expect(p.rungs).toEqual({});
+    expect(p.requeue).toEqual([]);
+  });
+
+  it("recordRungResult: tracks passes and fails, sets lastPass on pass", () => {
+    let p = loadProgress();
+    const key = rungKey("c", "u1", 0);
+    p = recordRungResult(p, key, false, 100);
+    expect(p.rungs[key]).toEqual({ passes: 0, fails: 1 });
+    p = recordRungResult(p, key, true, 200);
+    expect(p.rungs[key]).toEqual({ passes: 1, fails: 1, lastPass: 200 });
+  });
+
+  it("recordRungResult: removes key from requeue on pass", () => {
+    let p = loadProgress();
+    const key = rungKey("c", "u1", 0);
+    p = markRevealed(p, key);
+    expect(p.requeue).toContain(key);
+    p = recordRungResult(p, key, true, 100);
+    expect(p.requeue).not.toContain(key);
+  });
+
+  it("markRevealed: sets revealed and dedups requeue entries", () => {
+    let p = loadProgress();
+    const key = rungKey("c", "u1", 0);
+    p = markRevealed(p, key);
+    expect(p.rungs[key]?.revealed).toBe(true);
+    expect(p.requeue).toEqual([key]);
+    p = markRevealed(p, key);
+    expect(p.requeue).toEqual([key]);
   });
 });
