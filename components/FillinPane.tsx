@@ -4,6 +4,7 @@ import type { FillinRung } from "@/lib/types";
 import { loadPy } from "@/lib/engine/pyodide";
 import { runWithTests } from "@/lib/engine/runner";
 import { CodePane } from "./CodePane";
+import { PyCode } from "./PyCode";
 import { Rich } from "./Rich";
 
 export interface FillinPaneProps { rung: FillinRung; onPass: () => void; onReview: (stepIndex: number) => void }
@@ -44,7 +45,7 @@ export function FillinPane({ rung, onPass, onReview }: FillinPaneProps) {
         <pre className="whitespace-pre-wrap rounded-xl border border-hairline bg-card p-4 font-mono text-[13px] leading-relaxed text-ink">
           {parts.map((p, i) => {
             const m = p.match(/^\{\{(\w+)\}\}$/);
-            if (!m) return <Fragment key={i}>{p}</Fragment>;
+            if (!m) return <Fragment key={i}><PyCode code={p} /></Fragment>;
             const blank = rung.blanks.find((b) => b.id === m[1]);
             return (
               <input key={i} aria-label={m[1]} value={values[m[1]] ?? ""} placeholder={blank?.placeholder ?? "___"}

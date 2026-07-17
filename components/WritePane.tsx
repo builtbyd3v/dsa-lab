@@ -4,6 +4,7 @@ import type { WriteRung } from "@/lib/types";
 import { loadPy } from "@/lib/engine/pyodide";
 import { runWithTests } from "@/lib/engine/runner";
 import { CodePane } from "./CodePane";
+import { PyCode } from "./PyCode";
 import { PyEditor } from "./PyEditor";
 import { Rich } from "./Rich";
 
@@ -131,7 +132,7 @@ export function WritePane({ rung, onPass, onReview, onResult, onReveal, draftKey
       )}
       {revealed && rung.solution && (
         <div className="flex flex-col gap-1.5">
-          <pre className="animate-fade-up overflow-x-auto rounded-xl border border-hairline bg-card p-4 font-mono text-[13px] leading-relaxed text-ink">{rung.solution}</pre>
+          <pre className="animate-fade-up overflow-x-auto rounded-xl border border-hairline bg-card p-4 font-mono text-[13px] leading-relaxed text-ink"><PyCode code={rung.solution} /></pre>
           <p className="text-sm text-muted">Study it, then close this page — this problem returns for a blank re-solve.</p>
         </div>
       )}
