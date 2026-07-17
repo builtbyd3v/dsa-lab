@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Step } from "@/lib/types";
 import { boundsOf } from "@/lib/viz/layout";
 import { StructViz } from "./StructViz";
+import { Rich } from "./Rich";
 
 export interface StepPlayerProps {
   steps: Step[];
@@ -19,9 +20,11 @@ export function StepPlayer({ steps, autoPlay = true, startAt = 0, onFinished }: 
   useEffect(() => {
     if (!playing) return;
     if (i >= steps.length - 1) { setPlaying(false); return; }
-    const t = setInterval(() => setI((n) => Math.min(n + 1, steps.length - 1)), 2500);
-    return () => clearInterval(t);
-  }, [playing, i, steps.length]);
+    // reading time scales with caption length
+    const delay = Math.min(3000 + steps[i].caption.length * 35, 7000);
+    const t = setTimeout(() => setI((n) => Math.min(n + 1, steps.length - 1)), delay);
+    return () => clearTimeout(t);
+  }, [playing, i, steps]);
 
   useEffect(() => {
     if (i === steps.length - 1 && !finished.current) {
@@ -40,7 +43,7 @@ export function StepPlayer({ steps, autoPlay = true, startAt = 0, onFinished }: 
       <div className="viz-canvas flex h-96 items-center justify-center overflow-hidden rounded-xl border border-hairline p-8">
         <StructViz state={step.state} bounds={bounds} className="h-full w-full" />
       </div>
-      <p key={i} className="animate-caption min-h-16 text-center text-xl leading-relaxed text-ink">{step.caption}</p>
+      <p key={i} className="animate-caption mx-auto min-h-16 max-w-xl text-center text-lg leading-relaxed text-ink"><Rich text={step.caption} /></p>
       <div className="flex items-center justify-center gap-2">
         <button aria-label="Previous step" disabled={i === 0} onClick={() => manual(i - 1)}
           className="rounded-lg border border-hairline-strong bg-card px-3 py-1.5 text-sm text-body transition-colors hover:text-ink disabled:opacity-30">←</button>
