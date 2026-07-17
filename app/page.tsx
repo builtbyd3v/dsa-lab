@@ -4,6 +4,31 @@ import Link from "next/link";
 import { allChapters } from "@/lib/content";
 import { loadProgress, dueCardIds, isUnitComplete, type Progress } from "@/lib/engine/progress";
 
+type HeatStatus = "untouched" | "solid" | "shaky" | "weak";
+
+function chapterHeat(p: Progress, chapterId: string): { status: HeatStatus; passes: number; fails: number } {
+  const prefix = `${chapterId}/`;
+  let passes = 0;
+  let fails = 0;
+  for (const [key, stat] of Object.entries(p.rungs)) {
+    if (!key.startsWith(prefix)) continue;
+    passes += stat.passes;
+    fails += stat.fails;
+  }
+  const total = passes + fails;
+  if (total === 0) return { status: "untouched", passes, fails };
+  const failRate = fails / total;
+  const status: HeatStatus = failRate < 0.25 ? "solid" : failRate < 0.5 ? "shaky" : "weak";
+  return { status, passes, fails };
+}
+
+const heatDotClass: Record<HeatStatus, string> = {
+  solid: "bg-success",
+  shaky: "bg-tl-done",
+  weak: "bg-error",
+  untouched: "bg-hairline-strong",
+};
+
 export default function Dashboard() {
   const [p, setP] = useState<Progress | null>(null);
   useEffect(() => setP(loadProgress()), []);
@@ -15,6 +40,9 @@ export default function Dashboard() {
     (n, c) => n + c.units.filter((u) => isUnitComplete(p, c.id, u.id)).length,
     0
   );
+  const rungStats = Object.values(p.rungs);
+  const hasPasses = rungStats.some((s) => s.passes > 0);
+  const owedRequeue = p.requeue.length;
   const phases: Array<{ n: 1 | 2; title: string }> = [
     { n: 1, title: "Phase 1 · Python foundations" },
     { n: 2, title: "Phase 2 · Data structures & algorithms" },
@@ -43,6 +71,30 @@ export default function Dashboard() {
           </span>
         </div>
       </header>
+      <section
+        style={{ animationDelay: "60ms" }}
+        className="animate-fade-up flex flex-col gap-2 rounded-xl border border-hairline bg-card p-5"
+      >
+        <h2 className="text-lg text-ink">Gauntlet</h2>
+        <p className="text-sm text-muted">
+          Re-solve what you&apos;ve already passed, from a blank editor.
+        </p>
+        {hasPasses ? (
+          <div className="mt-2 flex items-center gap-4">
+            <Link
+              href="/gauntlet"
+              className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-active"
+            >
+              Start gauntlet
+            </Link>
+            {owedRequeue > 0 && (
+              <span className="font-mono text-xs text-primary">{owedRequeue} owed a re-solve</span>
+            )}
+          </div>
+        ) : (
+          <p className="mt-1 text-sm text-muted">Pass a few problems first.</p>
+        )}
+      </section>
       {due > 0 && (
         <Link
           href="/review"
@@ -72,25 +124,43 @@ export default function Dashboard() {
             {chapters.map((c) => {
               const chapterNum = chaptersAll.indexOf(c) + 1;
               const doneCount = c.units.filter((u) => isUnitComplete(p, c.id, u.id)).length;
+              const heat = chapterHeat(p, c.id);
               return (
-                <div key={c.id} className="flex flex-col">
-                  <div className="flex items-baseline gap-3 pb-3">
-                    <span className="font-mono text-xs tabular-nums text-muted-soft">
-                      {String(chapterNum).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-[26px] font-normal leading-tight tracking-[-0.0125em] text-ink">
-                      {c.title}
-                    </h3>
-                    <span className="ml-auto font-mono text-xs tabular-nums text-muted">
-                      {doneCount}/{c.units.length}
-                    </span>
-                  </div>
-                  <div className="mb-1 h-px overflow-hidden bg-hairline">
-                    <div
-                      className="h-full bg-ink transition-all duration-700"
-                      style={{ width: `${c.units.length ? (doneCount / c.units.length) * 100 : 0}%` }}
-                    />
-                  </div>
+                <details key={c.id} className="group/chapter flex flex-col">
+                  <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                    <div className="flex items-baseline gap-3 pb-3">
+                      <span
+                        className="text-muted transition-transform duration-200 group-open/chapter:rotate-90"
+                        aria-hidden="true"
+                      >
+                        ›
+                      </span>
+                      <span className="font-mono text-xs tabular-nums text-muted-soft">
+                        {String(chapterNum).padStart(2, "0")}
+                      </span>
+                      <h3 className="text-[26px] font-normal leading-tight tracking-[-0.0125em] text-ink">
+                        {c.title}
+                      </h3>
+                      <span
+                        className="ml-auto flex items-center gap-1.5"
+                        title={`${heat.passes} passes · ${heat.fails} fails`}
+                      >
+                        <span className={`h-1.5 w-1.5 rounded-full ${heatDotClass[heat.status]}`} aria-hidden="true" />
+                        {heat.status !== "untouched" && (
+                          <span className="text-xs text-muted">{heat.status}</span>
+                        )}
+                      </span>
+                      <span className="font-mono text-xs tabular-nums text-muted">
+                        {doneCount}/{c.units.length}
+                      </span>
+                    </div>
+                    <div className="mb-1 h-px overflow-hidden bg-hairline">
+                      <div
+                        className="h-full bg-ink transition-all duration-700"
+                        style={{ width: `${c.units.length ? (doneCount / c.units.length) * 100 : 0}%` }}
+                      />
+                    </div>
+                  </summary>
                   <ol className="flex flex-col">
                     {c.units.map((u, unitIdx) => {
                       const done = isUnitComplete(p, c.id, u.id);
@@ -127,7 +197,7 @@ export default function Dashboard() {
                       );
                     })}
                   </ol>
-                </div>
+                </details>
               );
             })}
           </section>
