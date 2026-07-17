@@ -2,8 +2,44 @@ import type { Chapter, Unit, Card } from "@/lib/types";
 import { chVariables } from "./ch-variables";
 import { chFlow } from "./ch-flow";
 import { chFunctions } from "./ch-functions";
+import { chStrings } from "./ch-strings";
+import { chCollections } from "./ch-collections";
+import { chClasses } from "./ch-classes";
+import { chRecursion } from "./ch-recursion";
+import { chDsaIntro } from "./ch-dsa-intro";
+import { chDsaLists } from "./ch-dsa-lists";
+import { chDsaStacksQueues } from "./ch-dsa-stacks-queues";
+import { chDsaHash } from "./ch-dsa-hash";
+import { chDsaTrees } from "./ch-dsa-trees";
+import { chDsaBalanced } from "./ch-dsa-balanced";
+import { chDsaHeaps } from "./ch-dsa-heaps";
+import { chDsaSets } from "./ch-dsa-sets";
+import { chDsaGraphs } from "./ch-dsa-graphs";
+import { chDsaBtrees } from "./ch-dsa-btrees";
+import { chDsaAnalysis } from "./ch-dsa-analysis";
 
-const chapters: Chapter[] = [chVariables, chFlow, chFunctions];
+const chapters: Chapter[] = [
+  // Phase 1: Python foundations
+  chVariables,
+  chFlow,
+  chFunctions,
+  chStrings,
+  chCollections,
+  chClasses,
+  chRecursion,
+  // Phase 2: data structures and algorithms (zyBooks order)
+  chDsaIntro,
+  chDsaLists,
+  chDsaStacksQueues,
+  chDsaHash,
+  chDsaTrees,
+  chDsaBalanced,
+  chDsaHeaps,
+  chDsaSets,
+  chDsaGraphs,
+  chDsaBtrees,
+  chDsaAnalysis,
+];
 
 export function allChapters(): Chapter[] { return chapters; }
 export function getChapter(id: string): Chapter | undefined {
