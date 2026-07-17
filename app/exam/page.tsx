@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { allCards, getChapter } from "@/lib/content";
 import type { Card } from "@/lib/types";
+import { Rich } from "@/components/Rich";
 
 const QUESTION_COUNT = 30;
 const EXAM_SECONDS = 20 * 60;
@@ -158,12 +159,12 @@ export default function ExamPage() {
                 const yourAnswer = answers[idx];
                 return (
                   <li key={card.id} className="flex flex-col gap-1 border-t border-hairline pt-3 first:border-t-0 first:pt-0">
-                    <p className="text-sm text-ink">{card.prompt}</p>
+                    <p className="text-sm text-ink"><Rich text={card.prompt} /></p>
                     <p className="text-sm text-error">
-                      Your answer: {yourAnswer !== null ? card.options[yourAnswer] : "(no answer)"}
+                      Your answer: <Rich text={yourAnswer !== null ? card.options[yourAnswer] : "(no answer)"} />
                     </p>
                     <p className="text-sm text-success">
-                      Correct answer: {card.options[card.correctIndex]}
+                      Correct answer: <Rich text={card.options[card.correctIndex]} />
                     </p>
                   </li>
                 );
@@ -199,7 +200,7 @@ export default function ExamPage() {
         </span>
       </div>
       <div key={i} className="animate-fade-up flex flex-col gap-4">
-        <p className="text-lg font-medium text-ink">{card.prompt}</p>
+        <p className="text-lg font-medium text-ink"><Rich text={card.prompt} /></p>
         <div className="flex flex-col gap-2">
           {card.options.map((option, idx) => (
             <button
@@ -209,7 +210,7 @@ export default function ExamPage() {
                 selected === idx ? "border-primary/60 text-ink" : "border-hairline"
               }`}
             >
-              {option}
+              <Rich text={option} />
             </button>
           ))}
         </div>

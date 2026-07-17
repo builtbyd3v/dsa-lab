@@ -139,14 +139,14 @@ const bigOUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "O(n)" },
-        { id: "b", label: "O(log n)" },
-        { id: "c", label: "O(n^2)" },
+        { id: "a", label: "`O(n)`" },
+        { id: "b", label: "`O(log n)`" },
+        { id: "c", label: "`O(n^2)`" },
       ],
       correctId: "c",
       explainWrong: {
-        a: "O(n) describes a single loop over the data. This function has a loop nested inside another loop, so its work grows faster than that.",
-        b: "O(log n) comes from repeatedly cutting the problem in half, like binary search. Nothing here halves the search space; both loops scan the full array.",
+        a: "`O(n)` describes a single loop over the data. This function has a loop nested inside another loop, so its work grows faster than that.",
+        b: "`O(log n)` comes from repeatedly cutting the problem in half, like binary search. Nothing here halves the search space; both loops scan the full array.",
       },
       revealStep: {
         state: {
@@ -162,7 +162,7 @@ const bigOUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Simplify O(3n + 5) to its Big-O class by naming the single term that dominates as n grows.",
+      prompt: "Simplify `O(3n + 5)` to its Big-O class by naming the single term that dominates as `n` grows.",
       code: [
         "# cost = 3n + 5",
         "# drop the constant +5 and the coefficient 3",
@@ -174,7 +174,7 @@ const bigOUnit: Unit = {
           placeholder: "___",
           answer: "O(n)",
           explainWrong:
-            "Big-O keeps only the fastest-growing term and drops constants and coefficients. 3n + 5 has n as its only variable term, so it simplifies to O(n), not O(3n) or O(n + 5).",
+            "Big-O keeps only the fastest-growing term and drops constants and coefficients. `3n + 5` has `n` as its only variable term, so it simplifies to `O(n)`, not `O(3n)` or `O(n + 5)`.",
         },
       ],
       tests: [
@@ -189,10 +189,10 @@ const bigOUnit: Unit = {
   recall: [
     {
       id: "dsa-analysis.big-o.1",
-      prompt: "An algorithm's step count stays exactly the same whether n is 8 or 8 million. What is its Big-O?",
-      options: ["O(1)", "O(n)", "O(n^2)"],
+      prompt: "An algorithm's step count stays exactly the same whether `n` is 8 or 8 million. What is its Big-O?",
+      options: ["`O(1)`", "`O(n)`", "`O(n^2)`"],
       correctIndex: 0,
-      explainWrong: "O(1), constant time, describes work that never depends on input size at all, like reading arr[0] by index.",
+      explainWrong: "`O(1)`, constant time, describes work that never depends on input size at all, like reading `arr[0]` by index.",
     },
     {
       id: "dsa-analysis.big-o.2",
@@ -203,21 +203,21 @@ const bigOUnit: Unit = {
         "Because binary search skips checking most of the array randomly",
       ],
       correctIndex: 0,
-      explainWrong: "Binary search halves the remaining window on every check. Each doubling of n only costs one extra halving step, which is exactly the O(log n) pattern, not randomness or hardware speed.",
+      explainWrong: "Binary search halves the remaining window on every check. Each doubling of `n` only costs one extra halving step, which is exactly the `O(log n)` pattern, not randomness or hardware speed.",
     },
     {
       id: "dsa-analysis.big-o.3",
-      prompt: "O(3n + 5) simplifies to which Big-O class?",
-      options: ["O(n)", "O(3n)", "O(n + 5)"],
+      prompt: "`O(3n + 5)` simplifies to which Big-O class?",
+      options: ["`O(n)`", "`O(3n)`", "`O(n + 5)`"],
       correctIndex: 0,
-      explainWrong: "Big-O analysis drops constant additions and multiplicative coefficients, keeping only the term that dominates as n grows large. That leaves just O(n).",
+      explainWrong: "Big-O analysis drops constant additions and multiplicative coefficients, keeping only the term that dominates as `n` grows large. That leaves just `O(n)`.",
     },
     {
       id: "dsa-analysis.big-o.4",
-      prompt: "A nested loop where both loops run n times, like a naive pairwise comparison, has what Big-O?",
-      options: ["O(n)", "O(n^2)", "O(log n)"],
+      prompt: "A nested loop where both loops run `n` times, like a naive pairwise comparison, has what Big-O?",
+      options: ["`O(n)`", "`O(n^2)`", "`O(log n)`"],
       correctIndex: 1,
-      explainWrong: "Each of the n outer passes triggers a full n-pass inner loop, multiplying to n x n total operations, which is O(n^2), not a single pass through n or a halving pattern.",
+      explainWrong: "Each of the `n` outer passes triggers a full `n`-pass inner loop, multiplying to `n x n` total operations, which is `O(n^2)`, not a single pass through `n` or a halving pattern.",
     },
   ],
 };
@@ -367,7 +367,7 @@ const binarySearchUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "arr = [2, 4, 6, 8, 10, 12, 14], target = 4. lo=0, hi=6, first mid=3 (value 8). Since 4 < 8, the window shrinks to lo=0, hi=2. What is the next mid index?",
+        "`arr = [2, 4, 6, 8, 10, 12, 14]`, `target = 4`. `lo=0, hi=6`, first `mid=3` (value `8`). Since `4 < 8`, the window shrinks to `lo=0, hi=2`. What is the next `mid` index?",
       steps: [
         {
           state: {
@@ -390,8 +390,8 @@ const binarySearchUnit: Unit = {
       ],
       correctId: "a",
       explainWrong: {
-        b: "Index 3 was the previous mid, already eliminated. The new window is lo=0, hi=2, and mid recomputes from that shrunk range.",
-        c: "Index 0 is the new lo, not mid. mid is computed as (lo + hi) // 2, which sits between the two, not at the edge.",
+        b: "Index 3 was the previous `mid`, already eliminated. The new window is `lo=0, hi=2`, and `mid` recomputes from that shrunk range.",
+        c: "Index 0 is the new `lo`, not `mid`. `mid` is computed as `(lo + hi) // 2`, which sits between the two, not at the edge.",
       },
       revealStep: {
         state: {
@@ -449,32 +449,32 @@ const binarySearchUnit: Unit = {
   recall: [
     {
       id: "dsa-analysis.binary-search.1",
-      prompt: "What must be true about arr before binary search can be used on it?",
+      prompt: "What must be true about `arr` before binary search can be used on it?",
       options: ["It must be sorted", "It must contain only integers", "It must have an even length"],
       correctIndex: 0,
-      explainWrong: "Binary search relies on comparing mid to target to decide which half to discard. That logic only works if arr is sorted; type and length are irrelevant.",
+      explainWrong: "Binary search relies on comparing `mid` to `target` to decide which half to discard. That logic only works if `arr` is sorted; type and length are irrelevant.",
     },
     {
       id: "dsa-analysis.binary-search.2",
-      prompt: "After checking mid and finding target is greater than arr[mid], what happens next?",
+      prompt: "After checking `mid` and finding `target` is greater than `arr[mid]`, what happens next?",
       options: [
-        "lo moves to mid + 1, discarding mid and everything to its left",
-        "hi moves to mid - 1, discarding mid and everything to its right",
+        "`lo` moves to `mid + 1`, discarding `mid` and everything to its left",
+        "`hi` moves to `mid - 1`, discarding `mid` and everything to its right",
         "The search restarts from index 0",
       ],
       correctIndex: 0,
-      explainWrong: "If target is bigger than arr[mid], it can only be to the right, so lo jumps past mid to mid + 1. Moving hi left or restarting would throw away the half that still might contain target, or waste the work already done.",
+      explainWrong: "If `target` is bigger than `arr[mid]`, it can only be to the right, so `lo` jumps past `mid` to `mid + 1`. Moving `hi` left or restarting would throw away the half that still might contain `target`, or waste the work already done.",
     },
     {
       id: "dsa-analysis.binary-search.3",
-      prompt: "How does binary search signal that the target is not in the array?",
+      prompt: "How does binary search signal that the `target` is not in the array?",
       options: [
         "It keeps looping forever",
-        "The window becomes empty (lo passes hi) and it returns -1",
+        "The window becomes empty (`lo` passes `hi`) and it returns `-1`",
         "It returns the closest value instead",
       ],
       correctIndex: 1,
-      explainWrong: "Each comparison shrinks the window by at least half. Once lo exceeds hi there is nothing left to check, and the function returns -1 rather than looping forever or guessing a nearby value.",
+      explainWrong: "Each comparison shrinks the window by at least half. Once `lo` exceeds `hi` there is nothing left to check, and the function returns `-1` rather than looping forever or guessing a nearby value.",
     },
   ],
 };
@@ -612,7 +612,7 @@ const basicSortsUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "Selection sort on [7, 2, 9, 3]. After exactly one full pass (one smallest-found-and-swapped), what does the array look like?",
+        "Selection sort on `[7, 2, 9, 3]`. After exactly one full pass (one smallest-found-and-swapped), what does the array look like?",
       steps: [
         {
           state: {
@@ -628,14 +628,14 @@ const basicSortsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "[2, 7, 9, 3]" },
-        { id: "b", label: "[2, 3, 7, 9]" },
-        { id: "c", label: "[7, 2, 9, 3]" },
+        { id: "a", label: "`[2, 7, 9, 3]`" },
+        { id: "b", label: "`[2, 3, 7, 9]`" },
+        { id: "c", label: "`[7, 2, 9, 3]`" },
       ],
       correctId: "a",
       explainWrong: {
         b: "That is the FULLY sorted array. After only one pass, selection sort guarantees just the smallest value is in place; the rest of the array is untouched, not fully sorted.",
-        c: "The array must change: the smallest value found (2) gets swapped into position 0. Nothing changing at all would mean the pass never ran.",
+        c: "The array must change: the smallest value found (`2`) gets swapped into position `0`. Nothing changing at all would mean the pass never ran.",
       },
       revealStep: {
         state: {
@@ -653,7 +653,7 @@ const basicSortsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison so insertion sort shifts elements right while they are greater than key.",
+      prompt: "Fill in the comparison so insertion sort shifts elements right while they are greater than `key`.",
       code: [
         "def insertion_sort(arr):",
         "    for i in range(1, len(arr)):",
@@ -671,7 +671,7 @@ const basicSortsUnit: Unit = {
           placeholder: "___",
           answer: ">",
           explainWrong:
-            "The shift should continue only while the sorted-prefix value is bigger than key, making room for key to slide left past it. Using < or == would stop shifting too early or shift values that are already in the right order.",
+            "The shift should continue only while the sorted-prefix value is bigger than `key`, making room for `key` to slide left past it. Using `<` or `==` would stop shifting too early or shift values that are already in the right order.",
         },
       ],
       tests: [
@@ -842,7 +842,7 @@ const fastSortsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "arr = [5, 2, 8, 1, 9], pivot = last element (9). After one partition step, what does the array look like?",
+      prompt: "`arr = [5, 2, 8, 1, 9]`, pivot = last element (`9`). After one partition step, what does the array look like?",
       steps: [
         {
           state: {
@@ -859,14 +859,14 @@ const fastSortsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "[5, 2, 8, 1, 9], since every value is less than 9" },
-        { id: "b", label: "[1, 2, 3, 5, 9], fully sorted" },
-        { id: "c", label: "9 moves to index 0" },
+        { id: "a", label: "`[5, 2, 8, 1, 9]`, since every value is less than 9" },
+        { id: "b", label: "`[1, 2, 3, 5, 9]`, fully sorted" },
+        { id: "c", label: "`9` moves to index `0`" },
       ],
       correctId: "a",
       explainWrong: {
         b: "That is the end result of the WHOLE sort, not one partition step. Partitioning only groups values relative to the pivot; it does not sort the smaller-than-pivot group internally yet.",
-        c: "The pivot ends up in its correct final position based on how many elements are smaller than it, not automatically at index 0. Since every other value here is smaller than 9, the pivot actually belongs at the end.",
+        c: "The pivot ends up in its correct final position based on how many elements are smaller than it, not automatically at index `0`. Since every other value here is smaller than `9`, the pivot actually belongs at the end.",
       },
       revealStep: {
         state: {
@@ -907,7 +907,7 @@ const fastSortsUnit: Unit = {
           placeholder: "___",
           answer: "<=",
           explainWrong:
-            "Merging always takes whichever front value is smaller so the output stays sorted. <= (or <) compares the two fronts directly; comparing an index or using > would pick the larger value first and break the sorted order.",
+            "Merging always takes whichever front value is smaller so the output stays sorted. `<=` (or `<`) compares the two fronts directly; comparing an index or using `>` would pick the larger value first and break the sorted order.",
         },
       ],
       tests: [
@@ -1066,7 +1066,7 @@ const specialSortsUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "Radix sort is bucketing [23, 45, 12, 34] by the ONES digit first. Which order do the buckets place them in (reading bucket 0 through 9)?",
+        "Radix sort is bucketing `[23, 45, 12, 34]` by the ONES digit first. Which order do the buckets place them in (reading bucket `0` through `9`)?",
       steps: [
         {
           state: {
@@ -1082,14 +1082,14 @@ const specialSortsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "12, 23, 34, 45" },
-        { id: "b", label: "23, 45, 12, 34" },
-        { id: "c", label: "45, 34, 23, 12" },
+        { id: "a", label: "`12, 23, 34, 45`" },
+        { id: "b", label: "`23, 45, 12, 34`" },
+        { id: "c", label: "`45, 34, 23, 12`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "That's the original, unbucketed order. Bucketing by ones digit (2, 4, 5, 3) reorders them by that digit alone, which happens to also produce the fully sorted order here.",
-        c: "That's descending order, but radix sort's bucket pass reads buckets from 0 to 9 in increasing order, not decreasing.",
+        b: "That's the original, unbucketed order. Bucketing by ones digit (`2, 4, 5, 3`) reorders them by that digit alone, which happens to also produce the fully sorted order here.",
+        c: "That's descending order, but radix sort's bucket pass reads buckets from `0` to `9` in increasing order, not decreasing.",
       },
       revealStep: {
         state: {
@@ -1230,7 +1230,7 @@ const applyAnalysisUnit: Unit = {
   recall: [
     {
       id: "dsa-analysis.apply-analysis.1",
-      prompt: "Why does insertion_sort([]) need to return [] without crashing?",
+      prompt: "Why does `insertion_sort([])` need to return `[]` without crashing?",
       options: [
         "Because the shifting loop should simply never execute when there is nothing to shift, an empty prefix is trivially sorted",
         "Because Python treats empty lists as an error case that must be special-cased",
@@ -1241,7 +1241,7 @@ const applyAnalysisUnit: Unit = {
     },
     {
       id: "dsa-analysis.apply-analysis.2",
-      prompt: "When merge_sorted receives one empty list and one non-empty sorted list, what should the result be?",
+      prompt: "When `merge_sorted` receives one empty list and one non-empty sorted list, what should the result be?",
       options: [
         "The non-empty list's values, in their existing sorted order",
         "An empty list, since one side is empty",

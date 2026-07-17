@@ -97,7 +97,7 @@ const dsAndAdtsUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "The List ADT defines get(i), append(x), and remove(i). If a list is implemented as a linked chain instead of an array (assume a tail pointer is kept), which operation gets slower for large lists: get(i) by index, or append(x) at the end?",
+        "The List ADT defines `get(i)`, `append(x)`, and `remove(i)`. If a list is implemented as a linked chain instead of an array (assume a `tail` pointer is kept), which operation gets slower for large lists: `get(i)` by index, or `append(x)` at the end?",
       steps: [
         {
           state: { nodes: [{ id: "link0", label: "head", tag: "linked chain", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -105,16 +105,16 @@ const dsAndAdtsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "get(i), since reaching index i means walking node by node from the head" },
-        { id: "b", label: "append(x), since adding to the end always requires walking the whole chain" },
+        { id: "a", label: "`get(i)`, since reaching index `i` means walking node by node from the `head`" },
+        { id: "b", label: "`append(x)`, since adding to the end always requires walking the whole chain" },
         { id: "c", label: "Both stay equally fast in either implementation" },
         { id: "d", label: "Neither; the List ADT guarantees the same speed no matter the implementation" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "With a tail pointer kept up to date, append(x) on a linked list is a quick operation: attach one node at the already-known tail. It's random-access get(i) that requires walking from the head.",
+        b: "With a `tail` pointer kept up to date, `append(x)` on a linked list is a quick operation: attach one node at the already-known `tail`. It's random-access `get(i)` that requires walking from the `head`.",
         c: "The ADT hides the implementation, but it does not hide performance: array and linked implementations of the same operation can have very different costs.",
-        d: "The ADT guarantees WHAT the operations do, not how fast they run; different implementations of get(i) really can have very different costs.",
+        d: "The ADT guarantees WHAT the operations do, not how fast they run; different implementations of `get(i)` really can have very different costs.",
       },
       revealStep: {
         state: {
@@ -130,7 +130,7 @@ const dsAndAdtsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the array-based get so it returns the value at position i.",
+      prompt: "Fill in the array-based `get` so it returns the value at position `i`.",
       code:
         "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef get(items, i):\n    return items[{{idx}}]",
       blanks: [
@@ -139,7 +139,7 @@ const dsAndAdtsUnit: Unit = {
           placeholder: "___",
           answer: "i",
           explainWrong:
-            "get(i) is supposed to return the value stored at position i; indexing with anything other than i would return the wrong element, or the wrong type entirely.",
+            "`get(i)` is supposed to return the value stored at position `i`; indexing with anything other than `i` would return the wrong element, or the wrong type entirely.",
         },
       ],
       tests: [
@@ -206,19 +206,19 @@ const dsAndAdtsUnit: Unit = {
     },
     {
       id: "dsa-intro.ds-and-adts.2",
-      prompt: "Two different implementations of the List ADT, array-based and linked, both support get(i). Why might one be much slower than the other for large lists?",
+      prompt: "Two different implementations of the List ADT, array-based and linked, both support `get(i)`. Why might one be much slower than the other for large lists?",
       options: [
-        "Array offers direct index math, an O(1) jump; linked requires walking node by node from the head, O(n)",
+        "Array offers direct index math, an `O(1)` jump; linked requires walking node by node from the `head`, `O(n)`",
         "The List ADT requires linked implementations to be slower on purpose",
         "They're always equally fast since they implement the same ADT",
       ],
       correctIndex: 0,
       explainWrong:
-        "The ADT says nothing about speed; it's the underlying data layout that decides it. An array can compute an index's memory location directly, while a linked chain has no such shortcut and must traverse from the head.",
+        "The ADT says nothing about speed; it's the underlying data layout that decides it. An array can compute an index's memory location directly, while a linked chain has no such shortcut and must traverse from the `head`.",
     },
     {
       id: "dsa-intro.ds-and-adts.3",
-      prompt: "If code only ever calls get(i), append(x), and remove(i) on a MyList object, can the internal implementation be swapped from an array to a linked chain without changing that calling code?",
+      prompt: "If code only ever calls `get(i)`, `append(x)`, and `remove(i)` on a `MyList` object, can the internal implementation be swapped from an array to a linked chain without changing that calling code?",
       options: [
         "Yes, as long as the new implementation still provides the same interface",
         "No, calling code always needs to know the internal implementation",
@@ -226,7 +226,7 @@ const dsAndAdtsUnit: Unit = {
       ],
       correctIndex: 0,
       explainWrong:
-        "This is the entire point of an ADT: calling code depends only on the interface, get, append, remove, so any implementation providing that same interface can be swapped in without touching the caller.",
+        "This is the entire point of an ADT: calling code depends only on the interface, `get`, `append`, `remove`, so any implementation providing that same interface can be swapped in without touching the caller.",
     },
   ],
 };
@@ -372,7 +372,7 @@ const huffmanUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "Huffman coding always merges the two smallest-frequency nodes first. Given a:2, b:3, c:4, d:20, which two nodes merge first?",
+        "Huffman coding always merges the two smallest-frequency nodes first. Given `a:2`, `b:3`, `c:4`, `d:20`, which two nodes merge first?",
       steps: [
         {
           state: {
@@ -388,16 +388,16 @@ const huffmanUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "a and b, the two smallest frequencies" },
-        { id: "b", label: "c and d, the two largest frequencies" },
-        { id: "c", label: "a and d, the smallest and the largest" },
-        { id: "d", label: "b and c, the two middle frequencies" },
+        { id: "a", label: "`a` and `b`, the two smallest frequencies" },
+        { id: "b", label: "`c` and `d`, the two largest frequencies" },
+        { id: "c", label: "`a` and `d`, the smallest and the largest" },
+        { id: "d", label: "`b` and `c`, the two middle frequencies" },
       ],
       correctId: "a",
       explainWrong: {
         b: "Huffman merges the SMALLEST frequencies first, not the largest; merging the two biggest first would push the most common symbol deep into the tree, giving it an unnecessarily long code.",
-        c: "Huffman doesn't pair extremes together; it repeatedly grabs whichever two nodes currently have the lowest frequencies, which starts with a and b here.",
-        d: "b and c aren't the two smallest available at the start; a, at 2, is lower than both b, at 3, and c, at 4.",
+        c: "Huffman doesn't pair extremes together; it repeatedly grabs whichever two nodes currently have the lowest frequencies, which starts with `a` and `b` here.",
+        d: "`b` and `c` aren't the two smallest available at the start; `a`, at `2`, is lower than both `b`, at `3`, and `c`, at `4`.",
       },
       revealStep: {
         state: {
@@ -418,7 +418,7 @@ const huffmanUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "After the whole tree is built, d ends up one edge from the root while a ends up three edges deep. What does that difference in depth mean for their Huffman codes?",
+        "After the whole tree is built, `d` ends up one edge from the `root` while `a` ends up three edges deep. What does that difference in depth mean for their Huffman codes?",
       steps: [
         {
           state: {
@@ -433,16 +433,16 @@ const huffmanUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "d gets a short code, fewer bits, and a gets a long code, more bits, since code length equals depth" },
+        { id: "a", label: "`d` gets a short code, fewer bits, and `a` gets a long code, more bits, since code length equals depth" },
         { id: "b", label: "Both get the same code length, since Huffman codes are always a fixed number of bits" },
-        { id: "c", label: "a gets the shorter code, since it was merged first" },
+        { id: "c", label: "`a` gets the shorter code, since it was merged first" },
         { id: "d", label: "Depth in the tree has nothing to do with code length" },
       ],
       correctId: "a",
       explainWrong: {
         b: "Huffman codes are variable-length by design, that's the whole point: frequent symbols get short codes and rare symbols get long ones, unlike fixed-width encodings.",
-        c: "Being merged first actually pushes a node deeper into the tree, not shallower, since every later merge stacks another edge above it; that's why a, merged first, ends up with the longest code.",
-        d: "A node's Huffman code is read directly off the path of edge labels from the root to that node, so its length is exactly the node's depth in the tree.",
+        c: "Being merged first actually pushes a node deeper into the tree, not shallower, since every later merge stacks another edge above it; that's why `a`, merged first, ends up with the longest code.",
+        d: "A node's Huffman code is read directly off the path of edge labels from the `root` to that node, so its length is exactly the node's depth in the tree.",
       },
       revealStep: {
         state: {
@@ -464,7 +464,7 @@ const huffmanUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the key so the SECOND-smallest frequency is found among what's left, not the original dictionary.",
+      prompt: "Fill in the `key` so the SECOND-smallest frequency is found among what's left, not the original dictionary.",
       code:
         'freqs = {"a": 2, "b": 3, "c": 4, "d": 20}\nfirst = min(freqs, key=freqs.get)\nrest = {k: v for k, v in freqs.items() if k != first}\nsecond = min(rest, key={{key}})',
       blanks: [
@@ -473,7 +473,7 @@ const huffmanUnit: Unit = {
           placeholder: "___",
           answer: "rest.get",
           explainWrong:
-            "The second-smallest node has to be found among what's left AFTER removing the first pick, rest, not from the original freqs dict; using freqs.get again would just pick 'a' a second time instead of the true next-smallest, 'b'.",
+            "The second-smallest node has to be found among what's left AFTER removing the first pick, `rest`, not from the original `freqs` dict; using `freqs.get` again would just pick `'a'` a second time instead of the true next-smallest, `'b'`.",
         },
       ],
       tests: [
@@ -613,14 +613,14 @@ const greedyHeuristicsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "Yes: 25 + 10 + 5 + 1 = 4 coins, and no combination does better" },
+        { id: "a", label: "Yes: `25 + 10 + 5 + 1 = 4` coins, and no combination does better" },
         { id: "b", label: "No, greedy wastes a coin somewhere" },
         { id: "c", label: "It depends on the order the coins are listed in" },
         { id: "d", label: "Greedy never works for coin change" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "For this particular coin system, 25, 10, 5, and 1, greedy happens to always produce the minimum number of coins; there's no better combination for 41 cents than 25 + 10 + 5 + 1.",
+        b: "For this particular coin system, 25, 10, 5, and 1, greedy happens to always produce the minimum number of coins; there's no better combination for 41 cents than `25 + 10 + 5 + 1`.",
         c: "The order the coins are considered in doesn't change the outcome; greedy always looks at the largest available denomination first, regardless of list order.",
         d: "Greedy does work correctly for some coin systems, including the standard US denominations; it just isn't guaranteed to work for every possible set of coin values.",
       },
@@ -649,7 +649,7 @@ const greedyHeuristicsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "No, 3 + 3 makes 6 using only 2 coins" },
+        { id: "a", label: "No, `3 + 3` makes 6 using only 2 coins" },
         { id: "b", label: "Yes, 3 coins is the minimum possible" },
         { id: "c", label: "No, but there's no way to do better than 3 with only these coins" },
         { id: "d", label: "It's impossible to make 6 cents with these coins" },
@@ -657,8 +657,8 @@ const greedyHeuristicsUnit: Unit = {
       correctId: "a",
       explainWrong: {
         b: "There's a better combination available: two 3-cent coins add up to 6 using only 2 coins, one fewer than greedy's 3.",
-        c: "Only the coins already available, 1, 3, and 4, are needed to find the better solution: 3 + 3 uses just these same denominations.",
-        d: "6 cents is very much makeable with these coins; both greedy's 4 + 1 + 1 and the better 3 + 3 add up to 6.",
+        c: "Only the coins already available, 1, 3, and 4, are needed to find the better solution: `3 + 3` uses just these same denominations.",
+        d: "6 cents is very much makeable with these coins; both greedy's `4 + 1 + 1` and the better `3 + 3` add up to 6.",
       },
       revealStep: {
         state: {
@@ -718,27 +718,27 @@ const greedyHeuristicsUnit: Unit = {
     },
     {
       id: "dsa-intro.greedy-heuristics.2",
-      prompt: "For which of these coin systems does greedy correctly find the minimum number of coins: [25, 10, 5, 1] or [1, 3, 4]?",
+      prompt: "For which of these coin systems does greedy correctly find the minimum number of coins: `[25, 10, 5, 1]` or `[1, 3, 4]`?",
       options: [
-        "[25, 10, 5, 1] works correctly with greedy; [1, 3, 4] is a case where greedy can fail, for example making 6 cents",
+        "`[25, 10, 5, 1]` works correctly with greedy; `[1, 3, 4]` is a case where greedy can fail, for example making 6 cents",
         "Both coin systems always work correctly with greedy",
         "Neither coin system works correctly with greedy",
       ],
       correctIndex: 0,
       explainWrong:
-        "Whether greedy works depends entirely on the specific coin system: the standard US denominations happen to make greedy optimal, while [1, 3, 4] contains a counterexample, making 6 cents, where greedy gives a worse answer than the optimal.",
+        "Whether greedy works depends entirely on the specific coin system: the standard US denominations happen to make greedy optimal, while `[1, 3, 4]` contains a counterexample, making 6 cents, where greedy gives a worse answer than the optimal.",
     },
     {
       id: "dsa-intro.greedy-heuristics.3",
-      prompt: "What's the fewest coins needed to make 6 cents from [1, 3, 4], and does greedy find it?",
+      prompt: "What's the fewest coins needed to make 6 cents from `[1, 3, 4]`, and does greedy find it?",
       options: [
-        "2 coins, 3 + 3; greedy does not find it, since it picks 4 first and ends up needing 3 coins total",
-        "3 coins, 4 + 1 + 1, and greedy finds it correctly",
-        "1 coin; some single coin in [1, 3, 4] must equal 6",
+        "2 coins, `3 + 3`; greedy does not find it, since it picks 4 first and ends up needing 3 coins total",
+        "3 coins, `4 + 1 + 1`, and greedy finds it correctly",
+        "1 coin; some single coin in `[1, 3, 4]` must equal 6",
       ],
       correctIndex: 0,
       explainWrong:
-        "No single coin in [1, 3, 4] equals 6, and greedy's own answer, 4 + 1 + 1, uses 3 coins, one more than the true optimal of 3 + 3, which greedy never considers because it already committed to the 4 first.",
+        "No single coin in `[1, 3, 4]` equals 6, and greedy's own answer, `4 + 1 + 1`, uses 3 coins, one more than the true optimal of `3 + 3`, which greedy never considers because it already committed to the 4 first.",
     },
   ],
 };
@@ -867,7 +867,7 @@ const dynamicProgrammingUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "Without memoization, computing fib(4) calls fib(2) more than once. How many separate times does the naive recursive fib(4) end up computing fib(2)?",
+      prompt: "Without memoization, computing `fib(4)` calls `fib(2)` more than once. How many separate times does the naive recursive `fib(4)` end up computing `fib(2)`?",
       steps: [
         {
           state: {
@@ -885,16 +885,16 @@ const dynamicProgrammingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "2 times: once as fib(4)'s direct child, once inside fib(3)'s branch" },
-        { id: "b", label: "Once, since fib(2) only appears in one place in the call tree" },
+        { id: "a", label: "2 times: once as `fib(4)`'s direct child, once inside `fib(3)`'s branch" },
+        { id: "b", label: "Once, since `fib(2)` only appears in one place in the call tree" },
         { id: "c", label: "4 times, once for every node in the tree" },
-        { id: "d", label: "It depends on the value of n" },
+        { id: "d", label: "It depends on the value of `n`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "fib(2) actually appears in two different branches of the call tree: directly under fib(4), and again under fib(3), since fib(3) also needs its own fib(2) to compute its answer.",
-        c: "fib(2) specifically appears twice for fib(4), not once for every node; fib(1) and fib(0) get recomputed even more often, but fib(2) itself is exactly 2.",
-        d: "For fib(4) specifically the count is fixed at 2; it's true that the number of repeats grows as n grows, but the question is about fib(4) itself.",
+        b: "`fib(2)` actually appears in two different branches of the call tree: directly under `fib(4)`, and again under `fib(3)`, since `fib(3)` also needs its own `fib(2)` to compute its answer.",
+        c: "`fib(2)` specifically appears twice for `fib(4)`, not once for every node; `fib(1)` and `fib(0)` get recomputed even more often, but `fib(2)` itself is exactly 2.",
+        d: "For `fib(4)` specifically the count is fixed at 2; it's true that the number of repeats grows as `n` grows, but the question is about `fib(4)` itself.",
       },
       revealStep: {
         state: {
@@ -910,7 +910,7 @@ const dynamicProgrammingUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "With a memo table, how many times is fib(2) actually computed while working out fib(4)?",
+      prompt: "With a memo table, how many times is `fib(2)` actually computed while working out `fib(4)`?",
       steps: [
         {
           state: { nodes: [{ id: "m2", label: "fib(2) = ?", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -921,12 +921,12 @@ const dynamicProgrammingUnit: Unit = {
         { id: "a", label: "Once: the first time it's needed, then every later request just reads the stored value" },
         { id: "b", label: "Twice, same as without memoization" },
         { id: "c", label: "Zero times, memoization skips computing it entirely" },
-        { id: "d", label: "Once for each place fib(2) appears in the call tree" },
+        { id: "d", label: "Once for each place `fib(2)` appears in the call tree" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "The entire point of the memo table is to avoid recomputation: once fib(2) is stored, any later call that needs it just reads memo[2] instead of recursing again.",
-        c: "fib(2) does still get computed, just once, the very first time it's needed; after that its answer is simply looked up rather than skipped.",
+        b: "The entire point of the memo table is to avoid recomputation: once `fib(2)` is stored, any later call that needs it just reads `memo[2]` instead of recursing again.",
+        c: "`fib(2)` does still get computed, just once, the very first time it's needed; after that its answer is simply looked up rather than skipped.",
         d: "That's the naive behavior, recomputing once per occurrence; memoization collapses all those occurrences down to a single computation, however many places would have asked for it.",
       },
       revealStep: {
@@ -947,7 +947,7 @@ const dynamicProgrammingUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the memo dict check so fib_memo looks up the CURRENT call's input before recomputing it.",
+      prompt: "Fill in the `memo` dict check so `fib_memo` looks up the CURRENT call's input before recomputing it.",
       code:
         "def fib_memo(n, memo={}):\n    if {{key}} in memo:\n        return memo[n]\n    if n <= 1:\n        return n\n    result = fib_memo(n - 1, memo) + fib_memo(n - 2, memo)\n    memo[n] = result\n    return result",
       blanks: [
@@ -956,7 +956,7 @@ const dynamicProgrammingUnit: Unit = {
           placeholder: "___",
           answer: "n",
           explainWrong:
-            "The memo check needs to look up the CURRENT call's input, n, to see whether it's already been solved; checking anything else would never match what's actually stored in the table under each n.",
+            "The memo check needs to look up the CURRENT call's input, `n`, to see whether it's already been solved; checking anything else would never match what's actually stored in the table under each `n`.",
         },
       ],
       tests: [
@@ -971,15 +971,15 @@ const dynamicProgrammingUnit: Unit = {
   recall: [
     {
       id: "dsa-intro.dynamic-programming.1",
-      prompt: "Why does naive recursive fib(n) get so slow for larger n?",
+      prompt: "Why does naive recursive `fib(n)` get so slow for larger `n`?",
       options: [
-        "It recomputes the same smaller fib values over and over, with the number of repeats growing exponentially as n grows",
+        "It recomputes the same smaller `fib` values over and over, with the number of repeats growing exponentially as `n` grows",
         "Python's function calls themselves get slower as n increases",
         "It's actually just as fast as the memoized version",
       ],
       correctIndex: 0,
       explainWrong:
-        "Function calls themselves don't slow down with n; the real cost is that the same subproblems, like fib(2), get computed again and again from scratch, and the number of these repeats grows exponentially as n grows.",
+        "Function calls themselves don't slow down with n; the real cost is that the same subproblems, like `fib(2)`, get computed again and again from scratch, and the number of these repeats grows exponentially as `n` grows.",
     },
     {
       id: "dsa-intro.dynamic-programming.2",
@@ -995,7 +995,7 @@ const dynamicProgrammingUnit: Unit = {
     },
     {
       id: "dsa-intro.dynamic-programming.3",
-      prompt: "What's the main tradeoff memoization makes to speed up recursive fib?",
+      prompt: "What's the main tradeoff memoization makes to speed up recursive `fib`?",
       options: [
         "It spends extra memory, the memo table, in exchange for never redoing the same computation twice",
         "It gives up correctness in exchange for speed",

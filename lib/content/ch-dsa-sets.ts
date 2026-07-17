@@ -80,14 +80,14 @@ const setAdtUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "{3, 3, 7}" },
-        { id: "b", label: "{3, 7}" },
-        { id: "c", label: "{7}" },
+        { id: "a", label: "`{3, 3, 7}`" },
+        { id: "b", label: "`{3, 7}`" },
+        { id: "c", label: "`{7}`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "Sets never store duplicates; adding a value already present changes nothing, so there is no second 3.",
-        c: "add(3) doesn't remove anything; 3 stays in the set along with 7.",
+        a: "Sets never store duplicates; adding a value already present changes nothing, so there is no second `3`.",
+        c: "`add(3)` doesn't remove anything; `3` stays in the set along with `7`.",
       },
       revealStep: {
         state: {
@@ -111,7 +111,7 @@ const setAdtUnit: Unit = {
           id: "value",
           placeholder: "___",
           answer: "4",
-          explainWrong: "The membership check should test for the specific value 4, not the set name itself.",
+          explainWrong: "The membership check should test for the specific value `4`, not the set name itself.",
         },
       ],
       tests: [
@@ -173,11 +173,11 @@ const setAdtUnit: Unit = {
       prompt: "How do you check whether a value belongs to a set?",
       options: [
         "Loop through every element manually and compare",
-        "Use the in operator, like value in myset",
+        "Use the `in` operator, like `value in myset`",
         "Sets don't support membership checks",
       ],
       correctIndex: 1,
-      explainWrong: "A manual loop would work but isn't how sets are meant to be used, and membership checks are a core set feature. The in operator directly tests whether a value is present.",
+      explainWrong: "A manual loop would work but isn't how sets are meant to be used, and membership checks are a core set feature. The `in` operator directly tests whether a value is present.",
     },
     {
       id: "dsa-sets.set-adt.3",
@@ -330,14 +330,14 @@ const setOperationsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "{1, 2, 3, 4}" },
-        { id: "b", label: "{2, 3}" },
-        { id: "c", label: "{1, 4}" },
+        { id: "a", label: "`{1, 2, 3, 4}`" },
+        { id: "b", label: "`{2, 3}`" },
+        { id: "c", label: "`{1, 4}`" },
       ],
       correctId: "b",
       explainWrong: {
         a: "That's the union (every value from both sets), not the intersection, which keeps only shared values.",
-        c: "1 and 4 are exactly the values that are NOT shared; intersection wants the opposite: only what both sets have in common.",
+        c: "`1` and `4` are exactly the values that are NOT shared; intersection wants the opposite: only what both sets have in common.",
       },
       revealStep: {
         state: {
@@ -366,7 +366,7 @@ const setOperationsUnit: Unit = {
           id: "operator",
           placeholder: "___",
           answer: "-",
-          explainWrong: "Set difference in Python uses the minus operator: a - b keeps a's values that aren't in b.",
+          explainWrong: "Set difference in Python uses the minus operator: `a - b` keeps `a`'s values that aren't in `b`.",
         },
       ],
       tests: [
@@ -419,21 +419,21 @@ const setOperationsUnit: Unit = {
     },
     {
       id: "dsa-sets.set-operations.2",
-      prompt: "What does A - B (difference) contain?",
+      prompt: "What does `A - B` (difference) contain?",
       options: [
-        "Values in A that are also in B",
-        "Values in A that are not in B",
-        "Values in B that are not in A",
+        "Values in `A` that are also in `B`",
+        "Values in `A` that are not in `B`",
+        "Values in `B` that are not in `A`",
       ],
       correctIndex: 1,
-      explainWrong: "Difference is not the same as intersection, and A - B isn't about B's exclusive values either. A - B keeps exactly the values that belong to A but are absent from B.",
+      explainWrong: "Difference is not the same as intersection, and `A - B` isn't about `B`'s exclusive values either. `A - B` keeps exactly the values that belong to `A` but are absent from `B`.",
     },
     {
       id: "dsa-sets.set-operations.3",
-      prompt: "If A and B have no values in common, what is A & B?",
+      prompt: "If `A` and `B` have no values in common, what is `A & B`?",
       options: [
         "The empty set",
-        "A itself",
+        "`A` itself",
         "An error, since there's nothing to intersect",
       ],
       correctIndex: 0,
@@ -547,7 +547,7 @@ const applySetsUnit: Unit = {
         "Sort both lists and print them side by side",
       ],
       correctIndex: 1,
-      explainWrong: "Nested loops work but check far more pairs than needed, and sorting alone doesn't compute an intersection. Converting to sets and using & lets Python find shared values directly.",
+      explainWrong: "Nested loops work but check far more pairs than needed, and sorting alone doesn't compute an intersection. Converting to sets and using `&` lets Python find shared values directly.",
     },
   ],
 };

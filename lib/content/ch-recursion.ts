@@ -117,16 +117,16 @@ const baseCaseUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "2, 1, liftoff!" },
-        { id: "b", label: "liftoff!, 1, 2" },
-        { id: "c", label: "2, 1, 0" },
-        { id: "d", label: "2, 1" },
+        { id: "a", label: "`2, 1, liftoff!`" },
+        { id: "b", label: "`liftoff!, 1, 2`" },
+        { id: "c", label: "`2, 1, 0`" },
+        { id: "d", label: "`2, 1`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "The order is reversed: each frame prints n before making its recursive call, so the prints happen 2, then 1, then liftoff!, not the other way around.",
-        c: "The base case prints \"liftoff!\", not the number 0; n never gets printed once it reaches 0, the else branch is skipped entirely at that point.",
-        d: "This misses the base case's own print statement: countdown(0) still runs its if branch and prints \"liftoff!\" before returning.",
+        b: "The order is reversed: each frame prints `n` before making its recursive call, so the prints happen `2`, then `1`, then `liftoff!`, not the other way around.",
+        c: "The base case prints `\"liftoff!\"`, not the number `0`; `n` never gets printed once it reaches `0`, the else branch is skipped entirely at that point.",
+        d: "This misses the base case's own print statement: `countdown(0)` still runs its `if` branch and prints `\"liftoff!\"` before returning.",
       },
       revealStep: {
         state: { nodes: [{ id: "printed", label: '"2, 1, liftoff!"', tag: "printed", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -136,7 +136,7 @@ const baseCaseUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing base case so list_length stops recursing once the list runs out of elements.",
+      prompt: "Fill in the missing base case so `list_length` stops recursing once the list runs out of elements.",
       code: ["def list_length(items):", "    if len(items) == {{base}}:", "        return 0", "    return 1 + list_length(items[1:])"].join("\n"),
       blanks: [
         {
@@ -144,7 +144,7 @@ const baseCaseUnit: Unit = {
           placeholder: "___",
           answer: "0",
           explainWrong:
-            "list_length needs to recognize the empty list as its base case: once len(items) == 0, there's nothing left to count, so it should return 0 directly instead of recursing on an ever-shrinking list forever.",
+            "`list_length` needs to recognize the empty list as its base case: once `len(items) == 0`, there's nothing left to count, so it should return `0` directly instead of recursing on an ever-shrinking list forever.",
         },
       ],
       tests: [
@@ -191,7 +191,7 @@ const baseCaseUnit: Unit = {
       id: "py-recursion.base-case.2",
       prompt: "What happens if a recursive function has no base case at all?",
       options: [
-        "It keeps calling itself forever, in practice until Python raises a RecursionError from exceeding the call stack limit",
+        "It keeps calling itself forever, in practice until Python raises a `RecursionError` from exceeding the call stack limit",
         "Python automatically stops it after one call",
         "It simply returns None the first time it runs",
       ],
@@ -201,15 +201,15 @@ const baseCaseUnit: Unit = {
     },
     {
       id: "py-recursion.base-case.3",
-      prompt: "In countdown(3), which frame is the first to pop off the stack?",
+      prompt: "In `countdown(3)`, which frame is the first to pop off the stack?",
       options: [
-        "countdown(0), the base case frame, since it returns without making another call",
-        "countdown(3), since it was pushed first",
+        "`countdown(0)`, the base case frame, since it returns without making another call",
+        "`countdown(3)`, since it was pushed first",
         "They all pop at the same time once the whole chain finishes",
       ],
       correctIndex: 0,
       explainWrong:
-        "The stack is last-in-first-out: the most recently pushed frame is the first to pop. countdown(3) was pushed first and stays at the bottom until everything above it, ending with the base case, has returned.",
+        "The stack is last-in-first-out: the most recently pushed frame is the first to pop. `countdown(3)` was pushed first and stays at the bottom until everything above it, ending with the base case, has returned.",
     },
   ],
 };
@@ -329,16 +329,16 @@ const recursiveMathUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "3 * 2" },
-        { id: "b", label: "1 * 1" },
+        { id: "a", label: "`3 * 2`" },
+        { id: "b", label: "`1 * 1`" },
         { id: "c", label: "They all happen at once, before any calls return" },
-        { id: "d", label: "0 * 1" },
+        { id: "d", label: "`0 * 1`" },
       ],
       correctId: "a",
       explainWrong: {
         b: "That's the FIRST multiplication to happen, not the last: it's the deepest frame, so it resumes and multiplies before any of the frames above it can.",
         c: "Recursion doesn't compute everything upfront on the way down; each frame is paused waiting on its recursive call, and the multiplications only happen as those calls return, one at a time.",
-        d: "factorial(0) is the base case: it returns 1 directly without multiplying anything at all.",
+        d: "`factorial(0)` is the base case: it returns `1` directly without multiplying anything at all.",
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "6", tag: "factorial(3) = 3 * 2", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -348,7 +348,7 @@ const recursiveMathUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the base case's return value so factorial doesn't collapse every result to 0.",
+      prompt: "Fill in the base case's return value so `factorial` doesn't collapse every result to `0`.",
       code: ["def factorial(n):", "    if n == 0:", "        return {{base}}", "    return n * factorial(n - 1)"].join("\n"),
       blanks: [
         {
@@ -356,7 +356,7 @@ const recursiveMathUnit: Unit = {
           placeholder: "___",
           answer: "1",
           explainWrong:
-            "If factorial(0) returned 0 instead of 1, every factorial would collapse to 0, since that 0 gets multiplied into the chain somewhere up the stack; the base case has to return 1, the multiplicative identity, so it leaves every multiplication above it unchanged.",
+            "If `factorial(0)` returned `0` instead of `1`, every `factorial` would collapse to `0`, since that `0` gets multiplied into the chain somewhere up the stack; the base case has to return `1`, the multiplicative identity, so it leaves every multiplication above it unchanged.",
         },
       ],
       tests: [
@@ -389,39 +389,39 @@ const recursiveMathUnit: Unit = {
   recall: [
     {
       id: "py-recursion.recursive-math.1",
-      prompt: "In factorial(n) = n * factorial(n - 1), when does the multiplication actually happen: on the way down building the stack, or on the way back up as frames return?",
+      prompt: "In `factorial(n) = n * factorial(n - 1)`, when does the multiplication actually happen: on the way down building the stack, or on the way back up as frames return?",
       options: [
         "On the way back up: each frame is paused waiting on its recursive call before it can multiply",
-        "On the way down: each frame multiplies immediately before calling factorial(n - 1)",
+        "On the way down: each frame multiplies immediately before calling `factorial(n - 1)`",
         "Both: it multiplies once going down and again coming back up",
       ],
       correctIndex: 0,
       explainWrong:
-        "Each frame reaches n * factorial(n - 1) and has to pause there until the recursive call actually returns a value; the multiplication can't happen until then, so it happens as the frame resumes, on the way back up.",
+        "Each frame reaches `n * factorial(n - 1)` and has to pause there until the recursive call actually returns a value; the multiplication can't happen until then, so it happens as the frame resumes, on the way back up.",
     },
     {
       id: "py-recursion.recursive-math.2",
-      prompt: "Why must factorial's base case return 1, and not 0?",
+      prompt: "Why must `factorial`'s base case return `1`, and not `0`?",
       options: [
-        "Because 1 is the multiplicative identity; returning 0 would zero out every result up the whole chain",
-        "Because Python requires base cases to return 1",
+        "Because `1` is the multiplicative identity; returning `0` would zero out every result up the whole chain",
+        "Because Python requires base cases to return `1`",
         "It doesn't matter, either value works fine",
       ],
       correctIndex: 0,
       explainWrong:
-        "This is purely about the math, not a Python rule: since every frame above the base case multiplies its own n by what the base case (eventually) returned, a 0 there would multiply every single result down to 0.",
+        "This is purely about the math, not a Python rule: since every frame above the base case multiplies its own `n` by what the base case (eventually) returned, a `0` there would multiply every single result down to `0`.",
     },
     {
       id: "py-recursion.recursive-math.3",
-      prompt: "How many frames are on the stack at the deepest point of factorial(4)?",
+      prompt: "How many frames are on the stack at the deepest point of `factorial(4)`?",
       options: [
-        "5: factorial(4), factorial(3), factorial(2), factorial(1), and factorial(0)",
+        "5: `factorial(4)`, `factorial(3)`, `factorial(2)`, `factorial(1)`, and `factorial(0)`",
         "4, one for each multiplication",
         "1, since only the base case frame does any real work",
       ],
       correctIndex: 0,
       explainWrong:
-        "Every call from factorial(4) down through the base case factorial(0) pushes its own frame, and all of them are still on the stack, paused, at the moment the base case is reached: that's 5 frames total.",
+        "Every call from `factorial(4)` down through the base case `factorial(0)` pushes its own frame, and all of them are still on the stack, paused, at the moment the base case is reached: that's 5 frames total.",
     },
   ],
 };
@@ -530,16 +530,16 @@ const recursionOnSequencesUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "6" },
-        { id: "b", label: "0" },
-        { id: "c", label: "3" },
-        { id: "d", label: "1" },
+        { id: "a", label: "`6`" },
+        { id: "b", label: "`0`" },
+        { id: "c", label: "`3`" },
+        { id: "d", label: "`1`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "0 is only what the base case returns for the empty list; sum_list adds every head back on top of that as the recursion unwinds, so the final result is much more than just 0.",
-        c: "This only counts the last head added, items[0] at the final recursive call, and ignores that every earlier head, 1 and 2, also gets added in.",
-        d: "This only counts the very first head, 1, and stops, ignoring the \"+ sum_list(items[1:])\" part that keeps adding the rest of the list.",
+        b: "`0` is only what the base case returns for the empty list; `sum_list` adds every head back on top of that as the recursion unwinds, so the final result is much more than just `0`.",
+        c: "This only counts the last head added, `items[0]` at the final recursive call, and ignores that every earlier head, `1` and `2`, also gets added in.",
+        d: "This only counts the very first head, `1`, and stops, ignoring the `+ sum_list(items[1:])` part that keeps adding the rest of the list.",
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "6", tag: "sum_list([1, 2, 3]) = 1 + 2 + 3", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -549,7 +549,7 @@ const recursionOnSequencesUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the base case so sum_list stops recursing once the list is empty.",
+      prompt: "Fill in the base case so `sum_list` stops recursing once the list is empty.",
       code: ["def sum_list(items):", "    if items == {{base}}:", "        return 0", "    return items[0] + sum_list(items[1:])"].join("\n"),
       blanks: [
         {
@@ -557,7 +557,7 @@ const recursionOnSequencesUnit: Unit = {
           placeholder: "___",
           answer: "[]",
           explainWrong:
-            "The base case for this kind of list recursion is the empty list: once items has nothing left in it, items[0] would raise an IndexError, so the function must return 0 directly instead of trying to recurse further.",
+            "The base case for this kind of list recursion is the empty list: once `items` has nothing left in it, `items[0]` would raise an `IndexError`, so the function must return `0` directly instead of trying to recurse further.",
         },
       ],
       tests: [
@@ -593,19 +593,19 @@ const recursionOnSequencesUnit: Unit = {
   recall: [
     {
       id: "py-recursion.recursion-on-sequences.1",
-      prompt: "In sum_list, why does the base case check items == []?",
+      prompt: "In `sum_list`, why does the base case check `items == []`?",
       options: [
-        "Because an empty list has no head to add, so returning 0 there stops the recursion where there's nothing left to sum",
-        "Because Python requires all list recursion to check for []",
-        "Because [] is the only value equal to 0",
+        "Because an empty list has no head to add, so returning `0` there stops the recursion where there's nothing left to sum",
+        "Because Python requires all list recursion to check for `[]`",
+        "Because `[]` is the only value equal to `0`",
       ],
       correctIndex: 0,
       explainWrong:
-        "The empty list is chosen because it's exactly where the pattern of \"head plus the rest\" runs out: there's no items[0] left to grab, so the function has to stop and return 0 instead of indexing into nothing.",
+        "The empty list is chosen because it's exactly where the pattern of \"head plus the rest\" runs out: there's no `items[0]` left to grab, so the function has to stop and return `0` instead of indexing into nothing.",
     },
     {
       id: "py-recursion.recursion-on-sequences.2",
-      prompt: "sum_list([1, 2, 3]) splits the list into items[0] and items[1:]. What are these two pieces usually called?",
+      prompt: "`sum_list([1, 2, 3])` splits the list into `items[0]` and `items[1:]`. What are these two pieces usually called?",
       options: [
         "The head and the rest (or head and tail)",
         "The base and the case",
@@ -617,7 +617,7 @@ const recursionOnSequencesUnit: Unit = {
     },
     {
       id: "py-recursion.recursion-on-sequences.3",
-      prompt: 'reverse_string(s) = reverse_string(s[1:]) + s[0]. Which character of the original string ends up at the very end of the reversed result?',
+      prompt: '`reverse_string(s) = reverse_string(s[1:]) + s[0]`. Which character of the original string ends up at the very end of the reversed result?',
       options: [
         "The first character, since its frame is the last to return and its saved character is appended last",
         "The last character, since it's processed by the base case",
@@ -694,39 +694,39 @@ const applyRecursionUnit: Unit = {
   recall: [
     {
       id: "py-recursion.apply-recursion.1",
-      prompt: "Why does fibonacci need two base cases instead of one?",
+      prompt: "Why does `fibonacci` need two base cases instead of one?",
       options: [
-        "Because fibonacci(n) depends on two smaller results, fibonacci(n - 1) and fibonacci(n - 2), so recursion needs to bottom out at both fibonacci(0) and fibonacci(1)",
+        "Because `fibonacci(n)` depends on two smaller results, `fibonacci(n - 1)` and `fibonacci(n - 2)`, so recursion needs to bottom out at both `fibonacci(0)` and `fibonacci(1)`",
         "Because Python requires every function to have at least two base cases",
-        "Because fibonacci(0) and fibonacci(1) are the two most commonly called values",
+        "Because `fibonacci(0)` and `fibonacci(1)` are the two most commonly called values",
       ],
       correctIndex: 0,
       explainWrong:
-        "This is about fibonacci's own math, not a Python rule or a popularity contest: since each call branches into two smaller calls, one base case would leave the other branch, the n - 2 side, with no way to stop.",
+        "This is about `fibonacci`'s own math, not a Python rule or a popularity contest: since each call branches into two smaller calls, one base case would leave the other branch, the `n - 2` side, with no way to stop.",
     },
     {
       id: "py-recursion.apply-recursion.2",
-      prompt: "If fibonacci only had a base case for n == 0, what would go wrong calling fibonacci(1)?",
+      prompt: "If `fibonacci` only had a base case for `n == 0`, what would go wrong calling `fibonacci(1)`?",
       options: [
-        "fibonacci(1) would call fibonacci(0) + fibonacci(-1), and fibonacci(-1) would keep recursing on ever more negative numbers, never hitting 0",
-        "fibonacci(1) would just return 0 instead of 1",
+        "`fibonacci(1)` would call `fibonacci(0) + fibonacci(-1)`, and `fibonacci(-1)` would keep recursing on ever more negative numbers, never hitting `0`",
+        "`fibonacci(1)` would just return `0` instead of `1`",
         "Nothing; the missing base case only matters for larger n",
       ],
       correctIndex: 0,
       explainWrong:
-        "Without n == 1 as a base case, fibonacci(1) would recurse into fibonacci(0) and fibonacci(-1); the second branch keeps subtracting 1 from an already-negative number and will never equal 0, so it never stops.",
+        "Without `n == 1` as a base case, `fibonacci(1)` would recurse into `fibonacci(0)` and `fibonacci(-1)`; the second branch keeps subtracting `1` from an already-negative number and will never equal `0`, so it never stops.",
     },
     {
       id: "py-recursion.apply-recursion.3",
-      prompt: "How is fibonacci's recursion different from factorial's?",
+      prompt: "How is `fibonacci`'s recursion different from `factorial`'s?",
       options: [
-        "fibonacci makes two recursive calls per call, branching, while factorial makes only one, forming a single stack line",
+        "`fibonacci` makes two recursive calls per call, branching, while `factorial` makes only one, forming a single stack line",
         "fibonacci and factorial recurse in exactly the same way",
         "fibonacci doesn't use a call stack at all",
       ],
       correctIndex: 0,
       explainWrong:
-        "factorial(n) only ever calls factorial(n - 1) once, so its calls form one straight line on the stack. fibonacci(n) calls both fibonacci(n - 1) and fibonacci(n - 2), so its calls branch into a tree instead, and it still uses the call stack just like any other recursive function.",
+        "`factorial(n)` only ever calls `factorial(n - 1)` once, so its calls form one straight line on the stack. `fibonacci(n)` calls both `fibonacci(n - 1)` and `fibonacci(n - 2)`, so its calls branch into a tree instead, and it still uses the call stack just like any other recursive function.",
     },
   ],
 };

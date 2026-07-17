@@ -90,7 +90,7 @@ const binaryTreesUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "Root 5 has left child 2 and right child 9. 2 has a left child 1. What is the height of the whole tree?",
+        "Root `5` has left child `2` and right child `9`. `2` has a left child `1`. What is the height of the whole tree?",
       steps: [
         {
           state: {
@@ -110,16 +110,16 @@ const binaryTreesUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "0" },
-        { id: "b", label: "1" },
-        { id: "c", label: "2" },
-        { id: "d", label: "3" },
+        { id: "a", label: "`0`" },
+        { id: "b", label: "`1`" },
+        { id: "c", label: "`2`" },
+        { id: "d", label: "`3`" },
       ],
       correctId: "c",
       explainWrong: {
-        a: "Height 0 would mean the tree is just a single node with no children at all; this tree clearly has multiple levels below the root.",
-        b: "Height 1 only covers root to 2 or root to 9; it ignores the deeper path down to 1, which is one level further.",
-        d: "There is no path in this tree with 3 edges; the longest path, root to 2 to 1, only has 2 edges.",
+        a: "Height `0` would mean the tree is just a single node with no children at all; this tree clearly has multiple levels below the root.",
+        b: "Height `1` only covers root to `2` or root to `9`; it ignores the deeper path down to `1`, which is one level further.",
+        d: "There is no path in this tree with `3` edges; the longest path, root to `2` to `1`, only has `2` edges.",
       },
       revealStep: {
         state: {
@@ -132,7 +132,7 @@ const binaryTreesUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing check so is_leaf correctly identifies a node with no children, represented as a dict with 'left' and 'right' keys that are None when absent.",
+      prompt: "Fill in the missing check so `is_leaf` correctly identifies a node with no children, represented as a dict with `'left'` and `'right'` keys that are `None` when absent.",
       code: [
         "def is_leaf(node):",
         "    return node['left'] is {{val}} and node['right'] is None",
@@ -143,7 +143,7 @@ const binaryTreesUnit: Unit = {
           placeholder: "___",
           answer: "None",
           explainWrong:
-            "A leaf has no children at all, so both left and right must be None. Checking against anything other than None, like 0 or False, would not correctly detect a missing child.",
+            "A leaf has no children at all, so both `left` and `right` must be `None`. Checking against anything other than `None`, like `0` or `False`, would not correctly detect a missing child.",
         },
       ],
       tests: [
@@ -352,7 +352,7 @@ const bstSearchInsertUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "A BST has root 20, with left child 10 and right child 30. Searching for 25, which nodes get visited in order?",
+        "A BST has root `20`, with left child `10` and right child `30`. Searching for `25`, which nodes get visited in order?",
       steps: [
         {
           state: {
@@ -370,16 +370,16 @@ const bstSearchInsertUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "20, then 30, ending not found" },
-        { id: "b", label: "20, then 10, ending not found" },
-        { id: "c", label: "20, then 30, then 10" },
-        { id: "d", label: "30 only" },
+        { id: "a", label: "`20`, then `30`, ending not found" },
+        { id: "b", label: "`20`, then `10`, ending not found" },
+        { id: "c", label: "`20`, then `30`, then `10`" },
+        { id: "d", label: "`30` only" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "25 is greater than 20, so the search goes right toward 30, not left toward 10.",
-        c: "The search only follows one path down, it never backtracks to check 10 after going right; once it heads toward 30, 10 is never visited.",
-        d: "The search always starts at the root, 20, before it can move anywhere else; it can't skip straight to 30.",
+        b: "`25` is greater than `20`, so the search goes right toward `30`, not left toward `10`.",
+        c: "The search only follows one path down, it never backtracks to check `10` after going right; once it heads toward `30`, `10` is never visited.",
+        d: "The search always starts at the root, `20`, before it can move anywhere else; it can't skip straight to `30`.",
       },
       revealStep: {
         state: {
@@ -392,7 +392,7 @@ const bstSearchInsertUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "Inserting the values 1, 2, 3, 4 in that exact order into an empty BST produces what shape?",
+      prompt: "Inserting the values `1`, `2`, `3`, `4` in that exact order into an empty BST produces what shape?",
       steps: [
         {
           state: {
@@ -403,7 +403,7 @@ const bstSearchInsertUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "A balanced tree with 1 or 2 at the root" },
+        { id: "a", label: "A balanced tree with `1` or `2` at the root" },
         { id: "b", label: "A vine leaning right: each new value becomes the right child of the last" },
         { id: "c", label: "A vine leaning left" },
         { id: "d", label: "It errors, since the values are already sorted" },
@@ -411,7 +411,7 @@ const bstSearchInsertUnit: Unit = {
       correctId: "b",
       explainWrong: {
         a: "BST insertion never rebalances on its own; inserting already-sorted values in increasing order always produces a lopsided vine, not a balanced shape.",
-        c: "Each new value, 2, 3, then 4, is greater than everything already in the tree, so every one of them goes right, not left.",
+        c: "Each new value, `2`, `3`, then `4`, is greater than everything already in the tree, so every one of them goes right, not left.",
         d: "There is nothing invalid about inserting sorted values into a BST; it works fine, it just produces a very unbalanced shape.",
       },
       revealStep: {
@@ -432,7 +432,7 @@ const bstSearchInsertUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison so bst_search correctly descends left when the target is smaller than the current node's value.",
+      prompt: "Fill in the comparison so `bst_search` correctly descends left when the target is smaller than the current node's value.",
       code: [
         "def bst_search(node, target):",
         "    if node is None:",
@@ -449,7 +449,7 @@ const bstSearchInsertUnit: Unit = {
           placeholder: "___",
           answer: "<",
           explainWrong:
-            "A BST keeps smaller values to the left. Descending left is only correct when target is less than the current node's value; using > or >= would send the search the wrong direction and miss values that actually exist.",
+            "A BST keeps smaller values to the left. Descending left is only correct when `target` is less than the current node's value; using `>` or `>=` would send the search the wrong direction and miss values that actually exist.",
         },
       ],
       tests: [
@@ -471,10 +471,10 @@ const bstSearchInsertUnit: Unit = {
         "Given a BST `node` (nested dicts with keys `'val'`, `'left'`, `'right'`) and a value `val`, return the BST with `val` inserted in the correct position. If `node` is `None`, return a new leaf dict for `val`.",
       difficulty: "Medium",
       examples: [
-        { input: "node = None, val = 5", output: "{'val': 5, 'left': None, 'right': None}" },
+        { input: "`node = None, val = 5`", output: "`{'val': 5, 'left': None, 'right': None}`" },
         {
-          input: "node = {'val': 5, 'left': None, 'right': None}, val = 3",
-          output: "node['left'] == {'val': 3, 'left': None, 'right': None}",
+          input: "`node = {'val': 5, 'left': None, 'right': None}, val = 3`",
+          output: "`node['left'] == {'val': 3, 'left': None, 'right': None}`",
           explanation: "`3` is less than `5`, so it becomes the left child.",
         },
       ],
@@ -709,7 +709,7 @@ const bstRemoveUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the direction so find_min correctly walks to the smallest value in a subtree by always going left.",
+      prompt: "Fill in the direction so `find_min` correctly walks to the smallest value in a subtree by always going left.",
       code: [
         "def find_min(node):",
         "    while node['{{dir}}'] is not None:",
@@ -722,7 +722,7 @@ const bstRemoveUnit: Unit = {
           placeholder: "___",
           answer: "left",
           explainWrong:
-            "In a BST, smaller values are always found by walking left. Walking 'right' instead would find the largest value in the subtree, not the smallest.",
+            "In a BST, smaller values are always found by walking `left`. Walking `right` instead would find the largest value in the subtree, not the smallest.",
         },
       ],
       tests: [
@@ -745,13 +745,13 @@ const bstRemoveUnit: Unit = {
       difficulty: "Hard",
       examples: [
         {
-          input: "node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, val = 3",
-          output: "node['left'] is None",
+          input: "`node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, val = 3`",
+          output: "`node['left'] is None`",
           explanation: "Removing leaf `3` simply detaches it.",
         },
         {
-          input: "node with val = 8, two children, right subtree's smallest value is 9, val = 8",
-          output: "node['val'] == 9",
+          input: "node with `val = 8`, two children, right subtree's smallest value is `9`, `val = 8`",
+          output: "`node['val'] == 9`",
           explanation: "The in-order successor's value, `9`, is copied up to replace `8`.",
         },
       ],
@@ -943,8 +943,8 @@ const traversalsUnit: Unit = {
       ],
       correctId: "a",
       explainWrong: {
-        b: "Pre-order emits the node before its subtrees, so a parent like 5 is emitted before its smaller left descendants, breaking sorted order.",
-        c: "Post-order emits the node after both subtrees, so 5 would appear after its right subtree's larger values, again out of sorted order.",
+        b: "Pre-order emits the node before its subtrees, so a parent like `5` is emitted before its smaller left descendants, breaking sorted order.",
+        c: "Post-order emits the node after both subtrees, so `5` would appear after its right subtree's larger values, again out of sorted order.",
         d: "Level-order groups by depth, not by value; a deep-left small value and a shallow-right large value can appear in the wrong relative order.",
       },
       revealStep: {
@@ -958,7 +958,7 @@ const traversalsUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "For the tree with root 8, left child 3, right child 10, what does level-order traversal emit?",
+      prompt: "For the tree with root `8`, left child `3`, right child `10`, what does level-order traversal emit?",
       steps: [
         {
           state: {
@@ -976,16 +976,16 @@ const traversalsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "8, 3, 10" },
-        { id: "b", label: "3, 8, 10" },
-        { id: "c", label: "3, 10, 8" },
-        { id: "d", label: "10, 3, 8" },
+        { id: "a", label: "`8, 3, 10`" },
+        { id: "b", label: "`3, 8, 10`" },
+        { id: "c", label: "`3, 10, 8`" },
+        { id: "d", label: "`10, 3, 8`" },
       ],
       correctId: "a",
       explainWrong: {
         b: "This is in-order's output, left then node then right, not level-order, which visits the whole top row before moving down.",
         c: "This ordering doesn't correspond to any standard traversal of this tree; level-order always visits the root first, since it's the only node on the top row.",
-        d: "Level-order starts at the root, the sole node on row 0, before it ever reaches row 1; 10 can't come first.",
+        d: "Level-order starts at the root, the sole node on row `0`, before it ever reaches row `1`; `10` can't come first.",
       },
       revealStep: {
         state: {
@@ -998,7 +998,7 @@ const traversalsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing recursive call so in_order visits left, then the node's value, then right, in that order.",
+      prompt: "Fill in the missing recursive call so `in_order` visits left, then the node's value, then right, in that order.",
       code: [
         "def in_order(node, output):",
         "    if node is None:",
@@ -1013,7 +1013,7 @@ const traversalsUnit: Unit = {
           placeholder: "___",
           answer: "right",
           explainWrong:
-            "In-order visits left, then the node, then right, in that exact sequence. The final recursive call must descend into 'right'; calling 'left' again would skip the right subtree entirely and revisit the left one.",
+            "In-order visits left, then the node, then right, in that exact sequence. The final recursive call must descend into `right`; calling `left` again would skip the right subtree entirely and revisit the left one.",
         },
       ],
       tests: [
@@ -1032,8 +1032,8 @@ const traversalsUnit: Unit = {
       difficulty: "Easy",
       examples: [
         {
-          input: "node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, output = []",
-          output: "output == [8, 3, 10]",
+          input: "`node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, output = []`",
+          output: "`output == [8, 3, 10]`",
         },
       ],
       constraints: ["`node` may be `None`, in which case nothing is appended", "`output` is mutated in place"],
@@ -1136,8 +1136,8 @@ const applyTreesUnit: Unit = {
         "Given a BST `node` (nested dicts with keys `'val'`, `'left'`, `'right'`, `None` when a child is absent) and a value `target`, return `True` if `target` exists anywhere in the tree rooted at `node`, and `False` otherwise.",
       difficulty: "Easy",
       examples: [
-        { input: "node with val = 8, left = 3, right = 10; target = 10", output: "True" },
-        { input: "node = None, target = 5", output: "False", explanation: "An empty tree contains nothing." },
+        { input: "`node` with `val = 8, left = 3, right = 10`; `target = 10`", output: "`True`" },
+        { input: "`node = None, target = 5`", output: "`False`", explanation: "An empty tree contains nothing." },
       ],
       constraints: ["`node` may be `None`", "the tree satisfies the BST property"],
       bigO: { answer: "O(n)", explain: "`contains` reuses `bst_search`'s descent, which can walk all `n` nodes when the BST is skewed rather than balanced." },
@@ -1169,27 +1169,27 @@ const applyTreesUnit: Unit = {
   recall: [
     {
       id: "dsa-trees.apply-trees.1",
-      prompt: "Why can a BST's contains(node, target) function reuse the same left/right decision logic as search?",
+      prompt: "Why can a BST's `contains(node, target)` function reuse the same left/right decision logic as search?",
       options: [
         "Because determining membership requires exactly the same compare-and-descend path as finding a value",
-        "Because contains always checks every node in the tree",
-        "Because contains only works on trees with a single node",
+        "Because `contains` always checks every node in the tree",
+        "Because `contains` only works on trees with a single node",
       ],
       correctIndex: 0,
       explainWrong:
-        "contains doesn't need to scan every node, and it isn't limited to single-node trees. It reuses search's logic because 'does this value exist' and 'where is this value' both rely on the exact same BST ordering to decide direction.",
+        "`contains` doesn't need to scan every node, and it isn't limited to single-node trees. It reuses search's logic because 'does this value exist' and 'where is this value' both rely on the exact same BST ordering to decide direction.",
     },
     {
       id: "dsa-trees.apply-trees.2",
-      prompt: "What should contains(None, target) return, and why?",
+      prompt: "What should `contains(None, target)` return, and why?",
       options: [
-        "False, because an empty subtree can't possibly contain any value",
-        "True, because None means 'not yet determined'",
+        "`False`, because an empty subtree can't possibly contain any value",
+        "`True`, because `None` means 'not yet determined'",
         "It should raise an error",
       ],
       correctIndex: 0,
       explainWrong:
-        "None represents an empty subtree, not an undetermined result, so returning True would be incorrect: there is nothing there to match. It's also not an error case; hitting an empty subtree during a normal search is expected whenever the target isn't present.",
+        "`None` represents an empty subtree, not an undetermined result, so returning `True` would be incorrect: there is nothing there to match. It's also not an error case; hitting an empty subtree during a normal search is expected whenever the target isn't present.",
     },
   ],
 };

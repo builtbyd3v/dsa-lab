@@ -94,7 +94,7 @@ const listOpsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "nums = [1, 2, 3]\nnums.insert(0, 0)\nnums.pop()\nprint(nums)\nWhat prints?",
+      prompt: "`nums = [1, 2, 3]`\n`nums.insert(0, 0)`\n`nums.pop()`\n`print(nums)`\nWhat prints?",
       steps: [
         {
           state: {
@@ -110,16 +110,16 @@ const listOpsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "[0, 1, 2]" },
-        { id: "b", label: "[0, 1, 2, 3]" },
-        { id: "c", label: "[1, 2, 3]" },
-        { id: "d", label: "[0, 2, 3]" },
+        { id: "a", label: "`[0, 1, 2]`" },
+        { id: "b", label: "`[0, 1, 2, 3]`" },
+        { id: "c", label: "`[1, 2, 3]`" },
+        { id: "d", label: "`[0, 2, 3]`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "pop() with no argument removes the LAST item. After insert(0, 0) gives [0, 1, 2, 3], pop() removes the 3 at the end, not nothing.",
-        c: "This ignores that insert(0, 0) added a 0 at the front first. That 0 is still there after pop() removes the last item.",
-        d: "pop() with no index removes the last item, 3, not one from the middle. There's no reason index 1 would vanish here.",
+        b: "`pop()` with no argument removes the LAST item. After `insert(0, 0)` gives `[0, 1, 2, 3]`, `pop()` removes the `3` at the end, not nothing.",
+        c: "This ignores that `insert(0, 0)` added a `0` at the front first. That `0` is still there after `pop()` removes the last item.",
+        d: "`pop()` with no index removes the last item, `3`, not one from the middle. There's no reason index `1` would vanish here.",
       },
       revealStep: {
         state: {
@@ -144,7 +144,7 @@ const listOpsUnit: Unit = {
           placeholder: "___",
           answer: "pop",
           explainWrong:
-            "remove() deletes by value and returns nothing; append() adds instead of removing. pop() with no argument is the one that both removes and returns the last item.",
+            "`remove()` deletes by value and returns nothing; `append()` adds instead of removing. `pop()` with no argument is the one that both removes and returns the last item.",
         },
       ],
       tests: [
@@ -159,10 +159,10 @@ const listOpsUnit: Unit = {
         "Given a list `items`, remove its first element and append it to the end, mutating `items` in place. Return the same list object (mutated in place), not a copy.",
       difficulty: "Easy",
       examples: [
-        { input: "items = [1, 2, 3]", output: "[2, 3, 1]" },
-        { input: "items = [9]", output: "[9]", explanation: "Moving the only item to the end changes nothing." },
+        { input: "`items = [1, 2, 3]`", output: "`[2, 3, 1]`" },
+        { input: "`items = [9]`", output: "`[9]`", explanation: "Moving the only item to the end changes nothing." },
       ],
-      constraints: ["1 <= len(items) <= 10^4", "the function must return the same list object, not a new one"],
+      constraints: ["`1 <= len(items) <= 10^4`", "the function must return the same list object, not a new one"],
       bigO: { answer: "O(n)", explain: "`pop(0)` shifts every remaining element of `items` left by one slot." },
       starter: "def rotate_left(items):\n    # your code here\n    pass\n",
       solution: "def rotate_left(items):\n    items.append(items.pop(0))\n    return items\n",
@@ -176,32 +176,32 @@ const listOpsUnit: Unit = {
   recall: [
     {
       id: "py-collections.list-ops.1",
-      prompt: "What's the difference between append(x) and insert(0, x)?",
+      prompt: "What's the difference between `append(x)` and `insert(0, x)`?",
       options: [
-        "append adds x to the end without shifting anything; insert(0, x) adds x to the front and shifts every existing item right",
+        "`append` adds `x` to the end without shifting anything; `insert(0, x)` adds `x` to the front and shifts every existing item right",
         "They do the same thing",
-        "append shifts items and insert doesn't",
+        "`append` shifts items and `insert` doesn't",
       ],
       correctIndex: 0,
-      explainWrong: "append() only ever adds to the end, so nothing needs to move. insert(0, x) puts x at the very front, which means every existing item has to shift one slot to the right to make room.",
+      explainWrong: "`append()` only ever adds to the end, so nothing needs to move. `insert(0, x)` puts `x` at the very front, which means every existing item has to shift one slot to the right to make room.",
     },
     {
       id: "py-collections.list-ops.2",
-      prompt: "remove(15) and pop() both delete an item. What's the key difference?",
+      prompt: "`remove(15)` and `pop()` both delete an item. What's the key difference?",
       options: [
-        "remove() deletes by value and returns nothing useful; pop() deletes by index (default last) and returns the removed item",
+        "`remove()` deletes by value and returns nothing useful; `pop()` deletes by index (default last) and returns the removed item",
         "They're interchangeable",
-        "remove() only works on the first item in the list",
+        "`remove()` only works on the first item in the list",
       ],
       correctIndex: 0,
-      explainWrong: "remove(value) searches for a matching value and deletes the first one it finds, giving back None. pop(index) instead deletes by position, defaulting to the last item, and hands that removed value back to you.",
+      explainWrong: "`remove(value)` searches for a matching value and deletes the first one it finds, giving back `None`. `pop(index)` instead deletes by position, defaulting to the last item, and hands that removed value back to you.",
     },
     {
       id: "py-collections.list-ops.3",
-      prompt: "After nums.pop(0) removes the first item, what happens to the indices of the remaining items?",
+      prompt: "After `nums.pop(0)` removes the first item, what happens to the indices of the remaining items?",
       options: [
         "They all shift down by one to fill the gap; there's no leftover empty slot",
-        "They stay the same, leaving index 0 empty",
+        "They stay the same, leaving index `0` empty",
         "The list becomes unusable until re-indexed manually",
       ],
       correctIndex: 0,
@@ -311,7 +311,7 @@ const slicingNestingUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "matrix = [[1, 2, 3], [4, 5, 6]]\nresult = matrix[1][0]\nWhat is result?",
+      prompt: "`matrix = [[1, 2, 3], [4, 5, 6]]`\n`result = matrix[1][0]`\nWhat is `result`?",
       steps: [
         {
           state: {
@@ -325,16 +325,16 @@ const slicingNestingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "4" },
-        { id: "b", label: "1" },
-        { id: "c", label: "5" },
+        { id: "a", label: "`4`" },
+        { id: "b", label: "`1`" },
+        { id: "c", label: "`5`" },
         { id: "d", label: "It raises an error" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "matrix[1] first picks the SECOND inner list, [4, 5, 6], not the first one. The 1 you're picturing belongs to the first inner list, which isn't the one selected here.",
-        c: "matrix[1][0] takes index 0 of the second inner list, which is 4, not index 1, which would be 5.",
-        d: "Both indices are valid: matrix has 2 rows (index 1 is fine), and that row has 3 elements (index 0 is fine too). Nothing here is out of range.",
+        b: "`matrix[1]` first picks the SECOND inner list, `[4, 5, 6]`, not the first one. The `1` you're picturing belongs to the first inner list, which isn't the one selected here.",
+        c: "`matrix[1][0]` takes index `0` of the second inner list, which is `4`, not index `1`, which would be `5`.",
+        d: "Both indices are valid: `matrix` has 2 rows (index `1` is fine), and that row has 3 elements (index `0` is fine too). Nothing here is out of range.",
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "4", tag: "matrix[1][0]", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
@@ -344,20 +344,20 @@ const slicingNestingUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "nums = [1, 2, 3, 4, 5]. Fill in the slice bounds so result is [2, 3, 4].",
+      prompt: "`nums = [1, 2, 3, 4, 5]`. Fill in the slice bounds so `result` is `[2, 3, 4]`.",
       code: ["nums = [1, 2, 3, 4, 5]", "result = nums[{{a}}:{{b}}]"].join("\n"),
       blanks: [
         {
           id: "a",
           placeholder: "start",
           answer: "1",
-          explainWrong: "The value 2 sits at index 1, not index 0 or 2. Starting anywhere else would shift the whole window off by one.",
+          explainWrong: "The value `2` sits at index `1`, not index `0` or `2`. Starting anywhere else would shift the whole window off by one.",
         },
         {
           id: "b",
           placeholder: "stop",
           answer: "4",
-          explainWrong: "The stop index is excluded, so to include index 3 (value 4) as the last element, the stop must be one past it: 4, not 3.",
+          explainWrong: "The stop index is excluded, so to include index `3` (value `4`) as the last element, the stop must be one past it: `4`, not `3`.",
         },
       ],
       tests: [
@@ -371,10 +371,10 @@ const slicingNestingUnit: Unit = {
         "Given a 2x2 matrix `matrix` (a list of two lists, each holding two elements), return `[matrix[0][0], matrix[1][1]]`, the values along its main diagonal.",
       difficulty: "Easy",
       examples: [
-        { input: "matrix = [[1, 2], [3, 4]]", output: "[1, 4]" },
-        { input: "matrix = [[5, 6], [7, 8]]", output: "[5, 8]" },
+        { input: "`matrix = [[1, 2], [3, 4]]`", output: "`[1, 4]`" },
+        { input: "`matrix = [[5, 6], [7, 8]]`", output: "`[5, 8]`" },
       ],
-      constraints: ["matrix always has exactly 2 rows and 2 columns"],
+      constraints: ["`matrix` always has exactly 2 rows and 2 columns"],
       bigO: { answer: "O(1)", explain: "Only two fixed lookups, `matrix[0][0]` and `matrix[1][1]`, happen regardless of input." },
       starter: "def get_diagonal(matrix):\n    # your code here\n    pass\n",
       solution: "def get_diagonal(matrix):\n    return [matrix[0][0], matrix[1][1]]\n",
@@ -388,43 +388,43 @@ const slicingNestingUnit: Unit = {
   recall: [
     {
       id: "py-collections.slicing-nesting.1",
-      prompt: "nums = [10, 20, 30, 40]. What does nums[1:3] include?",
-      options: ["Indices 1 and 2, giving [20, 30]", "Indices 1, 2, and 3", "Index 3 only"],
+      prompt: "`nums = [10, 20, 30, 40]`. What does `nums[1:3]` include?",
+      options: ["Indices `1` and `2`, giving `[20, 30]`", "Indices `1`, `2`, and `3`", "Index `3` only"],
       correctIndex: 0,
-      explainWrong: "A slice's stop bound is always excluded. nums[1:3] covers indices 1 and 2, stopping before index 3, giving exactly two elements.",
+      explainWrong: "A slice's stop bound is always excluded. `nums[1:3]` covers indices `1` and `2`, stopping before index `3`, giving exactly two elements.",
     },
     {
       id: "py-collections.slicing-nesting.2",
-      prompt: "matrix = [[1, 2], [3, 4]]. What is matrix[0]?",
+      prompt: "`matrix = [[1, 2], [3, 4]]`. What is `matrix[0]`?",
       options: [
-        "The inner list [1, 2], not a single number",
-        "The number 1",
-        "An error, since matrix only has 2 rows",
+        "The inner list `[1, 2]`, not a single number",
+        "The number `1`",
+        "An error, since `matrix` only has 2 rows",
       ],
       correctIndex: 0,
-      explainWrong: "One index into a nested list gives back a whole inner list, not a number. matrix[0] is [1, 2] itself; you'd need a second index, like matrix[0][0], to reach the number 1.",
+      explainWrong: "One index into a nested list gives back a whole inner list, not a number. `matrix[0]` is `[1, 2]` itself; you'd need a second index, like `matrix[0][0]`, to reach the number `1`.",
     },
     {
       id: "py-collections.slicing-nesting.3",
-      prompt: "Why does reaching a value inside a nested list, like matrix[0][1], need two indices instead of one?",
+      prompt: "Why does reaching a value inside a nested list, like `matrix[0][1]`, need two indices instead of one?",
       options: [
         "Because the outer index selects an inner list, and that inner list needs its own index to pick a value within it",
         "Because nested lists are actually stored as strings",
-        "It doesn't; matrix[1] alone would also work",
+        "It doesn't; `matrix[1]` alone would also work",
       ],
       correctIndex: 0,
       explainWrong: "Each level of nesting needs its own index: the outer index picks which inner list to follow the arrow to, and only then does a second index pick a specific value inside that inner list.",
     },
     {
       id: "py-collections.slicing-nesting.4",
-      prompt: "nums = [1, 2, 3, 4, 5]. What does nums[-2:] give?",
+      prompt: "`nums = [1, 2, 3, 4, 5]`. What does `nums[-2:]` give?",
       options: [
-        "[4, 5], the last two elements",
-        "[1, 2], the first two elements",
+        "`[4, 5]`, the last two elements",
+        "`[1, 2]`, the first two elements",
         "An error, since negative numbers can't start a slice",
       ],
       correctIndex: 0,
-      explainWrong: "Negative slice bounds work fine and count from the end. nums[-2:] starts two elements back from the end and runs to the end, giving the last two elements: [4, 5].",
+      explainWrong: "Negative slice bounds work fine and count from the end. `nums[-2:]` starts two elements back from the end and runs to the end, giving the last two elements: `[4, 5]`.",
     },
   ],
 };
@@ -512,7 +512,7 @@ const comprehensionsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "nums = [1, 2, 3, 4]\nresult = [n for n in nums if n > 2]\nWhat is result?",
+      prompt: "`nums = [1, 2, 3, 4]`\n`result = [n for n in nums if n > 2]`\nWhat is `result`?",
       steps: [
         {
           state: {
@@ -528,16 +528,16 @@ const comprehensionsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "[3, 4]" },
-        { id: "b", label: "[1, 2]" },
-        { id: "c", label: "[1, 2, 3, 4]" },
+        { id: "a", label: "`[3, 4]`" },
+        { id: "b", label: "`[1, 2]`" },
+        { id: "c", label: "`[1, 2, 3, 4]`" },
         { id: "d", label: "It raises an error" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "This keeps the items that FAIL the condition. The if clause keeps items where n > 2 is True, which is 3 and 4, not 1 and 2.",
-        c: "The if clause filters items out; it doesn't just tag along for show. Items failing n > 2 are skipped entirely, so all four values can't end up in result.",
-        d: "There's nothing invalid here: a list comprehension with an if clause is completely valid syntax and runs without error.",
+        b: "This keeps the items that FAIL the condition. The `if` clause keeps items where `n > 2` is `True`, which is `3` and `4`, not `1` and `2`.",
+        c: "The `if` clause filters items out; it doesn't just tag along for show. Items failing `n > 2` are skipped entirely, so all four values can't end up in `result`.",
+        d: "There's nothing invalid here: a list comprehension with an `if` clause is completely valid syntax and runs without error.",
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "[3, 4]", tag: "result", x: 2, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
@@ -547,7 +547,7 @@ const comprehensionsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "nums = [1, 2, 3, 4]. Fill in the operator so doubled becomes [2, 4, 6, 8].",
+      prompt: "`nums = [1, 2, 3, 4]`. Fill in the operator so `doubled` becomes `[2, 4, 6, 8]`.",
       code: ["nums = [1, 2, 3, 4]", "doubled = [n {{op}} 2 for n in nums]"].join("\n"),
       blanks: [
         {
@@ -555,7 +555,7 @@ const comprehensionsUnit: Unit = {
           placeholder: "___",
           answer: "*",
           explainWrong:
-            "To double each n, the expression needs multiplication: n * 2. Addition (n + 2) or any other operator would produce different values, not a doubling.",
+            "To double each `n`, the expression needs multiplication: `n * 2`. Addition (`n + 2`) or any other operator would produce different values, not a doubling.",
         },
       ],
       tests: [
@@ -569,10 +569,10 @@ const comprehensionsUnit: Unit = {
         "Given a list of integers `nums`, return a list containing the square of each even number in `nums`, in their original order. Use a single list comprehension.",
       difficulty: "Medium",
       examples: [
-        { input: "nums = [1, 2, 3, 4]", output: "[4, 16]", explanation: "Only `2` and `4` are even, squared to `4` and `16`." },
-        { input: "nums = [1, 3, 5]", output: "[]", explanation: "None of these are even." },
+        { input: "`nums = [1, 2, 3, 4]`", output: "`[4, 16]`", explanation: "Only `2` and `4` are even, squared to `4` and `16`." },
+        { input: "`nums = [1, 3, 5]`", output: "`[]`", explanation: "None of these are even." },
       ],
-      constraints: ["0 <= len(nums) <= 10^4", "must use a single list comprehension"],
+      constraints: ["`0 <= len(nums) <= 10^4`", "must use a single list comprehension"],
       bigO: { answer: "O(n)", explain: "The comprehension visits each element of `nums` exactly once." },
       starter: "def squares_of_evens(nums):\n    # your code here\n    pass\n",
       solution: "def squares_of_evens(nums):\n    return [n * n for n in nums if n % 2 == 0]\n",
@@ -586,47 +586,47 @@ const comprehensionsUnit: Unit = {
   recall: [
     {
       id: "py-collections.comprehensions.1",
-      prompt: "squares = [n * n for n in nums]. What happens to nums after this line runs?",
+      prompt: "`squares = [n * n for n in nums]`. What happens to `nums` after this line runs?",
       options: [
-        "nums is completely unchanged; squares is a brand new list",
-        "nums is replaced by the squared values",
-        "nums and squares become the same list object",
+        "`nums` is completely unchanged; `squares` is a brand new list",
+        "`nums` is replaced by the squared values",
+        "`nums` and `squares` become the same list object",
       ],
       correctIndex: 0,
-      explainWrong: "A list comprehension only reads from nums; it never writes back into it. squares is built as an entirely separate, new list object.",
+      explainWrong: "A list comprehension only reads from `nums`; it never writes back into it. `squares` is built as an entirely separate, new list object.",
     },
     {
       id: "py-collections.comprehensions.2",
-      prompt: "In [n for n in nums if n % 2 == 0], what does the if clause do?",
+      prompt: "In `[n for n in nums if n % 2 == 0]`, what does the `if` clause do?",
       options: [
-        "Skips any n where the condition is False; only passing items get appended",
-        "Stops the whole comprehension early the first time the condition is False",
-        "Replaces failing items with 0 instead of skipping them",
+        "Skips any `n` where the condition is `False`; only passing items get appended",
+        "Stops the whole comprehension early the first time the condition is `False`",
+        "Replaces failing items with `0` instead of skipping them",
       ],
       correctIndex: 0,
-      explainWrong: "The if clause is a per-item filter, not an early exit and not a substitution. Every item in nums is still checked; only the ones where the condition is True get appended to the result.",
+      explainWrong: "The `if` clause is a per-item filter, not an early exit and not a substitution. Every item in `nums` is still checked; only the ones where the condition is `True` get appended to the result.",
     },
     {
       id: "py-collections.comprehensions.3",
-      prompt: "Does [n * 2 for n in nums] preserve the original order of nums?",
+      prompt: "Does `[n * 2 for n in nums]` preserve the original order of `nums`?",
       options: [
-        "Yes, items are processed and appended in the same order they appear in nums",
+        "Yes, items are processed and appended in the same order they appear in `nums`",
         "No, the result is always sorted",
         "No, the order is randomized each time",
       ],
       correctIndex: 0,
-      explainWrong: "A comprehension's pointer walks nums from front to back, appending each transformed value as it goes. There's no sorting or randomization involved; the output order matches the input order.",
+      explainWrong: "A comprehension's pointer walks `nums` from front to back, appending each transformed value as it goes. There's no sorting or randomization involved; the output order matches the input order.",
     },
     {
       id: "py-collections.comprehensions.4",
-      prompt: "Why use a list comprehension instead of a plain for loop with .append() in a loop body?",
+      prompt: "Why use a list comprehension instead of a plain for loop with `.append()` in a loop body?",
       options: [
         "It's more concise for the common pattern of building a new list from an existing one",
         "It runs a fundamentally different algorithm under the hood",
         "It's the only way to filter items while building a list",
       ],
       correctIndex: 0,
-      explainWrong: "Under the hood, a comprehension does the same loop-and-append work a manual for loop would; it's just a more compact way to write that exact pattern. A plain loop with an if check can filter items too, just with more lines.",
+      explainWrong: "Under the hood, a comprehension does the same loop-and-append work a manual for loop would; it's just a more compact way to write that exact pattern. A plain loop with an `if` check can filter items too, just with more lines.",
     },
   ],
 };
@@ -724,7 +724,7 @@ const dictionariesUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: 'd = {"a": 1, "b": 2}\nd["a"] = 100\nprint(len(d))\nWhat prints?',
+      prompt: '`d = {"a": 1, "b": 2}`\n`d["a"] = 100`\n`print(len(d))`\nWhat prints?',
       steps: [
         {
           state: {
@@ -740,15 +740,15 @@ const dictionariesUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "1" },
-        { id: "b", label: "2" },
-        { id: "c", label: "3" },
+        { id: "a", label: "`1`" },
+        { id: "b", label: "`2`" },
+        { id: "c", label: "`3`" },
         { id: "d", label: "It raises an error" },
       ],
       correctId: "b",
       explainWrong: {
-        a: 'Assigning to an existing key overwrites its value; it doesn\'t remove any pair. d still has both "a" and "b", so len(d) is 2, not 1.',
-        c: 'd only has two keys, "a" and "b". Overwriting the value at "a" doesn\'t create a third key, so len(d) can\'t be 3.',
+        a: 'Assigning to an existing key overwrites its value; it doesn\'t remove any pair. `d` still has both `"a"` and `"b"`, so `len(d)` is `2`, not `1`.',
+        c: '`d` only has two keys, `"a"` and `"b"`. Overwriting the value at `"a"` doesn\'t create a third key, so `len(d)` can\'t be `3`.',
         d: "Overwriting the value at an existing key is completely normal and never raises an error.",
       },
       revealStep: {
@@ -759,7 +759,7 @@ const dictionariesUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: 'd has no key "z". Fill in the method that safely returns None for a missing key instead of raising an error.',
+      prompt: '`d` has no key `"z"`. Fill in the method that safely returns `None` for a missing key instead of raising an error.',
       code: ['d = {"a": 1, "b": 2}', 'result = d.{{method}}("z")'].join("\n"),
       blanks: [
         {
@@ -767,7 +767,7 @@ const dictionariesUnit: Unit = {
           placeholder: "___",
           answer: "get",
           explainWrong:
-            'd["z"] with square brackets raises a KeyError for a missing key. get("z") is the method that looks the key up safely and returns None (or a default) instead of crashing.',
+            '`d["z"]` with square brackets raises a `KeyError` for a missing key. `get("z")` is the method that looks the key up safely and returns `None` (or a default) instead of crashing.',
         },
       ],
       tests: [
@@ -781,10 +781,10 @@ const dictionariesUnit: Unit = {
         'Given a dict `d` and a `key`, return `d[key]` if `key` exists in `d`, or the string `"not found"` otherwise. Use a single dict method call.',
       difficulty: "Easy",
       examples: [
-        { input: 'd = {"a": 1}, key = "a"', output: "1" },
-        { input: 'd = {"a": 1}, key = "z"', output: '"not found"', explanation: '`"z"` is not a key in `d`.' },
+        { input: '`d = {"a": 1}, key = "a"`', output: "`1`" },
+        { input: '`d = {"a": 1}, key = "z"`', output: '`"not found"`', explanation: '`"z"` is not a key in `d`.' },
       ],
-      constraints: ["d may be empty", "use dict.get to avoid raising KeyError"],
+      constraints: ["`d` may be empty", "use `dict.get` to avoid raising `KeyError`"],
       bigO: { answer: "O(1)", explain: "`dict.get` performs a constant-time hash lookup regardless of `d`'s size." },
       starter: "def safe_lookup(d, key):\n    # your code here\n    pass\n",
       solution: 'def safe_lookup(d, key):\n    return d.get(key, "not found")\n',
@@ -798,40 +798,40 @@ const dictionariesUnit: Unit = {
   recall: [
     {
       id: "py-collections.dictionaries.1",
-      prompt: 'd["b"] = 5 is run when "b" is already a key in d. What happens?',
+      prompt: '`d["b"] = 5` is run when `"b"` is already a key in `d`. What happens?',
       options: [
-        "The value at the existing key \"b\" is overwritten; no new pair is created",
-        "A second \"b\" key is added alongside the first",
-        "It raises an error because \"b\" already exists",
+        "The value at the existing key `\"b\"` is overwritten; no new pair is created",
+        "A second `\"b\"` key is added alongside the first",
+        "It raises an error because `\"b\"` already exists",
       ],
       correctIndex: 0,
       explainWrong: "Dict keys are always unique. Assigning to a key that already exists just replaces its value in place; it never creates a duplicate key or raises an error.",
     },
     {
       id: "py-collections.dictionaries.2",
-      prompt: 'del d["b"] is called. What happens to the key "b" afterward?',
+      prompt: '`del d["b"]` is called. What happens to the key `"b"` afterward?',
       options: [
-        "The key and its value are both removed entirely; \"b\" is no longer in d at all",
-        "The key stays but its value becomes None",
+        "The key and its value are both removed entirely; `\"b\"` is no longer in `d` at all",
+        "The key stays but its value becomes `None`",
         "Only the value is removed, leaving the key pointing at nothing",
       ],
       correctIndex: 0,
-      explainWrong: "del removes the whole key-value pair, not just the value. After del d[\"b\"], the key \"b\" is gone; checking \"b\" in d would be False, and d[\"b\"] would raise a KeyError.",
+      explainWrong: "`del` removes the whole key-value pair, not just the value. After `del d[\"b\"]`, the key `\"b\"` is gone; checking `\"b\" in d` would be `False`, and `d[\"b\"]` would raise a `KeyError`.",
     },
     {
       id: "py-collections.dictionaries.3",
-      prompt: 'd.get("z") and d["z"] both look up a missing key "z". How do they differ?',
+      prompt: '`d.get("z")` and `d["z"]` both look up a missing key `"z"`. How do they differ?',
       options: [
-        "get() returns None (or a given default) for a missing key; [] raises a KeyError",
+        "`get()` returns `None` (or a given default) for a missing key; `[]` raises a `KeyError`",
         "They behave identically",
-        "get() raises an error while [] returns None",
+        "`get()` raises an error while `[]` returns `None`",
       ],
       correctIndex: 0,
-      explainWrong: "The two behave oppositely for a missing key: square-bracket access raises a KeyError, while get() is designed to fail safely, returning None or an explicit default instead of crashing.",
+      explainWrong: "The two behave oppositely for a missing key: square-bracket access raises a `KeyError`, while `get()` is designed to fail safely, returning `None` or an explicit default instead of crashing.",
     },
     {
       id: "py-collections.dictionaries.4",
-      prompt: "When you write for key in d:, in what order are the keys visited?",
+      prompt: "When you write `for key in d:`, in what order are the keys visited?",
       options: [
         "In the order they were originally inserted into the dict",
         "In alphabetical order, always",
@@ -888,13 +888,13 @@ const applyCollectionsUnit: Unit = {
       difficulty: "Medium",
       examples: [
         {
-          input: 'sentence = "the cat and the dog"',
-          output: '{"the": 2, "cat": 1, "and": 1, "dog": 1}',
+          input: '`sentence = "the cat and the dog"`',
+          output: '`{"the": 2, "cat": 1, "and": 1, "dog": 1}`',
           explanation: '`"the"` appears twice, so it is tallied to `2`.',
         },
-        { input: 'sentence = "a a a"', output: '{"a": 3}' },
+        { input: '`sentence = "a a a"`', output: '`{"a": 3}`' },
       ],
-      constraints: ["sentence contains at least one word", "words are separated by single spaces"],
+      constraints: ["`sentence` contains at least one word", "words are separated by single spaces"],
       bigO: { answer: "O(n)", explain: "`split()` and the tally loop each pass over `sentence` once, where `n` is its length." },
       hidden:
         'def _viz(d):\n    keys = list(d.keys())\n    nodes = []\n    arrows = []\n    for i, k in enumerate(keys):\n        nodes.append({"id": f"k{i}", "label": str(k), "x": 0, "y": i, "shape": "box", "tag": "key"})\n        nodes.append({"id": f"v{i}", "label": str(d[k]), "x": 2, "y": i, "shape": "circle", "tag": "count"})\n        arrows.append({"from": f"k{i}", "to": f"v{i}"})\n    return {"nodes": nodes, "arrows": arrows}\n',
@@ -922,21 +922,21 @@ const applyCollectionsUnit: Unit = {
   recall: [
     {
       id: "py-collections.apply-collections.1",
-      prompt: 'Building word_count, you use counts[word] = counts.get(word, 0) + 1 for each word. Why get(word, 0) instead of counts[word]?',
+      prompt: 'Building `word_count`, you use `counts[word] = counts.get(word, 0) + 1` for each word. Why `get(word, 0)` instead of `counts[word]`?',
       options: [
-        "So a word seen for the first time defaults to 0 instead of raising a KeyError",
-        "get() is required syntax for all dict updates",
+        "So a word seen for the first time defaults to `0` instead of raising a `KeyError`",
+        "`get()` is required syntax for all dict updates",
         "It makes the dict sort itself alphabetically",
       ],
       correctIndex: 0,
-      explainWrong: "counts[word] would raise a KeyError the first time a brand-new word is seen, since it isn't a key yet. get(word, 0) sidesteps that by returning a safe default of 0 for words not yet counted.",
+      explainWrong: "`counts[word]` would raise a `KeyError` the first time a brand-new word is seen, since it isn't a key yet. `get(word, 0)` sidesteps that by returning a safe default of `0` for words not yet counted.",
     },
     {
       id: "py-collections.apply-collections.2",
-      prompt: '"the cat and the dog".split(" ") — how many times does "the" appear in the resulting list?',
-      options: ["Twice, once for each occurrence in the sentence", "Once, since split() removes duplicates", "Zero, since split() only keeps unique words"],
+      prompt: '`"the cat and the dog".split(" ")` — how many times does `"the"` appear in the resulting list?',
+      options: ["Twice, once for each occurrence in the sentence", "Once, since `split()` removes duplicates", "Zero, since `split()` only keeps unique words"],
       correctIndex: 0,
-      explainWrong: "split() has no idea what a duplicate is; it just breaks the string apart at each separator. Every occurrence of a word, including repeats, ends up as its own list element.",
+      explainWrong: "`split()` has no idea what a duplicate is; it just breaks the string apart at each separator. Every occurrence of a word, including repeats, ends up as its own list element.",
     },
   ],
 };

@@ -84,7 +84,7 @@ const blueprintInstancesUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: 'class Cat:\n    pass\n\nc1 = Cat()\nc2 = Cat()\nc1.color = "black"\nprint(c2.color)\nWhat happens?',
+      prompt: '`class Cat:`\n`    pass`\n\n`c1 = Cat()`\n`c2 = Cat()`\n`c1.color = "black"`\n`print(c2.color)`\nWhat happens?',
       steps: [
         {
           state: {
@@ -99,16 +99,16 @@ const blueprintInstancesUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: 'Prints "black"' },
-        { id: "b", label: "Raises an AttributeError" },
-        { id: "c", label: "Prints None" },
-        { id: "d", label: 'Prints "" (empty string)' },
+        { id: "a", label: 'Prints `"black"`' },
+        { id: "b", label: "Raises an `AttributeError`" },
+        { id: "c", label: "Prints `None`" },
+        { id: "d", label: 'Prints `""` (empty string)' },
       ],
       correctId: "b",
       explainWrong: {
-        a: "c1 and c2 are separate instances. Setting c1.color only adds that attribute to c1; it never appears on c2.",
-        c: "Python doesn't invent a default value like None for an attribute nobody ever set on that instance. Accessing it raises an error instead.",
-        d: "There's no empty-string default either. c2 simply has no color attribute at all until something explicitly sets one.",
+        a: "`c1` and `c2` are separate instances. Setting `c1.color` only adds that attribute to `c1`; it never appears on `c2`.",
+        c: "Python doesn't invent a default value like `None` for an attribute nobody ever set on that instance. Accessing it raises an error instead.",
+        d: "There's no empty-string default either. `c2` simply has no `color` attribute at all until something explicitly sets one.",
       },
       revealStep: {
         state: { nodes: [{ id: "err", label: "AttributeError", tag: "c2.color", x: 3, y: 2, shape: "box", emphasis: "error" }], arrows: [] },
@@ -118,7 +118,7 @@ const blueprintInstancesUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the call syntax that creates a new Point instance from the class below.",
+      prompt: "Fill in the call syntax that creates a new `Point` instance from the class below.",
       code: ["class Point:", "    pass", "", "p1 = Point{{call}}"].join("\n"),
       blanks: [
         {
@@ -126,7 +126,7 @@ const blueprintInstancesUnit: Unit = {
           placeholder: "___",
           answer: "()",
           explainWrong:
-            "Creating an instance means calling the class like a function: Point(). Without the parentheses, Point{{call}} would just refer to the class itself, not build a new instance.",
+            "Creating an instance means calling the class like a function: `Point()`. Without the parentheses, `Point{{call}}` would just refer to the class itself, not build a new instance.",
         },
       ],
       tests: [
@@ -141,8 +141,8 @@ const blueprintInstancesUnit: Unit = {
       difficulty: "Easy",
       examples: [
         {
-          input: "make_two_dogs()",
-          output: '("Rex", "Biscuit")',
+          input: "`make_two_dogs()`",
+          output: '`("Rex", "Biscuit")`',
           explanation: "Each `Dog` instance gets its own `.name`, and the two names must differ.",
         },
       ],
@@ -175,40 +175,40 @@ const blueprintInstancesUnit: Unit = {
         "A class can only ever produce one instance",
       ],
       correctIndex: 0,
-      explainWrong: "A class only describes what instances will look like; it is not itself an object you use directly. Calling the class, like Dog(), is what produces an actual instance, and a class can produce as many instances as you want.",
+      explainWrong: "A class only describes what instances will look like; it is not itself an object you use directly. Calling the class, like `Dog()`, is what produces an actual instance, and a class can produce as many instances as you want.",
     },
     {
       id: "py-classes.blueprint-instances.2",
-      prompt: "d1 = Dog() and d2 = Dog() are both created. d1.name is set, but d2.name is not. What happens if you access d2.name?",
+      prompt: "`d1 = Dog()` and `d2 = Dog()` are both created. `d1.name` is set, but `d2.name` is not. What happens if you access `d2.name`?",
       options: [
-        "It raises an AttributeError, since d2 never got its own name attribute",
-        "It returns d1's name, since they came from the same class",
+        "It raises an `AttributeError`, since `d2` never got its own `name` attribute",
+        "It returns `d1`'s name, since they came from the same class",
         "It returns an empty string by default",
       ],
       correctIndex: 0,
-      explainWrong: "Each instance stores its own attributes independently. d1 and d2 share no data just because they came from the same class; since d2 never had name set, accessing it raises an AttributeError.",
+      explainWrong: "Each instance stores its own attributes independently. `d1` and `d2` share no data just because they came from the same class; since `d2` never had `name` set, accessing it raises an `AttributeError`.",
     },
     {
       id: "py-classes.blueprint-instances.3",
-      prompt: "Does writing class Dog: pass by itself create any Dog objects?",
+      prompt: "Does writing `class Dog: pass` by itself create any `Dog` objects?",
       options: [
-        "No, it only defines the blueprint; instances only appear when Dog() is actually called",
+        "No, it only defines the blueprint; instances only appear when `Dog()` is actually called",
         "Yes, one default instance is created automatically",
         "Yes, but it's invisible until you assign it to a variable",
       ],
       correctIndex: 0,
-      explainWrong: "A class statement only builds the template. No instance exists in memory until the class is actually called, like Dog(), which is a separate step that happens later, if at all.",
+      explainWrong: "A class statement only builds the template. No instance exists in memory until the class is actually called, like `Dog()`, which is a separate step that happens later, if at all.",
     },
     {
       id: "py-classes.blueprint-instances.4",
-      prompt: "Why does accessing an attribute that was never set on a particular instance raise an error instead of returning something like None?",
+      prompt: "Why does accessing an attribute that was never set on a particular instance raise an error instead of returning something like `None`?",
       options: [
         "Because Python only tracks attributes that were actually assigned; there's no attribute to look up until something sets it",
-        "Because None is reserved and can never be an attribute's value",
+        "Because `None` is reserved and can never be an attribute's value",
         "Because attributes must be declared in advance in every class",
       ],
       correctIndex: 0,
-      explainWrong: "Instances don't come pre-loaded with placeholder attributes. An attribute simply doesn't exist on an instance until some code assigns it, so looking it up before that raises an AttributeError rather than silently returning None.",
+      explainWrong: "Instances don't come pre-loaded with placeholder attributes. An attribute simply doesn't exist on an instance until some code assigns it, so looking it up before that raises an `AttributeError` rather than silently returning `None`.",
     },
   ],
 };
@@ -282,7 +282,7 @@ const constructorsMethodsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "class Item:\n    def __init__(self, price):\n        self.price = price\n\n    def with_tax(self):\n        return self.price * 1.1\n\ni = Item(10)\nprint(i.with_tax())\nWhat prints?",
+      prompt: "`class Item:`\n`    def __init__(self, price):`\n`        self.price = price`\n\n`    def with_tax(self):`\n`        return self.price * 1.1`\n\n`i = Item(10)`\n`print(i.with_tax())`\nWhat prints?",
       steps: [
         {
           state: {
@@ -296,16 +296,16 @@ const constructorsMethodsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "11.0" },
-        { id: "b", label: 'TypeError: with_tax() takes no arguments but 1 was given' },
-        { id: "c", label: "10" },
-        { id: "d", label: "AttributeError: Item has no price" },
+        { id: "a", label: "`11.0`" },
+        { id: "b", label: '`TypeError`: `with_tax()` takes no arguments but 1 was given' },
+        { id: "c", label: "`10`" },
+        { id: "d", label: "`AttributeError`: `Item` has no `price`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "i.with_tax() looks like a call with zero arguments, but Python automatically passes i itself as self. That's exactly the one argument with_tax(self) expects; nothing is missing.",
-        c: "with_tax() doesn't just return self.price unchanged; it multiplies by 1.1 to add tax, giving 11.0, not the plain original price.",
-        d: '__init__ already ran when Item(10) was called, storing 10 into self.price. By the time with_tax() runs, that attribute already exists on i.',
+        b: "`i.with_tax()` looks like a call with zero arguments, but Python automatically passes `i` itself as `self`. That's exactly the one argument `with_tax(self)` expects; nothing is missing.",
+        c: "`with_tax()` doesn't just return `self.price` unchanged; it multiplies by `1.1` to add tax, giving `11.0`, not the plain original price.",
+        d: '`__init__` already ran when `Item(10)` was called, storing `10` into `self.price`. By the time `with_tax()` runs, that attribute already exists on `i`.',
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "11.0", tag: "i.with_tax()", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
@@ -323,7 +323,7 @@ const constructorsMethodsUnit: Unit = {
           placeholder: "___",
           answer: "self",
           explainWrong:
-            "Every instance method, including __init__, needs self as its first parameter so Python can pass in the instance being created or acted on. Without it, name itself would end up bound to the instance, and self.name = name would fail.",
+            "Every instance method, including `__init__`, needs `self` as its first parameter so Python can pass in the instance being created or acted on. Without it, `name` itself would end up bound to the instance, and `self.name = name` would fail.",
         },
       ],
       tests: [
@@ -338,11 +338,11 @@ const constructorsMethodsUnit: Unit = {
       difficulty: "Medium",
       examples: [
         {
-          input: "c = Counter(); c.increment()",
-          output: "1",
+          input: "`c = Counter(); c.increment()`",
+          output: "`1`",
           explanation: "`increment()` adds 1 to `self.count` and returns the new value.",
         },
-        { input: "c2 = Counter(10); c2.increment(); c2.increment()", output: "c2.count == 12" },
+        { input: "`c2 = Counter(10); c2.increment(); c2.increment()`", output: "`c2.count == 12`" },
       ],
       constraints: [
         "`start` defaults to `0` when omitted",
@@ -364,47 +364,47 @@ const constructorsMethodsUnit: Unit = {
   recall: [
     {
       id: "py-classes.constructors-methods.1",
-      prompt: "When does __init__ run?",
+      prompt: "When does `__init__` run?",
       options: [
         "Automatically, every time the class is called to create a new instance",
         "Only if you call it manually after creating the instance",
         "Once per program, the first time the class is used",
       ],
       correctIndex: 0,
-      explainWrong: "__init__ isn't optional or manually triggered. Python calls it automatically every single time the class is called, like Dog(\"Rex\", 3), right as that new instance is being built.",
+      explainWrong: "`__init__` isn't optional or manually triggered. Python calls it automatically every single time the class is called, like `Dog(\"Rex\", 3)`, right as that new instance is being built.",
     },
     {
       id: "py-classes.constructors-methods.2",
-      prompt: "Inside a method, what does self refer to?",
+      prompt: "Inside a method, what does `self` refer to?",
       options: [
         "The specific instance the method was called on",
         "The class itself, shared by every instance",
         "A brand new, empty object created just for that method call",
       ],
       correctIndex: 0,
-      explainWrong: "self is not the class and not a fresh throwaway object. It's a reference to the exact instance the method was called through, like d in d.bark(), so the method can read and change that instance's own attributes.",
+      explainWrong: "`self` is not the class and not a fresh throwaway object. It's a reference to the exact instance the method was called through, like `d` in `d.bark()`, so the method can read and change that instance's own attributes.",
     },
     {
       id: "py-classes.constructors-methods.3",
-      prompt: "d.bark() is called on an instance d. Do you need to pass d in yourself as an argument?",
+      prompt: "`d.bark()` is called on an instance `d`. Do you need to pass `d` in yourself as an argument?",
       options: [
-        "No, Python automatically passes d in as the method's self parameter",
-        "Yes, you must write d.bark(d)",
-        "No, but only because bark() takes zero parameters",
+        "No, Python automatically passes `d` in as the method's `self` parameter",
+        "Yes, you must write `d.bark(d)`",
+        "No, but only because `bark()` takes zero parameters",
       ],
       correctIndex: 0,
-      explainWrong: "Calling a method through an instance, like d.bark(), automatically supplies that instance as self behind the scenes. Writing d.bark(d) would actually pass d twice and cause an error, since bark only expects self.",
+      explainWrong: "Calling a method through an instance, like `d.bark()`, automatically supplies that instance as `self` behind the scenes. Writing `d.bark(d)` would actually pass `d` twice and cause an error, since `bark` only expects `self`.",
     },
     {
       id: "py-classes.constructors-methods.4",
-      prompt: "Two Dog instances, d1 and d2, are created with different names. Does calling d1.bark() ever read d2's name?",
+      prompt: "Two `Dog` instances, `d1` and `d2`, are created with different names. Does calling `d1.bark()` ever read `d2`'s name?",
       options: [
-        "No, self inside the method is bound to d1 specifically, so it only ever sees d1's own attributes",
+        "No, `self` inside the method is bound to `d1` specifically, so it only ever sees `d1`'s own attributes",
         "Yes, since both came from the same class, they share attributes",
         "It depends on which one was created first",
       ],
       correctIndex: 0,
-      explainWrong: "Each instance keeps its own separate attributes. When you call d1.bark(), self is bound to d1 alone; there's no mechanism by which it would reach into d2's data instead.",
+      explainWrong: "Each instance keeps its own separate attributes. When you call `d1.bark()`, `self` is bound to `d1` alone; there's no mechanism by which it would reach into `d2`'s data instead.",
     },
   ],
 };
@@ -476,7 +476,7 @@ const dunderCustomUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "class Money:\n    def __init__(self, amount):\n        self.amount = amount\n\nm1 = Money(5)\nm2 = Money(5)\nprint(m1 == m2)\nWhat prints?",
+      prompt: "`class Money:`\n`    def __init__(self, amount):`\n`        self.amount = amount`\n\n`m1 = Money(5)`\n`m2 = Money(5)`\n`print(m1 == m2)`\nWhat prints?",
       steps: [
         {
           state: {
@@ -490,14 +490,14 @@ const dunderCustomUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "False" },
-        { id: "b", label: "True" },
+        { id: "a", label: "`False`" },
+        { id: "b", label: "`True`" },
         { id: "c", label: "It raises an error" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "Without a custom __eq__, == falls back to identity comparison: are these literally the same object? m1 and m2 are two separate Money instances, so even with matching amounts, == is False.",
-        c: "Comparing two objects with == never raises an error by default, even without __eq__ defined; Python just uses its default identity check.",
+        b: "Without a custom `__eq__`, `==` falls back to identity comparison: are these literally the same object? `m1` and `m2` are two separate `Money` instances, so even with matching amounts, `==` is `False`.",
+        c: "Comparing two objects with `==` never raises an error by default, even without `__eq__` defined; Python just uses its default identity check.",
       },
       revealStep: {
         state: { nodes: [{ id: "res", label: "False", tag: "m1 == m2", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
@@ -507,7 +507,7 @@ const dunderCustomUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the dunder method name that controls what str(instance) and print(instance) show.",
+      prompt: "Fill in the dunder method name that controls what `str(instance)` and `print(instance)` show.",
       code: ["class Money:", "    def __init__(self, amount):", "        self.amount = amount", "", "    def {{dunder}}(self):", '        return f"${self.amount}"'].join("\n"),
       blanks: [
         {
@@ -515,7 +515,7 @@ const dunderCustomUnit: Unit = {
           placeholder: "___",
           answer: "__str__",
           explainWrong:
-            "__str__ is the specific method name Python looks for to decide what str() and print() should show for an instance. Any other name is just a regular method that print() won't call automatically.",
+            "`__str__` is the specific method name Python looks for to decide what `str()` and `print()` should show for an instance. Any other name is just a regular method that `print()` won't call automatically.",
         },
       ],
       tests: [
@@ -529,10 +529,10 @@ const dunderCustomUnit: Unit = {
         'Implement a class `Song` with `__init__(self, title, artist)`, a `__str__` method returning `"title by artist"`, and an `__eq__` method that treats two `Song` instances as equal when both `title` and `artist` match.',
       difficulty: "Medium",
       examples: [
-        { input: 'str(Song("Imagine", "John Lennon"))', output: '"Imagine by John Lennon"' },
+        { input: '`str(Song("Imagine", "John Lennon"))`', output: '`"Imagine by John Lennon"`' },
         {
-          input: 'Song("Yesterday", "The Beatles") == Song("Yesterday", "The Beatles")',
-          output: "True",
+          input: '`Song("Yesterday", "The Beatles") == Song("Yesterday", "The Beatles")`',
+          output: "`True`",
           explanation: "Equal when both `title` and `artist` match, even though they are separate objects.",
         },
       ],
@@ -562,43 +562,43 @@ const dunderCustomUnit: Unit = {
   recall: [
     {
       id: "py-classes.dunder-custom.1",
-      prompt: "A class has no __str__ method. What does print(instance) show?",
+      prompt: "A class has no `__str__` method. What does `print(instance)` show?",
       options: [
-        "Python's default, unhelpful representation, like <ClassName object at 0x...>",
+        "Python's default, unhelpful representation, like `<ClassName object at 0x...>`",
         "An empty string",
-        "It raises an error, since printing requires __str__",
+        "It raises an error, since printing requires `__str__`",
       ],
       correctIndex: 0,
-      explainWrong: "Printing an object never requires __str__; Python always has a fallback. Without __str__, that fallback is a generic, not very readable representation showing the class name and a memory address.",
+      explainWrong: "Printing an object never requires `__str__`; Python always has a fallback. Without `__str__`, that fallback is a generic, not very readable representation showing the class name and a memory address.",
     },
     {
       id: "py-classes.dunder-custom.2",
-      prompt: "Why does defining __eq__ change what p1 == p2 does?",
+      prompt: "Why does defining `__eq__` change what `p1 == p2` does?",
       options: [
-        "Because __eq__ overrides the default identity check with a custom value comparison you define",
-        "Because __eq__ only affects print(), not ==",
-        "Because Python ignores == entirely once __str__ is defined",
+        "Because `__eq__` overrides the default identity check with a custom value comparison you define",
+        "Because `__eq__` only affects `print()`, not `==`",
+        "Because Python ignores `==` entirely once `__str__` is defined",
       ],
       correctIndex: 0,
-      explainWrong: "__eq__ is specifically the method Python calls to evaluate ==. Defining it replaces the default same-object identity check with whatever value comparison you write inside it; __str__ has no effect on == at all.",
+      explainWrong: "`__eq__` is specifically the method Python calls to evaluate `==`. Defining it replaces the default same-object identity check with whatever value comparison you write inside it; `__str__` has no effect on `==` at all.",
     },
     {
       id: "py-classes.dunder-custom.3",
-      prompt: "Calling str(obj) directly, what method does it trigger?",
-      options: ["obj's __str__ method", "obj's __init__ method", "obj's __eq__ method"],
+      prompt: "Calling `str(obj)` directly, what method does it trigger?",
+      options: ["`obj`'s `__str__` method", "`obj`'s `__init__` method", "`obj`'s `__eq__` method"],
       correctIndex: 0,
-      explainWrong: "str() and print() are both defined to call an object's __str__ method to get its display text. __init__ only ever runs at construction time, and __eq__ is only for == comparisons; neither is involved in str() conversion.",
+      explainWrong: "`str()` and `print()` are both defined to call an object's `__str__` method to get its display text. `__init__` only ever runs at construction time, and `__eq__` is only for `==` comparisons; neither is involved in `str()` conversion.",
     },
     {
       id: "py-classes.dunder-custom.4",
-      prompt: "Two objects have identical attribute values but the class defines no __eq__. Are they equal with ==?",
+      prompt: "Two objects have identical attribute values but the class defines no `__eq__`. Are they equal with `==`?",
       options: [
-        "No, without __eq__, == checks whether they're the same object in memory, and they aren't",
+        "No, without `__eq__`, `==` checks whether they're the same object in memory, and they aren't",
         "Yes, Python always compares attribute values by default",
-        "It depends on whether __str__ is defined",
+        "It depends on whether `__str__` is defined",
       ],
       correctIndex: 0,
-      explainWrong: "Python's default == has nothing to do with attribute values; it checks object identity. Two separate instances are never == by default, no matter how similar their attributes are, unless __eq__ is defined to say otherwise.",
+      explainWrong: "Python's default `==` has nothing to do with attribute values; it checks object identity. Two separate instances are never `==` by default, no matter how similar their attributes are, unless `__eq__` is defined to say otherwise.",
     },
   ],
 };
@@ -639,10 +639,10 @@ const applyClassesUnit: Unit = {
         'Implement a class `BankAccount` with `__init__(self, owner, balance=0)`, a method `deposit(self, amount)` that adds `amount` to `self.balance`, a method `withdraw(self, amount)` that subtracts `amount` from `self.balance`, and `__str__` returning `"owner: $balance"`.',
       difficulty: "Medium",
       examples: [
-        { input: 'acc = BankAccount("Al", 100); acc.deposit(50)', output: "acc.balance == 150" },
+        { input: '`acc = BankAccount("Al", 100); acc.deposit(50)`', output: "`acc.balance == 150`" },
         {
-          input: 'str(BankAccount("Sam"))',
-          output: '"Sam: $0"',
+          input: '`str(BankAccount("Sam"))`',
+          output: '`"Sam: $0"`',
           explanation: "`balance` defaults to `0` when not provided.",
         },
       ],
@@ -667,25 +667,25 @@ const applyClassesUnit: Unit = {
   recall: [
     {
       id: "py-classes.apply-classes.1",
-      prompt: "Why give BankAccount a __str__ method instead of relying on the default printing behavior?",
+      prompt: "Why give `BankAccount` a `__str__` method instead of relying on the default printing behavior?",
       options: [
-        "So print(account) shows readable info like \"Al: $150\" instead of a generic memory-address representation",
-        "Because deposit() and withdraw() won't work without it",
-        "Because __init__ requires __str__ to be defined first",
+        "So `print(account)` shows readable info like `\"Al: $150\"` instead of a generic memory-address representation",
+        "Because `deposit()` and `withdraw()` won't work without it",
+        "Because `__init__` requires `__str__` to be defined first",
       ],
       correctIndex: 0,
-      explainWrong: "__str__ only affects how the object displays when printed or converted to a string; it has no bearing on whether deposit() or withdraw() work, and __init__ has no dependency on __str__ existing.",
+      explainWrong: "`__str__` only affects how the object displays when printed or converted to a string; it has no bearing on whether `deposit()` or `withdraw()` work, and `__init__` has no dependency on `__str__` existing.",
     },
     {
       id: "py-classes.apply-classes.2",
-      prompt: "__init__(self, owner, balance=0) is called as BankAccount(\"Sam\"), with no balance given. What does self.balance become?",
+      prompt: "`__init__(self, owner, balance=0)` is called as `BankAccount(\"Sam\")`, with no balance given. What does `self.balance` become?",
       options: [
-        "0, the default value specified in the parameter list",
-        "None, since no value was passed in",
-        "It raises an error, since balance is required",
+        "`0`, the default value specified in the parameter list",
+        "`None`, since no value was passed in",
+        "It raises an error, since `balance` is required",
       ],
       correctIndex: 0,
-      explainWrong: "balance=0 is a default parameter value; it isn't required at the call site. Leaving it out doesn't error and doesn't produce None, it simply falls back to the 0 written in the constructor's signature.",
+      explainWrong: "`balance=0` is a default parameter value; it isn't required at the call site. Leaving it out doesn't error and doesn't produce `None`, it simply falls back to the `0` written in the constructor's signature.",
     },
   ],
 };

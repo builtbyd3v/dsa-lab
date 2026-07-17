@@ -161,7 +161,7 @@ const heapPropertyUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "A max-heap has root 40, with children 25 and 38. You insert 60 as the next open leaf, under 38. What happens on the very next comparison?",
+        "A max-heap has root `40`, with children `25` and `38`. You insert `60` as the next open leaf, under `38`. What happens on the very next comparison?",
       steps: [
         {
           state: {
@@ -181,13 +181,13 @@ const heapPropertyUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "60 is compared to its parent 38, and since 60 is bigger, they swap" },
-        { id: "b", label: "60 is compared to the root 40 first, since bubble-up always starts at the root" },
+        { id: "a", label: "`60` is compared to its parent `38`, and since `60` is bigger, they swap" },
+        { id: "b", label: "`60` is compared to the root `40` first, since bubble-up always starts at the root" },
         { id: "c", label: "Nothing happens; the heap only fixes itself on the next pop" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "Bubble-up starts at the newly inserted node and walks upward one parent at a time. It compares to its immediate parent, 38, first, not the root.",
+        b: "Bubble-up starts at the newly inserted node and walks upward one parent at a time. It compares to its immediate parent, `38`, first, not the root.",
         c: "Insert must repair the heap property immediately, before the next operation. It doesn't wait for a future pop; that would let the property stay broken.",
       },
       revealStep: {
@@ -210,7 +210,7 @@ const heapPropertyUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison operator so is_valid_max_heap correctly checks the heap property between a parent and one child.",
+      prompt: "Fill in the comparison operator so `is_valid_max_heap` correctly checks the heap property between a parent and one child.",
       code: [
         "def parent_ok(parent_value, child_value):",
         "    return parent_value {{op}} child_value",
@@ -221,7 +221,7 @@ const heapPropertyUnit: Unit = {
           placeholder: "___",
           answer: ">=",
           explainWrong:
-            "The max-heap property requires the parent to be greater than OR EQUAL TO each child, not strictly greater. Equal values are allowed; using > alone would reject valid heaps that have duplicate values.",
+            "The max-heap property requires the parent to be greater than OR EQUAL TO each child, not strictly greater. Equal values are allowed; using `>` alone would reject valid heaps that have duplicate values.",
         },
       ],
       tests: [
@@ -443,7 +443,7 @@ const arrayHeapUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "In an array-backed heap, what is the parent index of the element at index 6?",
+      prompt: "In an array-backed heap, what is the parent index of the element at index `6`?",
       steps: [
         {
           state: {
@@ -454,14 +454,14 @@ const arrayHeapUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "2" },
-        { id: "b", label: "3" },
-        { id: "c", label: "13" },
+        { id: "a", label: "`2`" },
+        { id: "b", label: "`3`" },
+        { id: "c", label: "`13`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "That would be (6-1)//2 computed as (6-1)/2 = 2.5 rounded up. Integer division floors, it doesn't round to the nearest whole number.",
-        c: "13 comes from 2*6+1, which is the CHILD formula, not the parent formula. Parent goes the other direction: (i-1)//2.",
+        b: "That would be `(6-1)//2` computed as `(6-1)/2 = 2.5` rounded up. Integer division floors, it doesn't round to the nearest whole number.",
+        c: "`13` comes from `2*6+1`, which is the CHILD formula, not the parent formula. Parent goes the other direction: `(i-1)//2`.",
       },
       revealStep: {
         state: {
@@ -477,7 +477,7 @@ const arrayHeapUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the two index formulas so left_child and right_child compute a node's children from its array index.",
+      prompt: "Fill in the two index formulas so `left_child` and `right_child` compute a node's children from its array index.",
       code: [
         "def left_child(i):",
         "    return {{left}}",
@@ -490,13 +490,13 @@ const arrayHeapUnit: Unit = {
           id: "left",
           placeholder: "___",
           answer: "2 * i + 1",
-          explainWrong: "The left child always sits at 2 * i + 1. Using just 2 * i, or 2 * i + 2, lands on the wrong slot in the array.",
+          explainWrong: "The left child always sits at `2 * i + 1`. Using just `2 * i`, or `2 * i + 2`, lands on the wrong slot in the array.",
         },
         {
           id: "right",
           placeholder: "___",
           answer: "2 * i + 2",
-          explainWrong: "The right child sits one slot after the left child, at 2 * i + 2, not 2 * i + 1, which is the left child's formula.",
+          explainWrong: "The right child sits one slot after the left child, at `2 * i + 2`, not `2 * i + 1`, which is the left child's formula.",
         },
       ],
       tests: [
@@ -523,27 +523,27 @@ const arrayHeapUnit: Unit = {
     },
     {
       id: "dsa-heaps.array-heap.2",
-      prompt: "What is the formula for the parent of the element at array index i (for i > 0)?",
+      prompt: "What is the formula for the parent of the element at array index `i` (for `i > 0`)?",
       options: [
-        "(i - 1) // 2",
-        "2 * i + 1",
-        "i // 2 + 1",
+        "`(i - 1) // 2`",
+        "`2 * i + 1`",
+        "`i // 2 + 1`",
       ],
       correctIndex: 0,
       explainWrong:
-        "2 * i + 1 is the left CHILD formula, going the opposite direction. The parent of index i is (i - 1) // 2, using integer division to floor the result.",
+        "`2 * i + 1` is the left CHILD formula, going the opposite direction. The parent of index `i` is `(i - 1) // 2`, using integer division to floor the result.",
     },
     {
       id: "dsa-heaps.array-heap.3",
-      prompt: "For the element at array index i, what are the indices of its two children?",
+      prompt: "For the element at array index `i`, what are the indices of its two children?",
       options: [
-        "i - 1 and i + 1",
-        "2 * i + 1 and 2 * i + 2",
-        "i * 2 and i * 3",
+        "`i - 1` and `i + 1`",
+        "`2 * i + 1` and `2 * i + 2`",
+        "`i * 2` and `i * 3`",
       ],
       correctIndex: 1,
       explainWrong:
-        "Neighboring indices, or arbitrary multiples, don't describe the heap's layout. The left child is always at 2 * i + 1, and the right child at 2 * i + 2.",
+        "Neighboring indices, or arbitrary multiples, don't describe the heap's layout. The left child is always at `2 * i + 1`, and the right child at `2 * i + 2`.",
     },
   ],
 };
@@ -753,7 +753,7 @@ const heapsortPqUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in which child percolate_down should compare against and swap with, when both children exist.",
+      prompt: "Fill in which child `percolate_down` should compare against and swap with, when both children exist.",
       code: [
         "def pick_swap_child(left_value, right_value):",
         "    # percolate_down always swaps with whichever child is {{choice}}",
@@ -765,7 +765,7 @@ const heapsortPqUnit: Unit = {
           placeholder: "___",
           answer: "larger",
           explainWrong:
-            "Swapping with the smaller child would push a small value up and could still leave a bigger child above a smaller parent. percolate_down always compares against, and swaps with, whichever child is LARGER.",
+            "Swapping with the smaller child would push a small value up and could still leave a bigger child above a smaller parent. `percolate_down` always compares against, and swaps with, whichever child is LARGER.",
         },
       ],
       tests: [
@@ -857,7 +857,7 @@ const applyHeapsUnit: Unit = {
         { input: "`nums = [9, 3, 7, 1, 5]`, `k = 2`", output: "`[1, 3]`", explanation: "The two smallest values, ascending." },
       ],
       constraints: ["`0 <= i` (a valid array index)", "`1 <= k <= len(nums)`"],
-      bigO: { fn: "k_smallest", answer: "O(n log n)", explain: "`parent_index` is O(1) index math, but the dominant call is `heapq.nsmallest`, which is O(n log k); closest offered option is `O(n log n)`." },
+      bigO: { fn: "k_smallest", answer: "O(n log n)", explain: "`parent_index` is `O(1)` index math, but the dominant call is `heapq.nsmallest`, which is `O(n log k)`; closest offered option is `O(n log n)`." },
       starter:
         "import heapq\n\ndef parent_index(i):\n    # your code here\n    pass\n\ndef k_smallest(nums, k):\n    # use heapq to return the k smallest values from nums, ascending\n    pass\n",
       solution:
@@ -880,27 +880,27 @@ const applyHeapsUnit: Unit = {
   recall: [
     {
       id: "dsa-heaps.apply-heaps.1",
-      prompt: "What does heapq.nsmallest(k, nums) return?",
+      prompt: "What does `heapq.nsmallest(k, nums)` return?",
       options: [
-        "The k smallest values from nums, in ascending order",
-        "The single smallest value, repeated k times",
-        "The whole list nums, unchanged",
+        "The `k` smallest values from `nums`, in ascending order",
+        "The single smallest value, repeated `k` times",
+        "The whole list `nums`, unchanged",
       ],
       correctIndex: 0,
       explainWrong:
-        "It's not a repeated single value or a no-op. heapq.nsmallest(k, nums) uses a heap internally to efficiently find and return exactly the k smallest values from nums, sorted ascending.",
+        "It's not a repeated single value or a no-op. `heapq.nsmallest(k, nums)` uses a heap internally to efficiently find and return exactly the `k` smallest values from `nums`, sorted ascending.",
     },
     {
       id: "dsa-heaps.apply-heaps.2",
-      prompt: "Why write parent_index(i) as (i - 1) // 2 instead of (i - 1) / 2?",
+      prompt: "Why write `parent_index(i)` as `(i - 1) // 2` instead of `(i - 1) / 2`?",
       options: [
-        "// performs integer division, flooring to a whole index; / would give a float, which isn't a valid array index",
+        "`//` performs integer division, flooring to a whole index; `/` would give a float, which isn't a valid array index",
         "There's no difference; both always give the same result",
-        "/ is faster to compute than //",
+        "`/` is faster to compute than `//`",
       ],
       correctIndex: 0,
       explainWrong:
-        "They do give different results whenever (i - 1) is odd, and speed isn't the issue here. / produces a float like 2.5, which can't be used to index an array; // floors that down to a valid integer index like 2.",
+        "They do give different results whenever `(i - 1)` is odd, and speed isn't the issue here. `/` produces a float like `2.5`, which can't be used to index an array; `//` floors that down to a valid integer index like `2`.",
     },
   ],
 };

@@ -78,7 +78,7 @@ const defCallUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "def bar(n):\n    print(n * 2)\n    return n + 1\n\nx = bar(5)\nprint(x)\nWhat gets printed, in order?",
+      prompt: "`def bar(n):\n    print(n * 2)\n    return n + 1\n\nx = bar(5)\nprint(x)`\nWhat gets printed, in order?",
       steps: [
         {
           state: { nodes: [{ id: "n", label: "5", tag: "n", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -86,16 +86,16 @@ const defCallUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "10 then 6" },
-        { id: "b", label: "6 then 10" },
-        { id: "c", label: "10 then 10" },
-        { id: "d", label: "6" },
+        { id: "a", label: "`10` then `6`" },
+        { id: "b", label: "`6` then `10`" },
+        { id: "c", label: "`10` then `10`" },
+        { id: "d", label: "`6`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "print(n * 2) runs first, inside bar, before the function even returns; 10 is printed before 6, not after.",
-        c: "The second print(x) shows what bar returned, not what it printed. bar returns n + 1, which is 6, not another 10.",
-        d: "Two separate print calls both run: one inside bar (printing n * 2) and one after, printing x. Only counting one of them misses bar's own printed output.",
+        b: "`print(n * 2)` runs first, inside `bar`, before the function even returns; `10` is printed before `6`, not after.",
+        c: "The second `print(x)` shows what `bar` returned, not what it printed. `bar` returns `n + 1`, which is `6`, not another `10`.",
+        d: "Two separate `print` calls both run: one inside `bar` (printing `n * 2`) and one after, printing `x`. Only counting one of them misses `bar`'s own printed output.",
       },
       revealStep: {
         state: { nodes: [{ id: "x", label: "6", tag: "x", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -105,7 +105,7 @@ const defCallUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing keyword so double actually sends its computed value back, instead of just computing it and losing it.",
+      prompt: "Fill in the missing keyword so `double` actually sends its computed value back, instead of just computing it and losing it.",
       code: ["def double(n):", "    {{kw}} n * 2"].join("\n"),
       blanks: [
         {
@@ -113,7 +113,7 @@ const defCallUnit: Unit = {
           placeholder: "___",
           answer: "return",
           explainWrong:
-            "Without return, double computes n * 2 but never hands the value back to whoever called it; double(4) would give back None instead of 8.",
+            "Without `return`, `double` computes `n * 2` but never hands the value back to whoever called it; `double(4)` would give back `None` instead of `8`.",
         },
       ],
       tests: [
@@ -148,38 +148,38 @@ const defCallUnit: Unit = {
   recall: [
     {
       id: "py-functions.def-call.1",
-      prompt: "def square(x): return x * x defines a function. When does its body actually run?",
+      prompt: "`def square(x): return x * x` defines a function. When does its body actually run?",
       options: [
-        "Immediately, as soon as the def line finishes",
-        "Only when the function is called, like square(5)",
+        "Immediately, as soon as the `def` line finishes",
+        "Only when the function is called, like `square(5)`",
         "Only the very first time the program starts",
       ],
       correctIndex: 1,
-      explainWrong: "def only builds the function machine; it doesn't run the body. The body executes only when the function is actually called.",
+      explainWrong: "`def` only builds the function machine; it doesn't run the body. The body executes only when the function is actually called.",
     },
     {
       id: "py-functions.def-call.2",
-      prompt: "A function runs to the end without ever hitting a return statement. What does calling it give back?",
+      prompt: "A function runs to the end without ever hitting a `return` statement. What does calling it give back?",
       options: [
         "An error",
-        "None",
-        "The last value the function computed, even without return",
+        "`None`",
+        "The last value the function computed, even without `return`",
       ],
       correctIndex: 1,
       explainWrong:
-        "Falling off the end of a function without a return statement is not an error, and Python doesn't guess at a 'last computed value' either. It simply gives back None.",
+        "Falling off the end of a function without a `return` statement is not an error, and Python doesn't guess at a 'last computed value' either. It simply gives back `None`.",
     },
     {
       id: "py-functions.def-call.3",
-      prompt: 'def greet(name): print("Hi " + name), with no return line. What\'s the difference between what greet("Sam") prints and what it returns?',
+      prompt: '`def greet(name): print("Hi " + name)`, with no `return` line. What\'s the difference between what `greet("Sam")` prints and what it returns?',
       options: [
-        'It prints "Hi Sam" as a side effect, but returns None since there\'s no return statement',
-        'It returns "Hi Sam" and prints None',
-        'It both prints and returns "Hi Sam"',
+        'It prints `"Hi Sam"` as a side effect, but returns `None` since there\'s no `return` statement',
+        'It returns `"Hi Sam"` and prints `None`',
+        'It both prints and returns `"Hi Sam"`',
       ],
       correctIndex: 0,
       explainWrong:
-        "print() and return do different jobs: print() only displays text as a side effect, it doesn't hand a value back. Since greet has no return statement, calling it gives back None, even though the greeting was printed.",
+        "`print()` and `return` do different jobs: `print()` only displays text as a side effect, it doesn't hand a value back. Since `greet` has no `return` statement, calling it gives back `None`, even though the greeting was printed.",
     },
   ],
 };
@@ -271,7 +271,7 @@ const callStackUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "def inner():\n    return 1\n\ndef middle():\n    x = inner()\n    return x + 1\n\ndef outer():\n    y = middle()\n    return y + 1\n\nouter()\nAt the moment inner() is running, which frames are on the stack, listed from bottom to top?",
+        "`def inner():\n    return 1\n\ndef middle():\n    x = inner()\n    return x + 1\n\ndef outer():\n    y = middle()\n    return y + 1\n\nouter()`\nAt the moment `inner()` is running, which frames are on the stack, listed from bottom to top?",
       steps: [
         {
           state: {
@@ -282,16 +282,16 @@ const callStackUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "outer, middle, inner" },
-        { id: "b", label: "inner, middle, outer" },
-        { id: "c", label: "outer, inner" },
-        { id: "d", label: "middle, inner" },
+        { id: "a", label: "`outer, middle, inner`" },
+        { id: "b", label: "`inner, middle, outer`" },
+        { id: "c", label: "`outer, inner`" },
+        { id: "d", label: "`middle, inner`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "The stack grows in call order, not reverse: outer, called first, stays at the bottom, and inner, called last, ends up on top.",
-        c: "middle is missing here, but middle is the one that actually calls inner; its frame is still on the stack, paused between outer and inner.",
-        d: "outer is missing. It's still paused at the very bottom of the stack the whole time, waiting for middle, and in turn inner, to finish.",
+        b: "The stack grows in call order, not reverse: `outer`, called first, stays at the bottom, and `inner`, called last, ends up on top.",
+        c: "`middle` is missing here, but `middle` is the one that actually calls `inner`; its frame is still on the stack, paused between `outer` and `inner`.",
+        d: "`outer` is missing. It's still paused at the very bottom of the stack the whole time, waiting for `middle`, and in turn `inner`, to finish.",
       },
       revealStep: {
         state: {
@@ -309,7 +309,7 @@ const callStackUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "def helper():\n    z = 99\n    return z\n\ndef main2():\n    result = helper()\n    return result\n\nmain2()\nAfter helper() returns, can you still reach z anywhere?",
+        "`def helper():\n    z = 99\n    return z\n\ndef main2():\n    result = helper()\n    return result\n\nmain2()`\nAfter `helper()` returns, can you still reach `z` anywhere?",
       steps: [
         {
           state: {
@@ -320,14 +320,14 @@ const callStackUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "Yes, z still exists inside helper's frame" },
-        { id: "b", label: "No, z was destroyed the moment helper's frame popped off the stack" },
-        { id: "c", label: "Yes, but only from inside main2" },
+        { id: "a", label: "Yes, `z` still exists inside `helper`'s frame" },
+        { id: "b", label: "No, `z` was destroyed the moment `helper`'s frame popped off the stack" },
+        { id: "c", label: "Yes, but only from inside `main2`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "helper's frame, and every local variable inside it including z, is removed from the stack as soon as helper returns. It doesn't linger for later use.",
-        c: "main2 never had its own z; it only received helper's returned value through result. z itself lived solely inside helper's now-gone frame.",
+        a: "`helper`'s frame, and every local variable inside it including `z`, is removed from the stack as soon as `helper` returns. It doesn't linger for later use.",
+        c: "`main2` never had its own `z`; it only received `helper`'s returned value through `result`. `z` itself lived solely inside `helper`'s now-gone frame.",
       },
       revealStep: {
         state: {
@@ -340,7 +340,7 @@ const callStackUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing keyword so square_it actually sends its result back to the caller.",
+      prompt: "Fill in the missing keyword so `square_it` actually sends its result back to the caller.",
       code: ["def square_it(n):", "    value = n * n", "    {{kw}} value"].join("\n"),
       blanks: [
         {
@@ -348,7 +348,7 @@ const callStackUnit: Unit = {
           placeholder: "___",
           answer: "return",
           explainWrong:
-            "Without return, square_it computes value but never sends it back; calling square_it(4) would give back None instead of 16, since a function with no return statement always returns None.",
+            "Without `return`, `square_it` computes `value` but never sends it back; calling `square_it(4)` would give back `None` instead of `16`, since a function with no `return` statement always returns `None`.",
         },
       ],
       tests: [
@@ -400,15 +400,15 @@ const callStackUnit: Unit = {
     },
     {
       id: "py-functions.call-stack.2",
-      prompt: "In outer() calling middle() calling inner(), which frame sits at the very bottom of the stack the entire time?",
+      prompt: "In `outer()` calling `middle()` calling `inner()`, which frame sits at the very bottom of the stack the entire time?",
       options: [
-        "outer, since it was called first and is still paused waiting for the others to finish",
-        "middle, since it's in between",
-        "inner, since it's running most recently",
+        "`outer`, since it was called first and is still paused waiting for the others to finish",
+        "`middle`, since it's in between",
+        "`inner`, since it's running most recently",
       ],
       correctIndex: 0,
       explainWrong:
-        "The first frame pushed stays at the bottom until everything above it finishes. That's outer here; middle and inner are stacked above it and are the ones that come and go.",
+        "The first frame pushed stays at the bottom until everything above it finishes. That's `outer` here; `middle` and `inner` are stacked above it and are the ones that come and go.",
     },
     {
       id: "py-functions.call-stack.3",
@@ -510,7 +510,7 @@ const scopeUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "x = 10\n\ndef show():\n    x = 20\n    print(x)\n\nshow()\nprint(x)\nWhat do the two print calls output, in order?",
+      prompt: "`x = 10\n\ndef show():\n    x = 20\n    print(x)\n\nshow()\nprint(x)`\nWhat do the two `print` calls output, in order?",
       steps: [
         {
           state: { nodes: [{ id: "gx", label: "10", tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
@@ -518,16 +518,16 @@ const scopeUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "20 then 20" },
-        { id: "b", label: "20 then 10" },
-        { id: "c", label: "10 then 20" },
-        { id: "d", label: "10 then 10" },
+        { id: "a", label: "`20` then `20`" },
+        { id: "b", label: "`20` then `10`" },
+        { id: "c", label: "`10` then `20`" },
+        { id: "d", label: "`10` then `10`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "The second print(x) runs outside show(), where only the global x exists; show()'s local x = 20 never reaches out and changes it.",
-        c: "The order is reversed: show()'s print(x) runs first and reads its own local x = 20, not the global 10.",
-        d: "Inside show(), x = 20 creates a local x that shadows the global one, so the first print reads 20, not the untouched global value.",
+        a: "The second `print(x)` runs outside `show()`, where only the global `x` exists; `show()`'s local `x = 20` never reaches out and changes it.",
+        c: "The order is reversed: `show()`'s `print(x)` runs first and reads its own local `x = 20`, not the global `10`.",
+        d: "Inside `show()`, `x = 20` creates a local `x` that shadows the global one, so the first print reads `20`, not the untouched global value.",
       },
       revealStep: {
         state: { nodes: [{ id: "gx", label: "10", tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "active" }], arrows: [] },
@@ -537,7 +537,7 @@ const scopeUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "The function body below refers to n. Fill in the parameter name so n is defined when triple is called.",
+      prompt: "The function body below refers to `n`. Fill in the parameter name so `n` is defined when `triple` is called.",
       code: ["def triple({{param}}):", "    return n * 3"].join("\n"),
       blanks: [
         {
@@ -545,7 +545,7 @@ const scopeUnit: Unit = {
           placeholder: "___",
           answer: "n",
           explainWrong:
-            "The parameter name is what creates the local variable the body refers to. Naming it anything other than n leaves n undefined inside the function, and n * 3 would raise a NameError.",
+            "The parameter name is what creates the local variable the body refers to. Naming it anything other than `n` leaves `n` undefined inside the function, and `n * 3` would raise a `NameError`.",
         },
       ],
       tests: [
@@ -582,12 +582,12 @@ const scopeUnit: Unit = {
       difficulty: "Medium",
       examples: [
         {
-          input: "items = `[1, 2, 2, 3, 1]`",
+          input: "`items = [1, 2, 2, 3, 1]`",
           output: "`[1, 2, 3]`",
           explanation: "Each value's first appearance is kept, in order; later duplicates are dropped.",
         },
         {
-          input: "items = `[4, 5]`",
+          input: "`items = [4, 5]`",
           output: "a NEW list equal to `[4, 5]`",
           explanation: "The result must be `is not items`, and `items` must remain unchanged after the call.",
         },
@@ -722,7 +722,7 @@ const applyFunctionsUnit: Unit = {
   recall: [
     {
       id: "py-functions.apply-functions.1",
-      prompt: 'Why refactor three separate "price * 1.08" calculations into one with_tax(price) function?',
+      prompt: 'Why refactor three separate `"price * 1.08"` calculations into one `with_tax(price)` function?',
       options: [
         "So the tax rate only needs updating in one place if it ever changes",
         "Because Python requires functions for any math",
@@ -734,15 +734,15 @@ const applyFunctionsUnit: Unit = {
     },
     {
       id: "py-functions.apply-functions.2",
-      prompt: "After refactoring, compute_totals() calls with_tax(price) three times. What does each call get?",
+      prompt: "After refactoring, `compute_totals()` calls `with_tax(price)` three times. What does each call get?",
       options: [
-        "Its own frame, with its own local price parameter, independent of the others",
-        "All three calls share the same frame and price value",
+        "Its own frame, with its own local `price` parameter, independent of the others",
+        "All three calls share the same frame and `price` value",
         "Only the first call actually runs; the rest are skipped",
       ],
       correctIndex: 0,
       explainWrong:
-        "Every call to with_tax pushes a fresh frame with its own local price, just like any other function call. The calls don't share a frame, and none of them are skipped.",
+        "Every call to `with_tax` pushes a fresh frame with its own local `price`, just like any other function call. The calls don't share a frame, and none of them are skipped.",
     },
   ],
 };

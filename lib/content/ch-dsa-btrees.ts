@@ -89,7 +89,7 @@ const whyBtreesUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "A 2-3-4 tree node can hold up to 3 keys. How many children does a node with exactly 3 keys have?",
+      prompt: "A `2-3-4` tree node can hold up to `3` keys. How many children does a node with exactly `3` keys have?",
       steps: [
         {
           state: {
@@ -100,13 +100,13 @@ const whyBtreesUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "4, one more than the number of keys" },
-        { id: "b", label: "3, the same as the number of keys" },
-        { id: "c", label: "6, twice the number of keys" },
+        { id: "a", label: "`4`, one more than the number of keys" },
+        { id: "b", label: "`3`, the same as the number of keys" },
+        { id: "c", label: "`6`, twice the number of keys" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "Keys divide the range of values into buckets, and there's always one more bucket than there are dividing keys. A node with 3 keys has 4 buckets, so 4 children, not 3.",
+        b: "Keys divide the range of values into buckets, and there's always one more bucket than there are dividing keys. A node with `3` keys has `4` buckets, so `4` children, not `3`.",
         c: "Children count doesn't double the key count; it's always exactly one more than the number of keys, regardless of how many keys the node holds.",
       },
       revealStep: {
@@ -128,15 +128,15 @@ const whyBtreesUnit: Unit = {
   recall: [
     {
       id: "dsa-btrees.why-btrees.1",
-      prompt: "Why can a plain BST end up much taller than a 2-3-4 tree holding the exact same values?",
+      prompt: "Why can a plain BST end up much taller than a `2-3-4` tree holding the exact same values?",
       options: [
-        "A BST holds only one key per node, so a skewed insertion order can produce a long chain, while a 2-3-4 node can hold up to 3 keys at once",
-        "A BST always sorts its values differently than a 2-3-4 tree",
-        "2-3-4 trees only work with a small, fixed number of values",
+        "A BST holds only one key per node, so a skewed insertion order can produce a long chain, while a `2-3-4` node can hold up to `3` keys at once",
+        "A BST always sorts its values differently than a `2-3-4` tree",
+        "`2-3-4` trees only work with a small, fixed number of values",
       ],
       correctIndex: 0,
       explainWrong:
-        "Both structures maintain the same sorted order of values; that's not the difference. It's capacity per node: a BST node holds exactly one key, so a bad insertion order stretches it into a long chain, while a 2-3-4 node holding up to 3 keys packs the same values into far fewer levels.",
+        "Both structures maintain the same sorted order of values; that's not the difference. It's capacity per node: a BST node holds exactly one key, so a bad insertion order stretches it into a long chain, while a `2-3-4` node holding up to `3` keys packs the same values into far fewer levels.",
     },
     {
       id: "dsa-btrees.why-btrees.2",
@@ -243,7 +243,7 @@ const search234Unit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "In a node holding keys 15 | 35 | 55, which child do you descend into while searching for 45?",
+      prompt: "In a node holding keys `15 | 35 | 55`, which child do you descend into while searching for `45`?",
       steps: [
         {
           state: {
@@ -254,14 +254,14 @@ const search234Unit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "The 3rd child, between 35 and 55" },
-        { id: "b", label: "The 1st child, before 15" },
-        { id: "c", label: "The 4th (last) child, after 55" },
+        { id: "a", label: "The 3rd child, between `35` and `55`" },
+        { id: "b", label: "The 1st child, before `15`" },
+        { id: "c", label: "The 4th (last) child, after `55`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "The first child only holds values less than the smallest key, 15. 45 is far bigger than 15, so that's the wrong bucket entirely.",
-        c: "The last child only holds values greater than every key, including 55. 45 is less than 55, so it doesn't belong past the last key.",
+        b: "The first child only holds values less than the smallest key, `15`. `45` is far bigger than `15`, so that's the wrong bucket entirely.",
+        c: "The last child only holds values greater than every key, including `55`. `45` is less than `55`, so it doesn't belong past the last key.",
       },
       revealStep: {
         state: {
@@ -277,7 +277,7 @@ const search234Unit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing comparison so pick_bucket correctly decides whether the search value belongs to the LAST child of a node.",
+      prompt: "Fill in the missing comparison so `pick_bucket` correctly decides whether the search value belongs to the LAST child of a node.",
       code: [
         "def is_last_bucket(search_value, largest_key):",
         "    return search_value {{cmp}} largest_key",
@@ -288,7 +288,7 @@ const search234Unit: Unit = {
           placeholder: "___",
           answer: ">",
           explainWrong:
-            "The last child holds values greater than every key in the node, including the largest one. Using >= would incorrectly route a value EQUAL to the largest key into the last child, when it should match that key directly instead.",
+            "The last child holds values greater than every key in the node, including the largest one. Using `>=` would incorrectly route a value EQUAL to the largest key into the last child, when it should match that key directly instead.",
         },
       ],
       tests: [
@@ -301,7 +301,7 @@ const search234Unit: Unit = {
   recall: [
     {
       id: "dsa-btrees.search-234.1",
-      prompt: "While searching a 2-3-4 tree node, when do you descend into the FIRST child?",
+      prompt: "While searching a `2-3-4` tree node, when do you descend into the FIRST child?",
       options: [
         "When the search value is less than the smallest key in the node",
         "When the search value equals the smallest key",
@@ -436,7 +436,7 @@ const insertSplitUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "A node holding keys 5, 15, 25 (full, a 4-node) is about to be split during an insert. Which key rises into the parent?",
+      prompt: "A node holding keys `5, 15, 25` (full, a `4-node`) is about to be split during an insert. Which key rises into the parent?",
       steps: [
         {
           state: {
@@ -447,14 +447,14 @@ const insertSplitUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "15, the middle key" },
-        { id: "b", label: "5, the smallest key" },
-        { id: "c", label: "25, the largest key" },
+        { id: "a", label: "`15`, the middle key" },
+        { id: "b", label: "`5`, the smallest key" },
+        { id: "c", label: "`25`, the largest key" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "Sending the smallest key up would leave the two larger keys, 15 and 25, together in one child, unevenly splitting the node. Splitting always promotes the MIDDLE key specifically.",
-        c: "Sending the largest key up would leave the two smaller keys, 5 and 15, together, again splitting unevenly. It's always the middle key, 15, that rises, leaving one key on each side.",
+        b: "Sending the smallest key up would leave the two larger keys, `15` and `25`, together in one child, unevenly splitting the node. Splitting always promotes the MIDDLE key specifically.",
+        c: "Sending the largest key up would leave the two smaller keys, `5` and `15`, together, again splitting unevenly. It's always the middle key, `15`, that rises, leaving one key on each side.",
       },
       revealStep: {
         state: {
@@ -484,7 +484,7 @@ const insertSplitUnit: Unit = {
           placeholder: "___",
           answer: "==",
           explainWrong:
-            "A node is split exactly when it's already full, holding the maximum of 3 keys; using > would never trigger, since a node's key count never legally exceeds 3 in the first place. The condition is current_key_count == MAX_KEYS.",
+            "A node is split exactly when it's already full, holding the maximum of `3` keys; using `>` would never trigger, since a node's key count never legally exceeds `3` in the first place. The condition is `current_key_count == MAX_KEYS`.",
         },
       ],
       tests: [
@@ -497,7 +497,7 @@ const insertSplitUnit: Unit = {
   recall: [
     {
       id: "dsa-btrees.insert-split.1",
-      prompt: "When does a 2-3-4 tree split a node during an insert?",
+      prompt: "When does a `2-3-4` tree split a node during an insert?",
       options: [
         "Preemptively, the moment the insert path reaches a full node, before descending into it",
         "Only after a node has been given a 4th key, exceeding its capacity",
@@ -521,15 +521,15 @@ const insertSplitUnit: Unit = {
     },
     {
       id: "dsa-btrees.insert-split.3",
-      prompt: "Why does preemptive splitting keep a 2-3-4 tree from growing taller with every insert, unlike a plain BST?",
+      prompt: "Why does preemptive splitting keep a `2-3-4` tree from growing taller with every insert, unlike a plain BST?",
       options: [
         "Splitting grows the tree sideways, adding a key to a node that already has room, instead of always adding a brand-new node one level deeper",
         "It doesn't; both structures grow taller by the same amount on every insert",
-        "Because 2-3-4 trees limit how many values they can ever hold",
+        "Because `2-3-4` trees limit how many values they can ever hold",
       ],
       correctIndex: 0,
       explainWrong:
-        "Both claims are false: the two structures behave very differently, and 2-3-4 trees have no cap on total values. A BST insert always adds one brand-new, deeper node; a B-tree insert usually just adds a key to an existing node, only growing height on the rare occasion a split reaches all the way to the root.",
+        "Both claims are false: the two structures behave very differently, and `2-3-4` trees have no cap on total values. A BST insert always adds one brand-new, deeper node; a B-tree insert usually just adds a key to an existing node, only growing height on the rare occasion a split reaches all the way to the root.",
     },
   ],
 };
@@ -622,7 +622,7 @@ const removeRotateFuseUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "A node underflows to 0 keys after a removal. Its sibling currently holds 2 keys. What fixes the underflow?",
+      prompt: "A node underflows to `0` keys after a removal. Its sibling currently holds `2` keys. What fixes the underflow?",
       steps: [
         {
           state: {
@@ -638,11 +638,11 @@ const removeRotateFuseUnit: Unit = {
       options: [
         { id: "a", label: "Rotation: borrow a key through the parent, since the sibling has one to spare" },
         { id: "b", label: "Fusion: merge with the sibling and the parent's key" },
-        { id: "c", label: "Nothing; a node with 0 keys is left as-is" },
+        { id: "c", label: "Nothing; a node with `0` keys is left as-is" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "Fusion is reserved for when the sibling ALSO has no spare key to lend. Since this sibling has 2 keys, there's a cheaper fix available first: rotation.",
+        b: "Fusion is reserved for when the sibling ALSO has no spare key to lend. Since this sibling has `2` keys, there's a cheaper fix available first: rotation.",
         c: "An empty node violates the tree's minimum-key rule and can't be left as-is; it always gets repaired immediately, either by rotation or fusion, whichever applies.",
       },
       revealStep: {
@@ -671,7 +671,7 @@ const removeRotateFuseUnit: Unit = {
           placeholder: "___",
           answer: ">",
           explainWrong:
-            "If the sibling has exactly 1 key, lending it away would underflow the sibling too, so that case must fuse instead. Rotation is only possible when the sibling has MORE than the bare minimum, meaning sibling_key_count > 1.",
+            "If the sibling has exactly `1` key, lending it away would underflow the sibling too, so that case must fuse instead. Rotation is only possible when the sibling has MORE than the bare minimum, meaning `sibling_key_count > 1`.",
         },
       ],
       tests: [

@@ -4,6 +4,7 @@ import type { FillinRung } from "@/lib/types";
 import { loadPy } from "@/lib/engine/pyodide";
 import { runWithTests } from "@/lib/engine/runner";
 import { CodePane } from "./CodePane";
+import { Rich } from "./Rich";
 
 export interface FillinPaneProps { rung: FillinRung; onPass: () => void; onReview: (stepIndex: number) => void }
 
@@ -37,7 +38,7 @@ export function FillinPane({ rung, onPass, onReview }: FillinPaneProps) {
   const parts = rung.code.split(/(\{\{\w+\}\})/);
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-lg font-medium text-ink">{rung.prompt}</p>
+      <p className="text-lg font-medium text-ink"><Rich text={rung.prompt} /></p>
       <CodePane failures={failures} viz={viz} passed={passed} failCount={failCount} running={running}
         onContinue={onPass} onReview={() => onReview(rung.reviewStep)} onRun={run}>
         <pre className="whitespace-pre-wrap rounded-xl border border-hairline bg-card p-4 font-mono text-[13px] leading-relaxed text-ink">

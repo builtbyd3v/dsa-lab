@@ -345,7 +345,7 @@ const representationsUnit: Unit = {
           placeholder: "___",
           answer: "matrix",
           explainWrong:
-            "An adjacency list needs to scan through a vertex's whole neighbor list to check for one specific edge. A matrix gives that answer in one direct lookup, graph[i][j], which is why it's the faster structure for that specific question.",
+            "An adjacency list needs to scan through a vertex's whole neighbor list to check for one specific edge. A matrix gives that answer in one direct lookup, `graph[i][j]`, which is why it's the faster structure for that specific question.",
         },
       ],
       tests: [
@@ -531,7 +531,7 @@ const bfsUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "BFS from S has just dequeued A and enqueued its unvisited neighbor C. The queue is now [B, C]. Which node does BFS visit next?",
+        "BFS from S has just dequeued A and enqueued its unvisited neighbor C. The queue is now `[B, C]`. Which node does BFS visit next?",
       steps: [
         {
           state: {
@@ -573,7 +573,7 @@ const bfsUnit: Unit = {
           placeholder: "___",
           answer: "deque",
           explainWrong:
-            "A deque (used as a FIFO queue) is what gives BFS its level-by-level order: the oldest discovered node comes out first. A stack would visit the most recently discovered node first instead, which is DFS's behavior, not BFS's.",
+            "A `deque` (used as a FIFO queue) is what gives BFS its level-by-level order: the oldest discovered node comes out first. A stack would visit the most recently discovered node first instead, which is DFS's behavior, not BFS's.",
         },
       ],
       tests: [
@@ -1104,7 +1104,7 @@ const shortestPathUnit: Unit = {
           placeholder: "___",
           answer: "<",
           explainWrong:
-            "Relaxation only updates the neighbor's distance when the new candidate path is strictly SHORTER than what's already recorded; using >= or <= would either skip real improvements or waste an update when nothing actually got shorter. The comparison must be candidate < neighbor_dist.",
+            "Relaxation only updates the neighbor's distance when the new candidate path is strictly SHORTER than what's already recorded; using `>=` or `<=` would either skip real improvements or waste an update when nothing actually got shorter. The comparison must be `candidate < neighbor_dist`.",
         },
       ],
       tests: [
@@ -1405,7 +1405,7 @@ const topoMstUnit: Unit = {
           placeholder: "___",
           answer: "==",
           explainWrong:
-            "A node is ready to emit only once ALL of its incoming edges have been removed, meaning its in-degree has reached exactly 0, not just dropped below some other threshold. The condition is node_in_degree == 0.",
+            "A node is ready to emit only once ALL of its incoming edges have been removed, meaning its in-degree has reached exactly 0, not just dropped below some other threshold. The condition is `node_in_degree == 0`.",
         },
       ],
       tests: [

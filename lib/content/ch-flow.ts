@@ -98,7 +98,7 @@ const branchingUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "temp = 65\nif temp > 90:\n    print(\"scorching\")\nelif temp > 80:\n    print(\"hot\")\nelif temp > 60:\n    print(\"warm\")\nelse:\n    print(\"cool\")\nWhich line prints?",
+        "`temp = 65\nif temp > 90:\n    print(\"scorching\")\nelif temp > 80:\n    print(\"hot\")\nelif temp > 60:\n    print(\"warm\")\nelse:\n    print(\"cool\")`\nWhich line prints?",
       steps: [
         {
           state: {
@@ -109,16 +109,16 @@ const branchingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "scorching" },
-        { id: "b", label: "hot" },
-        { id: "c", label: "warm" },
-        { id: "d", label: "cool" },
+        { id: "a", label: "`scorching`" },
+        { id: "b", label: "`hot`" },
+        { id: "c", label: "`warm`" },
+        { id: "d", label: "`cool`" },
       ],
       correctId: "c",
       explainWrong: {
-        a: "65 is not above 90, so this branch's condition is False and its print never runs.",
-        b: "65 is not above 80 either; Python already moves past this elif before reaching a condition that's actually True.",
-        d: "cool only prints when every condition above it is False, but 65 > 60 is True, so the warm branch runs before Python ever reaches else.",
+        a: "`65` is not above `90`, so this branch's condition is False and its print never runs.",
+        b: "`65` is not above `80` either; Python already moves past this `elif` before reaching a condition that's actually True.",
+        d: "`cool` only prints when every condition above it is False, but `65 > 60` is True, so the `warm` branch runs before Python ever reaches `else`.",
       },
       revealStep: {
         state: {
@@ -138,7 +138,7 @@ const branchingUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison so temperatures above 60 (but not above 90) get labeled \"warm\".",
+      prompt: "Fill in the comparison so temperatures above `60` (but not above `90`) get labeled `\"warm\"`.",
       code: [
         'temp = 72',
         'if temp > 90:',
@@ -154,7 +154,7 @@ const branchingUnit: Unit = {
           placeholder: "___",
           answer: ">",
           explainWrong:
-            "elif needs temp > 60 here. A different comparison would either mislabel 60 itself or fail to draw the line between warm and cool in the right place.",
+            "`elif` needs `temp > 60` here. A different comparison would either mislabel `60` itself or fail to draw the line between `warm` and `cool` in the right place.",
         },
       ],
       tests: [
@@ -171,9 +171,9 @@ const branchingUnit: Unit = {
         "Given an integer `score`, return the letter grade as a string: `\"A\"` for `score >= 90`, `\"B\"` for `score >= 80`, `\"C\"` for `score >= 70`, and `\"F\"` otherwise.",
       difficulty: "Easy",
       examples: [
-        { input: "score = 95", output: "\"A\"", explanation: "95 is at least 90." },
-        { input: "score = 82", output: "\"B\"", explanation: "82 is below 90 but at least 80." },
-        { input: "score = 50", output: "\"F\"", explanation: "50 doesn't reach any of the earlier cutoffs." },
+        { input: "`score = 95`", output: "`\"A\"`", explanation: "`95` is at least `90`." },
+        { input: "`score = 82`", output: "`\"B\"`", explanation: "`82` is below `90` but at least `80`." },
+        { input: "`score = 50`", output: "`\"F\"`", explanation: "`50` doesn't reach any of the earlier cutoffs." },
       ],
       constraints: ["`0 <= score <= 100`", "Cutoffs are inclusive: `score = 90` counts as `\"A\"`, `score = 80` counts as `\"B\"`"],
       bigO: { answer: "O(1)", explain: "`letter_grade` checks a fixed handful of `if`/`elif` conditions regardless of `score`'s value." },
@@ -194,19 +194,19 @@ const branchingUnit: Unit = {
   recall: [
     {
       id: "py-flow.branching.1",
-      prompt: "If multiple elif conditions would each be True, how many of their branches run?",
+      prompt: "If multiple `elif` conditions would each be True, how many of their branches run?",
       options: [
         "All of them, in order",
         "Only the first one whose condition is True",
-        "None, because elif always defers to else",
+        "None, because `elif` always defers to `else`",
       ],
       correctIndex: 1,
       explainWrong:
-        "elif chains stop at the first True condition. Every later elif and any else are skipped, no matter how many of them would also have been True.",
+        "`elif` chains stop at the first True condition. Every later `elif` and any `else` are skipped, no matter how many of them would also have been True.",
     },
     {
       id: "py-flow.branching.2",
-      prompt: "In an if/elif/else chain, when does the else branch run?",
+      prompt: "In an `if`/`elif`/`else` chain, when does the `else` branch run?",
       options: [
         "Whenever any condition changes",
         "Only when every condition above it was False",
@@ -214,20 +214,20 @@ const branchingUnit: Unit = {
       ],
       correctIndex: 1,
       explainWrong:
-        "else carries no condition of its own. It's a catch-all that only executes when every if and elif above it evaluated to False.",
+        "`else` carries no condition of its own. It's a catch-all that only executes when every `if` and `elif` above it evaluated to False.",
     },
     {
       id: "py-flow.branching.3",
       prompt:
-        "score = 90 with `if score >= 90: ...` then `elif score >= 90: ...` (the same condition twice). Which branch runs?",
+        "`score = 90` with `if score >= 90: ...` then `elif score >= 90: ...` (the same condition twice). Which branch runs?",
       options: [
         "Both, since both conditions are True",
-        "Only the if branch; the elif is never even checked",
-        "Only the elif branch, since it comes second",
+        "Only the `if` branch; the `elif` is never even checked",
+        "Only the `elif` branch, since it comes second",
       ],
       correctIndex: 1,
       explainWrong:
-        "Once the if branch's condition is True, Python runs it and skips the rest of the chain. It never even evaluates the elif's condition to notice it was also True.",
+        "Once the `if` branch's condition is True, Python runs it and skips the rest of the chain. It never even evaluates the `elif`'s condition to notice it was also True.",
     },
   ],
 };
@@ -335,7 +335,7 @@ const whileUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "n = 5\nwhile n > 2:\n    n -= 1\nHow many times does the loop body run?",
+      prompt: "`n = 5\nwhile n > 2:\n    n -= 1`\nHow many times does the loop body run?",
       steps: [
         {
           state: {
@@ -346,14 +346,14 @@ const whileUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "2" },
-        { id: "b", label: "3" },
-        { id: "c", label: "5" },
+        { id: "a", label: "`2`" },
+        { id: "b", label: "`3`" },
+        { id: "c", label: "`5`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "2 is how far n drops in total (5 down to 2), not the number of times the body executes.",
-        c: "5 is n's starting value, not a count of iterations. The loop stops as soon as n reaches 2, well before it could reach 0.",
+        a: "`2` is how far `n` drops in total (`5` down to `2`), not the number of times the body executes.",
+        c: "`5` is `n`'s starting value, not a count of iterations. The loop stops as soon as `n` reaches `2`, well before it could reach `0`.",
       },
       revealStep: {
         state: {
@@ -369,7 +369,7 @@ const whileUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the condition so the loop keeps counting up until count reaches 5.",
+      prompt: "Fill in the condition so the loop keeps counting up until `count` reaches `5`.",
       code: ["count = 0", "while count {{op}} 5:", "    count += 1"].join("\n"),
       blanks: [
         {
@@ -377,7 +377,7 @@ const whileUnit: Unit = {
           placeholder: "___",
           answer: "<",
           explainWrong:
-            "The loop needs to keep running while count is still less than 5. Any other comparison would either stop it immediately or let it run forever.",
+            "The loop needs to keep running while `count` is still less than `5`. Any other comparison would either stop it immediately or let it run forever.",
         },
       ],
       tests: [
@@ -394,8 +394,8 @@ const whileUnit: Unit = {
         "Given a positive integer `n`, return a list counting down from `n` to `1` inclusive, built using a `while` loop.",
       difficulty: "Easy",
       examples: [
-        { input: "n = 3", output: "[3, 2, 1]" },
-        { input: "n = 1", output: "[1]", explanation: "The loop still runs once when `n` starts at `1`." },
+        { input: "`n = 3`", output: "`[3, 2, 1]`" },
+        { input: "`n = 1`", output: "`[1]`", explanation: "The loop still runs once when `n` starts at `1`." },
       ],
       constraints: ["`1 <= n <= 10^4`", "Use a `while` loop, not a `for` loop"],
       bigO: { answer: "O(n)", explain: "`countdown_list` runs its `while` loop once per number from `n` down to `1`." },
@@ -423,7 +423,7 @@ const whileUnit: Unit = {
   recall: [
     {
       id: "py-flow.while.1",
-      prompt: "A while loop's condition is already False before the loop starts. How many times does the body run?",
+      prompt: "A `while` loop's condition is already False before the loop starts. How many times does the body run?",
       options: [
         "Once, to check the condition first",
         "Zero times; the condition is checked before every pass, including the first",
@@ -431,23 +431,23 @@ const whileUnit: Unit = {
       ],
       correctIndex: 1,
       explainWrong:
-        "while checks its condition before each pass, including the very first one. If it's False from the start, the body never runs at all.",
+        "`while` checks its condition before each pass, including the very first one. If it's False from the start, the body never runs at all.",
     },
     {
       id: "py-flow.while.2",
-      prompt: "What actually causes an infinite loop in a while statement?",
+      prompt: "What actually causes an infinite loop in a `while` statement?",
       options: [
-        "Using >= instead of >",
+        "Using `>=` instead of `>`",
         "The condition never becoming False because nothing inside the loop changes the value it depends on",
         "Forgetting a colon after the condition",
       ],
       correctIndex: 1,
       explainWrong:
-        "A missing colon is a syntax error, not an infinite loop, and the choice of >= versus > alone doesn't cause one either. An infinite loop happens when the body never updates the variable the condition depends on, so the condition stays True forever.",
+        "A missing colon is a syntax error, not an infinite loop, and the choice of `>=` versus `>` alone doesn't cause one either. An infinite loop happens when the body never updates the variable the condition depends on, so the condition stays True forever.",
     },
     {
       id: "py-flow.while.3",
-      prompt: "Where should code that updates the loop's condition variable (like n -= 1) usually go?",
+      prompt: "Where should code that updates the loop's condition variable (like `n -= 1`) usually go?",
       options: [
         "Before the while statement, once",
         "Somewhere inside the loop body, so it runs every pass",
@@ -562,7 +562,7 @@ const forRangeUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "nums = [4, 1, 3]\ntotal = 0\nfor n in nums:\n    total += n\nWhat is total after the loop finishes?",
+      prompt: "`nums = [4, 1, 3]\ntotal = 0\nfor n in nums:\n    total += n`\nWhat is `total` after the loop finishes?",
       steps: [
         {
           state: {
@@ -578,14 +578,14 @@ const forRangeUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "8" },
-        { id: "b", label: "4" },
-        { id: "c", label: "3" },
+        { id: "a", label: "`8`" },
+        { id: "b", label: "`4`" },
+        { id: "c", label: "`3`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "4 is only the first item nums visits, not the running sum after all three have been added.",
-        c: "3 is the last item added, but total keeps every item added before it too, not just the final one.",
+        b: "`4` is only the first item `nums` visits, not the running sum after all three have been added.",
+        c: "`3` is the last item added, but `total` keeps every item added before it too, not just the final one.",
       },
       revealStep: {
         state: {
@@ -603,20 +603,20 @@ const forRangeUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the range so the loop adds every whole number from 1 through 4 into total.",
+      prompt: "Fill in the range so the loop adds every whole number from `1` through `4` into `total`.",
       code: ["total = 0", "for i in range({{start}}, {{stop}}):", "    total += i"].join("\n"),
       blanks: [
         {
           id: "start",
           placeholder: "___",
           answer: "1",
-          explainWrong: "range's first argument is where counting begins. Starting at 0 would add an extra 0 into total that shouldn't be there.",
+          explainWrong: "`range`'s first argument is where counting begins. Starting at `0` would add an extra `0` into `total` that shouldn't be there.",
         },
         {
           id: "stop",
           placeholder: "___",
           answer: "5",
-          explainWrong: "range's second argument is exclusive, so reaching 4 requires stopping at 5, not 4.",
+          explainWrong: "`range`'s second argument is exclusive, so reaching `4` requires stopping at `5`, not `4`.",
         },
       ],
       tests: [
@@ -629,8 +629,8 @@ const forRangeUnit: Unit = {
       prompt: "Given a list of integers `nums`, return the sum of only the even numbers in `nums`, using a `for` loop.",
       difficulty: "Easy",
       examples: [
-        { input: "nums = [1, 2, 3, 4]", output: "6", explanation: "Only `2` and `4` are even." },
-        { input: "nums = [1, 3, 5]", output: "0", explanation: "None of these numbers are even." },
+        { input: "`nums = [1, 2, 3, 4]`", output: "`6`", explanation: "Only `2` and `4` are even." },
+        { input: "`nums = [1, 3, 5]`", output: "`0`", explanation: "None of these numbers are even." },
       ],
       constraints: ["`0 <= len(nums) <= 10^4`", "`nums` may contain negative numbers"],
       bigO: { answer: "O(n)", explain: "`sum_of_evens` visits every element of `nums` once in its `for` loop." },
@@ -657,34 +657,34 @@ const forRangeUnit: Unit = {
   recall: [
     {
       id: "py-flow.for-range.1",
-      prompt: "range(1, 5) produces which numbers?",
-      options: ["1, 2, 3, 4", "1, 2, 3, 4, 5", "0, 1, 2, 3, 4"],
+      prompt: "`range(1, 5)` produces which numbers?",
+      options: ["`1, 2, 3, 4`", "`1, 2, 3, 4, 5`", "`0, 1, 2, 3, 4`"],
       correctIndex: 0,
-      explainWrong: "range's stop value is exclusive: range(1, 5) counts from 1 up to but not including 5, giving 1, 2, 3, 4.",
+      explainWrong: "`range`'s stop value is exclusive: `range(1, 5)` counts from `1` up to but not including `5`, giving `1, 2, 3, 4`.",
     },
     {
       id: "py-flow.for-range.2",
-      prompt: "for p in primes: iterates over primes. What does p hold on each pass?",
+      prompt: "`for p in primes:` iterates over `primes`. What does `p` hold on each pass?",
       options: [
-        "The index of the current item, like 0, 1, 2",
+        "The index of the current item, like `0, 1, 2`",
         "The current item's value itself, not an index",
-        "The entire primes list every time",
+        "The entire `primes` list every time",
       ],
       correctIndex: 1,
       explainWrong:
-        "Looping directly over a list hands you each value in turn, not a position number. You'd need something like enumerate(primes) to also get an index.",
+        "Looping directly over a list hands you each value in turn, not a position number. You'd need something like `enumerate(primes)` to also get an index.",
     },
     {
       id: "py-flow.for-range.3",
-      prompt: "total = 0; for n in nums: total += n. What does this pattern build up?",
+      prompt: "`total = 0; for n in nums: total += n`. What does this pattern build up?",
       options: [
-        "A running sum across every item in nums",
-        "Just the value of the last item in nums",
+        "A running sum across every item in `nums`",
+        "Just the value of the last item in `nums`",
         "A new list containing every item doubled",
       ],
       correctIndex: 0,
       explainWrong:
-        "Each pass adds one more item into total using +=, so by the time the loop finishes total holds the sum of everything, not just the final item, and no new list is built.",
+        "Each pass adds one more item into `total` using `+=`, so by the time the loop finishes `total` holds the sum of everything, not just the final item, and no new list is built.",
     },
   ],
 };
@@ -735,8 +735,8 @@ const applyFlowUnit: Unit = {
         "Given an integer `n`, return `\"pingpong\"` if `n` is divisible by both `3` and `5`, `\"ping\"` if divisible by only `3`, `\"pong\"` if divisible by only `5`, and `n` itself otherwise. The combined divisible-by-`15` case must be checked first, so multiples of `15` never fall into the `ping` or `pong` branches by mistake.",
       difficulty: "Medium",
       examples: [
-        { input: "n = 9", output: "\"ping\"", explanation: "`9` is divisible by `3` but not by `5`." },
-        { input: "n = 15", output: "\"pingpong\"", explanation: "`15` is divisible by both `3` and `5`, so the combined check must win over the single checks." },
+        { input: "`n = 9`", output: "`\"ping\"`", explanation: "`9` is divisible by `3` but not by `5`." },
+        { input: "`n = 15`", output: "`\"pingpong\"`", explanation: "`15` is divisible by both `3` and `5`, so the combined check must win over the single checks." },
       ],
       constraints: ["`1 <= n <= 10^4`", "Check `n % 15 == 0` before checking `n % 3 == 0` or `n % 5 == 0`"],
       bigO: { answer: "O(1)", explain: "`ping_pong` checks a fixed set of `%` conditions regardless of `n`'s size." },
@@ -767,27 +767,27 @@ const applyFlowUnit: Unit = {
   recall: [
     {
       id: "py-flow.apply-flow.1",
-      prompt: "Why must the n % 15 == 0 check come before the n % 3 == 0 and n % 5 == 0 checks?",
+      prompt: "Why must the `n % 15 == 0` check come before the `n % 3 == 0` and `n % 5 == 0` checks?",
       options: [
         "It doesn't matter what order they're in",
-        "Because elif stops at the first True condition, a number divisible by both would get caught by the n % 3 check first if it came earlier, and never reach the combined check",
+        "Because `elif` stops at the first True condition, a number divisible by both would get caught by the `n % 3` check first if it came earlier, and never reach the combined check",
         "Because Python evaluates conditions in reverse order",
       ],
       correctIndex: 1,
       explainWrong:
-        "Order matters precisely because elif stops at the first match. If the n % 3 check came first, 15 would satisfy it and print ping, never reaching the n % 15 check meant to catch it.",
+        "Order matters precisely because `elif` stops at the first match. If the `n % 3` check came first, `15` would satisfy it and print `ping`, never reaching the `n % 15` check meant to catch it.",
     },
     {
       id: "py-flow.apply-flow.2",
-      prompt: "What should ping_pong(9) return?",
+      prompt: "What should `ping_pong(9)` return?",
       options: [
-        "\"ping\", since 9 is divisible by 3 but not 5",
-        "\"pingpong\", since 9 is divisible by 3",
-        "9, since 9 isn't divisible by 15",
+        "`\"ping\"`, since `9` is divisible by `3` but not `5`",
+        "`\"pingpong\"`, since `9` is divisible by `3`",
+        "`9`, since `9` isn't divisible by `15`",
       ],
       correctIndex: 0,
       explainWrong:
-        "9 is divisible by 3 (9 = 3 * 3) but not by 5, so it belongs in the ping branch specifically, not the combined pingpong branch or the fallback number case.",
+        "`9` is divisible by `3` (`9 = 3 * 3`) but not by `5`, so it belongs in the `ping` branch specifically, not the combined `pingpong` branch or the fallback number case.",
     },
   ],
 };

@@ -133,14 +133,14 @@ const nodesAndLinksUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "5" },
-        { id: "b", label: "8" },
-        { id: "c", label: "None" },
+        { id: "a", label: "`5`" },
+        { id: "b", label: "`8`" },
+        { id: "c", label: "`None`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "head.value would be 5, but head.next.value follows one more arrow to the second node, 8.",
-        c: "head.next reaches the second node, not the end of the list; only the second node's next is None.",
+        a: "`head.value` would be `5`, but `head.next.value` follows one more arrow to the second node, `8`.",
+        c: "`head.next` reaches the second node, not the end of the list; only the second node's `next` is `None`.",
       },
       revealStep: {
         state: {
@@ -180,13 +180,13 @@ const nodesAndLinksUnit: Unit = {
           id: "start",
           placeholder: "___",
           answer: "head",
-          explainWrong: "Traversal must begin at head, the first node, not at None or at count.",
+          explainWrong: "Traversal must begin at `head`, the first node, not at `None` or at `count`.",
         },
         {
           id: "advance",
           placeholder: "___",
           answer: "next",
-          explainWrong: "Moving to the following node means following the next arrow, not reading value.",
+          explainWrong: "Moving to the following node means following the `next` arrow, not reading `value`.",
         },
       ],
       tests: [
@@ -249,36 +249,36 @@ const nodesAndLinksUnit: Unit = {
   recall: [
     {
       id: "dsa-lists.nodes-and-links.1",
-      prompt: "In a linked list, what does a node's next pointer being None mean?",
+      prompt: "In a linked list, what does a node's `next` pointer being `None` mean?",
       options: [
         "The node is the head",
         "The node is the last node in the list",
         "The node holds no value",
       ],
       correctIndex: 1,
-      explainWrong: "None as next has nothing to do with being the head or with holding no value; it marks the end of the chain, since there is no node after it.",
+      explainWrong: "`None` as `next` has nothing to do with being the head or with holding no value; it marks the end of the chain, since there is no node after it.",
     },
     {
       id: "dsa-lists.nodes-and-links.2",
       prompt: "What is stored inside a node in a singly linked list?",
       options: [
         "Just the value",
-        "The value and a pointer to the next node",
-        "The value and pointers to both the next and previous nodes",
+        "The value and a pointer to the `next` node",
+        "The value and pointers to both the `next` and previous nodes",
       ],
       correctIndex: 1,
-      explainWrong: "A plain value alone can't form a chain, and previous pointers belong to doubly linked lists. A singly linked node holds its value plus one pointer forward, to next.",
+      explainWrong: "A plain value alone can't form a chain, and previous pointers belong to doubly linked lists. A singly linked node holds its value plus one pointer forward, to `next`.",
     },
     {
       id: "dsa-lists.nodes-and-links.3",
       prompt: "To visit every node in a list, what must you do?",
       options: [
-        "Access head.value directly for all data",
-        "Start a pointer at head and follow next arrows until reaching None",
-        "Sort the nodes by value first",
+        "Access `head.value` directly for all data",
+        "Start a pointer at `head` and follow `next` arrows until reaching `None`",
+        "Sort the nodes by `value` first",
       ],
       correctIndex: 1,
-      explainWrong: "head.value only ever gives the first node's value, and sorting isn't required to visit nodes. Traversal means walking a pointer forward one next arrow at a time until it hits None.",
+      explainWrong: "`head.value` only ever gives the first node's `value`, and sorting isn't required to visit nodes. Traversal means walking a pointer forward one `next` arrow at a time until it hits `None`.",
     },
   ],
 };
@@ -488,14 +488,14 @@ const sllInsertUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "prev.next = new_node, then new_node.next = prev.next" },
-        { id: "b", label: "new_node.next = prev.next, then prev.next = new_node" },
+        { id: "a", label: "`prev.next = new_node, then new_node.next = prev.next`" },
+        { id: "b", label: "`new_node.next = prev.next, then prev.next = new_node`" },
         { id: "c", label: "Order does not matter, both assignments are equivalent" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "Setting prev.next first overwrites the only pointer to the rest of the list before the new node grabs it, permanently losing every node after prev.",
-        c: "Order matters: if prev.next is overwritten first, the reference to the rest of the list is gone before new_node.next can capture it.",
+        a: "Setting `prev.next` first overwrites the only pointer to the rest of the list before the new node grabs it, permanently losing every node after `prev`.",
+        c: "Order matters: if `prev.next` is overwritten first, the reference to the rest of the list is gone before `new_node.next` can capture it.",
       },
       revealStep: {
         state: {
@@ -549,13 +549,13 @@ const sllInsertUnit: Unit = {
           id: "first",
           placeholder: "___",
           answer: "next",
-          explainWrong: "The new node needs its own next arrow pointed at the old head before head moves; writing anything else here breaks that link.",
+          explainWrong: "The new node needs its own `next` arrow pointed at the old head before `head` moves; writing anything else here breaks that link.",
         },
         {
           id: "second",
           placeholder: "___",
           answer: "new_node",
-          explainWrong: "head must move to point at new_node last, after new_node.next is already wired to the old head.",
+          explainWrong: "`head` must move to point at `new_node` last, after `new_node.next` is already wired to the old head.",
         },
       ],
       tests: [
@@ -642,36 +642,36 @@ const sllInsertUnit: Unit = {
   recall: [
     {
       id: "dsa-lists.sll-insert.1",
-      prompt: "When inserting a new node between prev and prev.next, why must new_node.next be set before prev.next changes?",
+      prompt: "When inserting a new node between `prev` and `prev.next`, why must `new_node.next` be set before `prev.next` changes?",
       options: [
         "It doesn't matter, Python evaluates both at once",
-        "prev.next is the only reference to the rest of the list, so it must be copied into new_node.next before it's overwritten",
-        "Setting new_node.next first makes the code run faster",
+        "`prev.next` is the only reference to the rest of the list, so it must be copied into `new_node.next` before it's overwritten",
+        "Setting `new_node.next` first makes the code run faster",
       ],
       correctIndex: 1,
-      explainWrong: "Python does not evaluate the two assignments simultaneously, and speed isn't the reason for the order. prev.next holds the only pointer to everything after it, so new_node must capture that pointer before prev.next is reassigned.",
+      explainWrong: "Python does not evaluate the two assignments simultaneously, and speed isn't the reason for the order. `prev.next` holds the only pointer to everything after it, so `new_node` must capture that pointer before `prev.next` is reassigned.",
     },
     {
       id: "dsa-lists.sll-insert.2",
-      prompt: "What happens if you set prev.next = new_node before new_node.next is set?",
+      prompt: "What happens if you set `prev.next = new_node` before `new_node.next` is set?",
       options: [
-        "Nothing breaks, new_node.next can still be set afterward",
-        "Every node that used to follow prev becomes unreachable, since nothing points at them anymore",
+        "Nothing breaks, `new_node.next` can still be set afterward",
+        "Every node that used to follow `prev` becomes unreachable, since nothing points at them anymore",
         "The list becomes circular",
       ],
       correctIndex: 1,
-      explainWrong: "Setting new_node.next afterward is too late: the only arrow to the rest of the list was already overwritten. That leftover chain becomes unreachable garbage, and no circularity is introduced.",
+      explainWrong: "Setting `new_node.next` afterward is too late: the only arrow to the rest of the list was already overwritten. That leftover chain becomes unreachable garbage, and no circularity is introduced.",
     },
     {
       id: "dsa-lists.sll-insert.3",
       prompt: "Inserting at the head of a list requires which two steps, in order?",
       options: [
-        "Move head to the new node, then set the new node's next to the old head",
-        "Set the new node's next to the old head, then move head to the new node",
+        "Move `head` to the new node, then set the new node's `next` to the old head",
+        "Set the new node's `next` to the old head, then move `head` to the new node",
         "Delete the old head, then create the new node",
       ],
       correctIndex: 1,
-      explainWrong: "Moving head first loses the only pointer to the rest of the list before the new node can grab it, and deleting the old head is never part of an insert. The new node must first point at the old head, and only then does head move.",
+      explainWrong: "Moving `head` first loses the only pointer to the rest of the list before the new node can grab it, and deleting the old head is never part of an insert. The new node must first point at the old head, and only then does `head` move.",
     },
   ],
 };
@@ -815,14 +815,14 @@ const sllRemoveUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "prev = prev.next" },
-        { id: "b", label: "prev.next = prev.next.next" },
-        { id: "c", label: "prev.next.next = prev" },
+        { id: "a", label: "`prev = prev.next`" },
+        { id: "b", label: "`prev.next = prev.next.next`" },
+        { id: "c", label: "`prev.next.next = prev`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "That moves prev forward instead of removing anything; the target node stays fully linked into the list.",
-        c: "That points the node after the target back at prev, creating a broken loop instead of bypassing the target.",
+        a: "That moves `prev` forward instead of removing anything; the target node stays fully linked into the list.",
+        c: "That points the node after the target back at `prev`, creating a broken loop instead of bypassing the target.",
       },
       revealStep: {
         state: {
@@ -870,7 +870,7 @@ const sllRemoveUnit: Unit = {
           id: "advance",
           placeholder: "___",
           answer: "next",
-          explainWrong: "Removing the head means moving head to whatever it currently points at next, not re-reading its own value.",
+          explainWrong: "Removing the head means moving `head` to whatever it currently points at `next`, not re-reading its own `value`.",
         },
       ],
       tests: [
@@ -951,25 +951,25 @@ const sllRemoveUnit: Unit = {
   recall: [
     {
       id: "dsa-lists.sll-remove.1",
-      prompt: "To remove the node right after prev, which single line rewires the list?",
+      prompt: "To remove the node right after `prev`, which single line rewires the list?",
       options: [
-        "prev.next = prev.next.next",
-        "prev = prev.next",
-        "prev.next.next = None",
+        "`prev.next = prev.next.next`",
+        "`prev = prev.next`",
+        "`prev.next.next = None`",
       ],
       correctIndex: 0,
-      explainWrong: "prev = prev.next just moves prev without changing the list, and setting prev.next.next = None would sever the tail instead of removing the target. Bypassing means prev.next must skip over the target directly to what came after it.",
+      explainWrong: "`prev = prev.next` just moves `prev` without changing the list, and setting `prev.next.next = None` would sever the tail instead of removing the target. Bypassing means `prev.next` must skip over the target directly to what came after it.",
     },
     {
       id: "dsa-lists.sll-remove.2",
       prompt: "Why is removing the head node a special case?",
       options: [
-        "It requires bypassing with a prev node, just like any other removal",
-        "There is no prev before the head, so you move head itself rather than rewiring a prev.next arrow",
+        "It requires bypassing with a `prev` node, just like any other removal",
+        "There is no `prev` before the head, so you move `head` itself rather than rewiring a `prev.next` arrow",
         "The head node cannot be removed at all",
       ],
       correctIndex: 1,
-      explainWrong: "The head absolutely can be removed, and it's special precisely because there's no prev node before it to rewire. Instead of bypassing through a prev.next arrow, you move head directly to head.next.",
+      explainWrong: "The head absolutely can be removed, and it's special precisely because there's no `prev` node before it to rewire. Instead of bypassing through a `prev.next` arrow, you move `head` directly to `head.next`.",
     },
     {
       id: "dsa-lists.sll-remove.3",
@@ -1133,13 +1133,13 @@ const dllAndVariantsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "None" },
-        { id: "b", label: "The node holding 1 (the head)" },
+        { id: "a", label: "`None`" },
+        { id: "b", label: "The node holding `1` (the head)" },
         { id: "c", label: "Itself" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "None marks the end in a normal, non-circular list; circular lists never use None to end the chain.",
+        a: "`None` marks the end in a normal, non-circular list; circular lists never use `None` to end the chain.",
         c: "The last node doesn't loop to itself; it loops all the way back to the first node, making a full circle.",
       },
       revealStep: {
@@ -1180,7 +1180,7 @@ const dllAndVariantsUnit: Unit = {
           id: "link",
           placeholder: "___",
           answer: "next",
-          explainWrong: "new_node needs to grab whatever dummy currently points at before dummy is redirected, so read dummy.next here.",
+          explainWrong: "`new_node` needs to grab whatever `dummy` currently points at before `dummy` is redirected, so read `dummy.next` here.",
         },
       ],
       tests: [
@@ -1254,34 +1254,34 @@ const dllAndVariantsUnit: Unit = {
       id: "dsa-lists.dll-and-variants.1",
       prompt: "What extra pointer does every node in a doubly linked list have, compared to a singly linked list?",
       options: [
-        "A pointer back to head",
-        "A prev pointer to the node before it",
+        "A pointer back to `head`",
+        "A `prev` pointer to the node before it",
         "A pointer to the tail",
       ],
       correctIndex: 1,
-      explainWrong: "Nodes don't each carry a shortcut to head or tail; only the list itself tracks those. A doubly linked node's extra pointer is prev, pointing at whichever node comes immediately before it.",
+      explainWrong: "Nodes don't each carry a shortcut to `head` or tail; only the list itself tracks those. A doubly linked node's extra pointer is `prev`, pointing at whichever node comes immediately before it.",
     },
     {
       id: "dsa-lists.dll-and-variants.2",
       prompt: "In a circular list, how does traversal know when it has visited every node?",
       options: [
-        "It stops when cur becomes None",
-        "It stops when cur comes back around to the starting node",
+        "It stops when `cur` becomes `None`",
+        "It stops when `cur` comes back around to the starting node",
         "Circular lists cannot be traversed",
       ],
       correctIndex: 1,
-      explainWrong: "A circular list never reaches None, so that check would loop forever, and it certainly can be traversed. The stopping condition is instead reaching the node you started from again.",
+      explainWrong: "A circular list never reaches `None`, so that check would loop forever, and it certainly can be traversed. The stopping condition is instead reaching the node you started from again.",
     },
     {
       id: "dsa-lists.dll-and-variants.3",
-      prompt: "What problem does a dummy node solve?",
+      prompt: "What problem does a `dummy` node solve?",
       options: [
-        "It stores an extra real value at the front of the list",
-        "It removes the need for special-case code when inserting or removing at the head",
+        "It stores an extra real `value` at the front of the list",
+        "It removes the need for special-case code when inserting or removing at the `head`",
         "It makes the list circular",
       ],
       correctIndex: 1,
-      explainWrong: "A dummy node holds no meaningful data of its own and has nothing to do with making a list circular. Its purpose is to give every real node a prev, so head insertions and removals use the exact same code path as any other position.",
+      explainWrong: "A `dummy` node holds no meaningful data of its own and has nothing to do with making a list circular. Its purpose is to give every real node a `prev`, so `head` insertions and removals use the exact same code path as any other position.",
     },
   ],
 };
@@ -1416,25 +1416,25 @@ const applyListsUnit: Unit = {
   recall: [
     {
       id: "dsa-lists.apply-lists.1",
-      prompt: "append(None, 5) is called on an empty list. What should the function return?",
+      prompt: "`append(None, 5)` is called on an empty list. What should the function return?",
       options: [
-        "None, since the list was empty",
-        "A new node holding 5, which becomes the new head",
-        "An error, since head has no next to attach to",
+        "`None`, since the list was empty",
+        "A new node holding `5`, which becomes the new `head`",
+        "An error, since `head` has no `next` to attach to",
       ],
       correctIndex: 1,
-      explainWrong: "Appending to an empty list shouldn't raise an error or leave head as None; append must handle the empty case by creating the very first node and returning it as the new head.",
+      explainWrong: "Appending to an empty list shouldn't raise an error or leave `head` as `None`; `append` must handle the empty case by creating the very first node and returning it as the new `head`.",
     },
     {
       id: "dsa-lists.apply-lists.2",
-      prompt: "to_list(head) is called on a 3-node list holding 1, 2, 3. What should it return?",
+      prompt: "`to_list(head)` is called on a 3-node list holding `1`, `2`, `3`. What should it return?",
       options: [
-        "The head node itself",
-        "The plain Python list [1, 2, 3]",
-        "The number 3, the last value",
+        "The `head` node itself",
+        "The plain Python list `[1, 2, 3]`",
+        "The number `3`, the last `value`",
       ],
       correctIndex: 1,
-      explainWrong: "to_list shouldn't hand back a node object or just the final value; it needs to walk the whole chain and collect every value into an ordinary Python list, in order.",
+      explainWrong: "`to_list` shouldn't hand back a node object or just the final `value`; it needs to walk the whole chain and collect every `value` into an ordinary Python list, in order.",
     },
   ],
 };

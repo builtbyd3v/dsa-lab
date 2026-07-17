@@ -102,14 +102,14 @@ const whyBalanceUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "About log2(7), roughly 3" },
+        { id: "a", label: "About `log2(7)`, roughly 3" },
         { id: "b", label: "7, one per node" },
         { id: "c", label: "1, since BSTs are always fast" },
-        { id: "d", label: "0" },
+        { id: "d", label: "`0`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "log2(7) is the cost in a balanced tree of 7 nodes, not a vine; a vine has no branching to cut the search space in half at each step.",
+        a: "`log2(7)` is the cost in a balanced tree of 7 nodes, not a vine; a vine has no branching to cut the search space in half at each step.",
         c: "BSTs are only fast when they're reasonably balanced; a vine is the worst possible shape a BST can take, and searching it costs just as much as a linked list.",
         d: "Reaching the deepest node still requires visiting every node above it on the way down; the search can't skip straight there.",
       },
@@ -124,7 +124,7 @@ const whyBalanceUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "A vine has 8 nodes, each with exactly one child except the last. Fill in the subtraction so vine_height computes its height correctly.",
+      prompt: "A vine has 8 nodes, each with exactly one child except the last. Fill in the subtraction so `vine_height` computes its height correctly.",
       code: ["nodes = 8", "vine_height = nodes {{op}} 1"].join("\n"),
       blanks: [
         {
@@ -132,7 +132,7 @@ const whyBalanceUnit: Unit = {
           placeholder: "___",
           answer: "-",
           explainWrong:
-            "A vine of n nodes has height n - 1: height counts edges, and a chain of n nodes has exactly n - 1 edges connecting them. Adding or multiplying instead would not match how height is counted along a single unbranched chain.",
+            "A vine of `n` nodes has height `n - 1`: height counts edges, and a chain of `n` nodes has exactly `n - 1` edges connecting them. Adding or multiplying instead would not match how height is counted along a single unbranched chain.",
         },
       ],
       tests: [
@@ -158,13 +158,13 @@ const whyBalanceUnit: Unit = {
       id: "dsa-balanced-trees.why-balance.2",
       prompt: "What does keeping a tree balanced actually guarantee?",
       options: [
-        "That height stays close to log2(n), keeping search, insert, and remove fast even as n grows",
+        "That height stays close to `log2(n)`, keeping search, insert, and remove fast even as n grows",
         "That every value is stored in sorted array order",
         "That no rotations are ever needed again",
       ],
       correctIndex: 0,
       explainWrong:
-        "A balanced BST isn't stored as a sorted array, and balance is an ongoing property maintained through rotations, not something achieved once and then never revisited. The real guarantee is a height that scales with log2(n) instead of n.",
+        "A balanced BST isn't stored as a sorted array, and balance is an ongoing property maintained through rotations, not something achieved once and then never revisited. The real guarantee is a height that scales with `log2(n)` instead of `n`.",
     },
   ],
 };
@@ -277,7 +277,7 @@ const avlRotationsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "A node has balance factor +2, and its left child has balance factor +1 (heavier on the left). What rotation fixes this?",
+      prompt: "A node has balance factor `+2`, and its left child has balance factor `+1` (heavier on the left). What rotation fixes this?",
       steps: [
         {
           state: {
@@ -300,7 +300,7 @@ const avlRotationsUnit: Unit = {
       explainWrong: {
         b: "A left rotation is used to fix right-heavy (RR) imbalances; this node is left-heavy, so a left rotation would push it further out of balance, not fix it.",
         c: "A double rotation is needed only when the heavy grandchild sits on the opposite side from the heavy child, an LR or RL shape; here the left child is heavy on its OWN left too, so a single rotation suffices.",
-        d: "A balance factor of +2 is outside the allowed -1 to +1 range, so this is a real imbalance that must be corrected before this subtree is a valid AVL tree again.",
+        d: "A balance factor of `+2` is outside the allowed `-1` to `+1` range, so this is a real imbalance that must be corrected before this subtree is a valid AVL tree again.",
       },
       revealStep: {
         state: {
@@ -313,7 +313,7 @@ const avlRotationsUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "A node has balance factor +2, but its left child has balance factor -1 (heavier on the RIGHT, opposite side). What shape is this, and what fixes it?",
+      prompt: "A node has balance factor `+2`, but its left child has balance factor `-1` (heavier on the RIGHT, opposite side). What shape is this, and what fixes it?",
       steps: [
         {
           state: {
@@ -335,8 +335,8 @@ const avlRotationsUnit: Unit = {
       correctId: "a",
       explainWrong: {
         b: "LL would require the left child to ALSO be heavy on its own left; here it's heavy on the right instead, which makes this a zigzag LR shape, not a straight LL one.",
-        c: "The overall imbalance is on the LEFT side of the node (bf = +2, not -2); calling this RR mixes up which side is heavy.",
-        d: "A balance factor of +2 on the node is outside the -1 to +1 allowed range, so this subtree is genuinely imbalanced and needs correcting.",
+        c: "The overall imbalance is on the LEFT side of the node (bf = `+2`, not `-2`); calling this RR mixes up which side is heavy.",
+        d: "A balance factor of `+2` on the node is outside the `-1` to `+1` allowed range, so this subtree is genuinely imbalanced and needs correcting.",
       },
       revealStep: {
         state: {
@@ -349,7 +349,7 @@ const avlRotationsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison so is_balanced correctly flags any AVL node whose balance factor has drifted outside the allowed range.",
+      prompt: "Fill in the comparison so `is_balanced` correctly flags any AVL node whose balance factor has drifted outside the allowed range.",
       code: [
         "def is_balanced(balance_factor):",
         "    return {{lo}} <= balance_factor <= 1",
@@ -360,7 +360,7 @@ const avlRotationsUnit: Unit = {
           placeholder: "___",
           answer: "-1",
           explainWrong:
-            "AVL trees allow a balance factor anywhere from -1 to +1. Using 0 or -2 as the lower bound would either reject valid balanced nodes or fail to catch a real imbalance.",
+            "AVL trees allow a balance factor anywhere from `-1` to `+1`. Using `0` or `-2` as the lower bound would either reject valid balanced nodes or fail to catch a real imbalance.",
         },
       ],
       tests: [
@@ -578,7 +578,7 @@ const redBlackBasicsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing color so has_red_red_violation correctly detects when a red node has a red child.",
+      prompt: "Fill in the missing color so `has_red_red_violation` correctly detects when a red node has a red child.",
       code: [
         "def has_red_red_violation(node_color, child_color):",
         "    return node_color == '{{color}}' and child_color == 'R'",
@@ -589,7 +589,7 @@ const redBlackBasicsUnit: Unit = {
           placeholder: "___",
           answer: "R",
           explainWrong:
-            "A red-red violation specifically means a red node has a red child, so node_color must be checked against 'R'. Checking against 'B' would never detect the violation, since a black node is always allowed to have a red child.",
+            "A red-red violation specifically means a red node has a red child, so `node_color` must be checked against `'R'`. Checking against `'B'` would never detect the violation, since a black node is always allowed to have a red child.",
         },
       ],
       tests: [
@@ -677,7 +677,7 @@ const applyBalancedUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "Node 50 has balance factor -2. Its right child, 70, has balance factor -1 (also right-heavy). Which rotation fixes this?",
+      prompt: "Node 50 has balance factor `-2`. Its right child, 70, has balance factor `-1` (also right-heavy). Which rotation fixes this?",
       steps: [
         {
           state: {
@@ -700,7 +700,7 @@ const applyBalancedUnit: Unit = {
       explainWrong: {
         b: "A right rotation fixes left-heavy (LL) imbalances; this node is right-heavy, so a right rotation would make the imbalance worse, not better.",
         c: "A double rotation is only needed when the heavy grandchild leans the opposite direction from the heavy child; here both 50 and 70 lean the same way, right, so a single rotation is enough.",
-        d: "A balance factor of -2 is outside the allowed -1 to +1 range: this is a genuine imbalance that must be corrected.",
+        d: "A balance factor of `-2` is outside the allowed `-1` to `+1` range: this is a genuine imbalance that must be corrected.",
       },
       revealStep: {
         state: {
@@ -713,7 +713,7 @@ const applyBalancedUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "Node 50 has balance factor -2. Its right child, 70, has balance factor +1 (heavy on its LEFT, opposite side). What fixes this?",
+      prompt: "Node 50 has balance factor `-2`. Its right child, 70, has balance factor `+1` (heavy on its LEFT, opposite side). What fixes this?",
       steps: [
         {
           state: {
@@ -757,7 +757,7 @@ const applyBalancedUnit: Unit = {
           placeholder: "___",
           answer: "2",
           explainWrong:
-            "Balance factor is left height minus right height: 3 - 1 = 2. This node is outside the allowed -1 to +1 range and would need a rotation to fix.",
+            "Balance factor is left height minus right height: `3 - 1 = 2`. This node is outside the allowed `-1` to `+1` range and would need a rotation to fix.",
         },
       ],
       tests: [
@@ -775,7 +775,7 @@ const applyBalancedUnit: Unit = {
           placeholder: "___",
           answer: "-3",
           explainWrong:
-            "Balance factor is left height minus right height: 1 - 4 = -3. A negative balance factor means the tree is heavier on the right; -3 is far outside the allowed -1 to +1 range.",
+            "Balance factor is left height minus right height: `1 - 4 = -3`. A negative balance factor means the tree is heavier on the right; `-3` is far outside the allowed `-1` to `+1` range.",
         },
       ],
       tests: [
@@ -795,7 +795,7 @@ const applyBalancedUnit: Unit = {
       ],
       correctIndex: 0,
       explainWrong:
-        "LL would require the node to be left-heavy (a positive balance factor); this node is right-heavy (-2), with a right child that's also right-heavy (-1), which is a straight RR shape, fixed with one single left rotation, not a double rotation.",
+        "LL would require the node to be left-heavy (a positive balance factor); this node is right-heavy (`-2`), with a right child that's also right-heavy (`-1`), which is a straight RR shape, fixed with one single left rotation, not a double rotation.",
     },
     {
       id: "dsa-balanced-trees.apply-balanced.2",

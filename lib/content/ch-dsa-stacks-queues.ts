@@ -92,14 +92,14 @@ const stackUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "1" },
-        { id: "b", label: "2" },
-        { id: "c", label: "3" },
+        { id: "a", label: "`1`" },
+        { id: "b", label: "`2`" },
+        { id: "c", label: "`3`" },
       ],
       correctId: "c",
       explainWrong: {
-        a: "1 was pushed first, so it's at the bottom, not the top; LIFO removes the most recent push first.",
-        b: "2 is buried under 3; pop always takes the very last item pushed, which is 3.",
+        a: "`1` was pushed first, so it's at the bottom, not the top; LIFO removes the most recent push first.",
+        b: "`2` is buried under `3`; `pop()` always takes the very last item pushed, which is `3`.",
       },
       revealStep: {
         state: {
@@ -122,13 +122,13 @@ const stackUnit: Unit = {
           id: "peek_index",
           placeholder: "___",
           answer: "-1",
-          explainWrong: "The top of a list-based stack is the last element, at index -1, not the first.",
+          explainWrong: "The top of a list-based stack is the last element, at index `-1`, not the first.",
         },
         {
           id: "pop_method",
           placeholder: "___",
           answer: "pop",
-          explainWrong: "Removing the top element of a list stack uses the pop() method, which defaults to removing the last item.",
+          explainWrong: "Removing the top element of a list stack uses the `pop()` method, which defaults to removing the last item.",
         },
       ],
       tests: [
@@ -205,25 +205,25 @@ const stackUnit: Unit = {
     },
     {
       id: "dsa-stacks-queues.stack.2",
-      prompt: "What is the difference between peek() and pop() on a stack?",
+      prompt: "What is the difference between `peek()` and `pop()` on a stack?",
       options: [
         "There is no difference, both remove the top item",
-        "peek() only looks at the top item; pop() removes and returns it",
-        "peek() removes the bottom item; pop() removes the top",
+        "`peek()` only looks at the top item; `pop()` removes and returns it",
+        "`peek()` removes the bottom item; `pop()` removes the top",
       ],
       correctIndex: 1,
-      explainWrong: "They are not interchangeable, and neither one touches the bottom of the stack. peek() reads the top without changing the stack, while pop() actually removes that top item.",
+      explainWrong: "They are not interchangeable, and neither one touches the bottom of the stack. `peek()` reads the top without changing the stack, while `pop()` actually removes that top item.",
     },
     {
       id: "dsa-stacks-queues.stack.3",
       prompt: "In a Python list used as a stack, which end represents the top?",
       options: [
-        "Index 0, the front of the list",
+        "Index `0`, the front of the list",
         "The last index, the end of the list",
         "Whichever end was used most recently",
       ],
       correctIndex: 1,
-      explainWrong: "The top isn't the front, and it isn't a moving target; by convention, a list-based stack always treats its last index as the top, since append() and pop() both work there in O(1) time.",
+      explainWrong: "The top isn't the front, and it isn't a moving target; by convention, a list-based stack always treats its last index as the top, since `append()` and `pop()` both work there in `O(1)` time.",
     },
   ],
 };
@@ -329,14 +329,14 @@ const queueUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "1" },
-        { id: "b", label: "2" },
-        { id: "c", label: "3" },
+        { id: "a", label: "`1`" },
+        { id: "b", label: "`2`" },
+        { id: "c", label: "`3`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "2 is in the middle of the queue; dequeue always removes from the front, not the middle.",
-        c: "3 just joined at the back; the most recent arrival leaves last in FIFO order, not first.",
+        b: "`2` is in the middle of the queue; `dequeue()` always removes from the front, not the middle.",
+        c: "`3` just joined at the back; the most recent arrival leaves last in FIFO order, not first.",
       },
       revealStep: {
         state: {
@@ -364,13 +364,13 @@ const queueUnit: Unit = {
           id: "enqueue_method",
           placeholder: "___",
           answer: "append",
-          explainWrong: "Adding to the back of a list means using append, which adds to the end.",
+          explainWrong: "Adding to the back of a list means using `append`, which adds to the end.",
         },
         {
           id: "dequeue_index",
           placeholder: "___",
           answer: "0",
-          explainWrong: "The front of the queue is the first element, at index 0; popping index 0 removes the oldest item, not the most recent.",
+          explainWrong: "The front of the queue is the first element, at index `0`; popping index `0` removes the oldest item, not the most recent.",
         },
       ],
       tests: [
@@ -392,7 +392,7 @@ const queueUnit: Unit = {
       difficulty: "Easy",
       examples: [
         { input: "`enqueue([1, 2], 3)`", output: "`[1, 2, 3]`" },
-        { input: "`dequeue([1, 2, 3])`", output: "`1`, leaving `[2, 3]`", explanation: "dequeue removes and returns the item at index `0`." },
+        { input: "`dequeue([1, 2, 3])`", output: "`1`, leaving `[2, 3]`", explanation: "`dequeue` removes and returns the item at index `0`." },
       ],
       constraints: ["`0 <= len(queue) <= 10^4`", "index `0` is always the front of the queue"],
       bigO: { fn: "dequeue", answer: "O(n)", explain: "Removing index `0` with `pop(0)` must shift every remaining element down by one." },
@@ -440,10 +440,10 @@ const queueUnit: Unit = {
     },
     {
       id: "dsa-stacks-queues.queue.2",
-      prompt: "Where does enqueue add a new item, and where does dequeue remove from?",
+      prompt: "Where does `enqueue` add a new item, and where does `dequeue` remove from?",
       options: [
-        "enqueue adds to the front, dequeue removes from the back",
-        "enqueue adds to the back, dequeue removes from the front",
+        "`enqueue` adds to the front, `dequeue` removes from the back",
+        "`enqueue` adds to the back, `dequeue` removes from the front",
         "Both operate on the same end",
       ],
       correctIndex: 1,
@@ -454,11 +454,11 @@ const queueUnit: Unit = {
       prompt: "Why is a plain Python list a poor choice for a high-performance queue?",
       options: [
         "Lists cannot store more than a few items",
-        "Removing from the front with pop(0) has to shift every remaining item, making it O(n)",
+        "Removing from the front with `pop(0)` has to shift every remaining item, making it `O(n)`",
         "Lists cannot be used as queues at all",
       ],
       correctIndex: 1,
-      explainWrong: "Lists can hold any number of items and can be used as queues; the real issue is efficiency. Removing the front element with pop(0) forces every other element to shift down by one, which costs O(n) time.",
+      explainWrong: "Lists can hold any number of items and can be used as queues; the real issue is efficiency. Removing the front element with `pop(0)` forces every other element to shift down by one, which costs `O(n)` time.",
     },
   ],
 };
@@ -543,14 +543,14 @@ const dequeAndPythonUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "insert(0, x) and pop(0)" },
-        { id: "b", label: "append(x) and pop()" },
-        { id: "c", label: "append(x) and pop(0)" },
+        { id: "a", label: "`insert(0, x)` and `pop(0)`" },
+        { id: "b", label: "`append(x)` and `pop()`" },
+        { id: "c", label: "`append(x)` and `pop(0)`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "insert(0, x) and pop(0) both operate on the front of a list, which requires shifting every other element; that's O(n), not O(1).",
-        c: "append(x) is O(1), but pop(0) still has to shift the whole list left by one, making it O(n).",
+        a: "`insert(0, x)` and `pop(0)` both operate on the front of a list, which requires shifting every other element; that's `O(n)`, not `O(1)`.",
+        c: "`append(x)` is `O(1)`, but `pop(0)` still has to shift the whole list left by one, making it `O(n)`.",
       },
       revealStep: {
         state: {
@@ -573,7 +573,7 @@ const dequeAndPythonUnit: Unit = {
           id: "method",
           placeholder: "___",
           answer: "popleft",
-          explainWrong: "Removing from the front efficiently is exactly what popleft() is for; pop() alone removes from the back.",
+          explainWrong: "Removing from the front efficiently is exactly what `popleft()` is for; `pop()` alone removes from the back.",
         },
       ],
       tests: [
@@ -640,29 +640,29 @@ const dequeAndPythonUnit: Unit = {
         "A deque is just another name for a Python list",
       ],
       correctIndex: 1,
-      explainWrong: "Deques work with any data type and are not simply another name for a list; a plain list is inefficient at the front. A deque's defining feature is O(1) operations at both ends.",
+      explainWrong: "Deques work with any data type and are not simply another name for a list; a plain list is inefficient at the front. A deque's defining feature is `O(1)` operations at both ends.",
     },
     {
       id: "dsa-stacks-queues.deque-and-python.2",
-      prompt: "Why is deque.popleft() preferred over list.pop(0) for removing from the front?",
+      prompt: "Why is `deque.popleft()` preferred over `list.pop(0)` for removing from the front?",
       options: [
         "They perform identically, it's just a style preference",
-        "popleft() is O(1), while pop(0) on a list is O(n) because every remaining element must shift",
-        "popleft() only works on strings",
+        "`popleft()` is `O(1)`, while `pop(0)` on a list is `O(n)` because every remaining element must shift",
+        "`popleft()` only works on strings",
       ],
       correctIndex: 1,
-      explainWrong: "The two are not equivalent in performance, and popleft() works on any deque, not just strings. A deque is built so front operations don't require shifting the rest of the elements, unlike a list.",
+      explainWrong: "The two are not equivalent in performance, and `popleft()` works on any deque, not just strings. A deque is built so front operations don't require shifting the rest of the elements, unlike a list.",
     },
     {
       id: "dsa-stacks-queues.deque-and-python.3",
       prompt: "Which Python list method is commonly used to implement a stack's push operation?",
       options: [
-        "insert(0, x)",
-        "append(x)",
-        "extend(x)",
+        "`insert(0, x)`",
+        "`append(x)`",
+        "`extend(x)`",
       ],
       correctIndex: 1,
-      explainWrong: "insert(0, x) pushes onto the front, which is the wrong end and is slow; extend() is for adding multiple items, not a single push. append(x) adds one item to the end, matching how a list-based stack's top is defined.",
+      explainWrong: "`insert(0, x)` pushes onto the front, which is the wrong end and is slow; `extend()` is for adding multiple items, not a single push. `append(x)` adds one item to the end, matching how a list-based stack's top is defined.",
     },
   ],
 };
@@ -761,14 +761,14 @@ const applyStackUnit: Unit = {
   recall: [
     {
       id: "dsa-stacks-queues.apply-stack.1",
-      prompt: "Why does '([)]' fail the balanced check even though it has matching numbers of each bracket type?",
+      prompt: "Why does `'([)]'` fail the balanced check even though it has matching numbers of each bracket type?",
       options: [
         "Matching counts are all that matters, so it should actually pass",
-        "The brackets close out of order: ) tries to close the stack's top, [, instead of the ( it should match",
-        "Only () brackets are checked, not [] or {}",
+        "The brackets close out of order: `)` tries to close the stack's top, `[`, instead of the `(` it should match",
+        "Only `()` brackets are checked, not `[]` or `{}`",
       ],
       correctIndex: 1,
-      explainWrong: "Balance isn't just about counts, and all three bracket types are checked. The order matters: when ) appears, the top of the stack is [, not (, so the check fails.",
+      explainWrong: "Balance isn't just about counts, and all three bracket types are checked. The order matters: when `)` appears, the top of the stack is `[`, not `(`, so the check fails.",
     },
     {
       id: "dsa-stacks-queues.apply-stack.2",

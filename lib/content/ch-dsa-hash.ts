@@ -106,7 +106,7 @@ const hashingBucketsUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "A hash table has 5 buckets (indices 0-4). A key hashes to 23. Which bucket does it land in?",
+        "A hash table has `5` buckets (indices `0-4`). A key hashes to `23`. Which bucket does it land in?",
       steps: [
         {
           state: {
@@ -117,16 +117,16 @@ const hashingBucketsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "Bucket 23" },
-        { id: "b", label: "Bucket 3" },
-        { id: "c", label: "Bucket 4" },
-        { id: "d", label: "Bucket 5" },
+        { id: "a", label: "Bucket `23`" },
+        { id: "b", label: "Bucket `3`" },
+        { id: "c", label: "Bucket `4`" },
+        { id: "d", label: "Bucket `5`" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "23 is the raw hash, not the bucket index; the table only has 5 buckets, so the hash must be reduced with modulo first.",
-        c: "23 % 5 is 3, not 4; 5 goes into 23 four times (20), leaving a remainder of 3, not 4.",
-        d: "There is no bucket 5 in a 5-bucket table; valid indices only run from 0 to 4, and modulo by 5 can never produce 5 itself.",
+        a: "`23` is the raw hash, not the bucket index; the table only has `5` buckets, so the hash must be reduced with modulo first.",
+        c: "`23 % 5` is `3`, not `4`; `5` goes into `23` four times (`20`), leaving a remainder of `3`, not `4`.",
+        d: "There is no bucket `5` in a `5`-bucket table; valid indices only run from `0` to `4`, and modulo by `5` can never produce `5` itself.",
       },
       revealStep: {
         state: {
@@ -139,7 +139,7 @@ const hashingBucketsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the operator so a hash value gets reduced to a valid index for a table of size table_size.",
+      prompt: "Fill in the operator so a hash value gets reduced to a valid index for a table of size `table_size`.",
       code: ["def bucket_index(hash_value, table_size):", "    return hash_value {{op}} table_size"].join("\n"),
       blanks: [
         {
@@ -147,7 +147,7 @@ const hashingBucketsUnit: Unit = {
           placeholder: "___",
           answer: "%",
           explainWrong:
-            "Only the modulo operator guarantees a result between 0 and table_size - 1 for any hash_value; +, -, or * would not keep the result inside the table's valid index range.",
+            "Only the modulo operator (`%`) guarantees a result between `0` and `table_size - 1` for any `hash_value`; `+`, `-`, or `*` would not keep the result inside the table's valid index range.",
         },
       ],
       tests: [
@@ -163,11 +163,11 @@ const hashingBucketsUnit: Unit = {
       difficulty: "Easy",
       examples: [
         {
-          input: "key = \"cat\", table_size = 7",
-          output: "hash(\"cat\") % 7",
+          input: "`key = \"cat\", table_size = 7`",
+          output: "`hash(\"cat\") % 7`",
           explanation: "The bucket index is always `hash(key) % table_size`.",
         },
-        { input: "key = 42, table_size = 7", output: "a value between `0` and `6`" },
+        { input: "`key = 42, table_size = 7`", output: "a value between `0` and `6`" },
       ],
       constraints: [
         "`table_size > 0`",
@@ -202,19 +202,19 @@ const hashingBucketsUnit: Unit = {
       ],
       correctIndex: 0,
       explainWrong:
-        "hash() can return huge or negative-looking integers far outside the table's size. Modulo by the table size is what maps that value down into a valid bucket index; it isn't about size or a language requirement.",
+        "`hash()` can return huge or negative-looking integers far outside the table's size. Modulo by the table size is what maps that value down into a valid bucket index; it isn't about size or a language requirement.",
     },
     {
       id: "dsa-hash-tables.hashing-buckets.2",
-      prompt: 'Two different keys, "cat" and "dog", produce different hash values. What determines which bucket each lands in?',
+      prompt: 'Two different keys, `"cat"` and `"dog"`, produce different hash values. What determines which bucket each lands in?',
       options: [
         "The order the keys were inserted in",
         "Each key's own hash value mod the table size",
-        "Both always land in bucket 0 first",
+        "Both always land in bucket `0` first",
       ],
       correctIndex: 1,
       explainWrong:
-        "Insertion order doesn't decide bucket placement, and there's nothing special about bucket 0. Each key's own hash, reduced by modulo, determines its bucket independently of any other key.",
+        "Insertion order doesn't decide bucket placement, and there's nothing special about bucket `0`. Each key's own hash, reduced by modulo, determines its bucket independently of any other key.",
     },
   ],
 };
@@ -329,7 +329,7 @@ const chainingUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "Bucket 4 already has a chain: \"ant\" -> \"bee\" -> \"cow\". Searching for \"cow\" checks entries in what order?",
+        "Bucket `4` already has a chain: `\"ant\"` -> `\"bee\"` -> `\"cow\"`. Searching for `\"cow\"` checks entries in what order?",
       steps: [
         {
           state: {
@@ -347,15 +347,15 @@ const chainingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "cow first, since that's the target" },
-        { id: "b", label: "ant, then bee, then cow" },
-        { id: "c", label: "cow, then bee, then ant" },
+        { id: "a", label: "`\"cow\"` first, since that's the target" },
+        { id: "b", label: "`\"ant\"`, then `\"bee\"`, then `\"cow\"`" },
+        { id: "c", label: "`\"cow\"`, then `\"bee\"`, then `\"ant\"`" },
         { id: "d", label: "All three are checked at once" },
       ],
       correctId: "b",
       explainWrong: {
         a: "A chain search can't jump straight to the target; it has no way of knowing where a key sits without walking the links from the start of the chain.",
-        c: "The walk starts at the bucket's first entry, not the last; the chain is followed in the order it was linked: ant, then bee, then cow.",
+        c: "The walk starts at the bucket's first entry, not the last; the chain is followed in the order it was linked: `\"ant\"`, then `\"bee\"`, then `\"cow\"`.",
         d: "Chains are a linked structure, checked one entry at a time in sequence, not all simultaneously.",
       },
       revealStep: {
@@ -376,7 +376,7 @@ const chainingUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the condition so chain_search walks a Python list chain and returns True the moment it finds target.",
+      prompt: "Fill in the condition so `chain_search` walks a Python list chain and returns `True` the moment it finds `target`.",
       code: [
         "def chain_search(chain, target):",
         "    for entry in chain:",
@@ -390,7 +390,7 @@ const chainingUnit: Unit = {
           placeholder: "___",
           answer: "==",
           explainWrong:
-            "Checking each entry against target requires equality comparison, ==. Using = would be an assignment, which is not even valid inside an if condition in Python.",
+            "Checking each entry against `target` requires equality comparison, `==`. Using `=` would be an assignment, which is not even valid inside an `if` condition in Python.",
         },
       ],
       tests: [
@@ -406,13 +406,13 @@ const chainingUnit: Unit = {
       difficulty: "Easy",
       examples: [
         {
-          input: "table = {}, index = 2, key = \"dog\"",
-          output: "table == {2: [\"dog\"]}",
+          input: "`table = {}, index = 2, key = \"dog\"`",
+          output: "`table == {2: [\"dog\"]}`",
           explanation: "The chain at index `2` is created as an empty list before `\"dog\"` is appended.",
         },
         {
-          input: "table = {2: [\"dog\"]}, index = 2, key = \"pig\"",
-          output: "table == {2: [\"dog\", \"pig\"]}",
+          input: "`table = {2: [\"dog\"]}, index = 2, key = \"pig\"`",
+          output: "`table == {2: [\"dog\", \"pig\"]}`",
           explanation: "`\"pig\"` chains onto the existing entry instead of replacing it.",
         },
       ],
@@ -599,7 +599,7 @@ const probingUnit: Unit = {
     {
       kind: "predict",
       prompt:
-        "A 7-slot table has \"cat\" at index 3. A new key hashes to index 3 too. Using linear probing, where does the new key land if index 4 is also occupied but index 5 is free?",
+        "A `7`-slot table has `\"cat\"` at index `3`. A new key hashes to index `3` too. Using linear probing, where does the new key land if index `4` is also occupied but index `5` is free?",
       steps: [
         {
           state: {
@@ -614,16 +614,16 @@ const probingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "Index 4, since that's next" },
-        { id: "b", label: "Index 5" },
-        { id: "c", label: "Index 3, overwriting cat" },
-        { id: "d", label: "Index 6, skipping ahead" },
+        { id: "a", label: "Index `4`, since that's next" },
+        { id: "b", label: "Index `5`" },
+        { id: "c", label: "Index `3`, overwriting `\"cat\"`" },
+        { id: "d", label: "Index `6`, skipping ahead" },
       ],
       correctId: "b",
       explainWrong: {
-        a: "Linear probing checks index 4, but 4 is occupied too, so it can't stop there; it must keep stepping forward one slot at a time.",
+        a: "Linear probing checks index `4`, but `4` is occupied too, so it can't stop there; it must keep stepping forward one slot at a time.",
         c: "Probing never overwrites an occupied slot; it only looks for the next free one, walking forward from the original hash index.",
-        d: "Linear probing steps by exactly 1 each time, so it can't skip from 4 straight to 6 without checking 5 first, and 5 is already free.",
+        d: "Linear probing steps by exactly `1` each time, so it can't skip from `4` straight to `6` without checking `5` first, and `5` is already free.",
       },
       revealStep: {
         state: {
@@ -636,7 +636,7 @@ const probingUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "With quadratic probing starting from index i on collision, what is the third probe offset checked (after the original slot)?",
+      prompt: "With quadratic probing starting from index `i` on collision, what is the third probe offset checked (after the original slot)?",
       steps: [
         {
           state: {
@@ -647,16 +647,16 @@ const probingUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "i + 3" },
-        { id: "b", label: "i + 6" },
-        { id: "c", label: "i + 9" },
-        { id: "d", label: "i + 1" },
+        { id: "a", label: "`i + 3`" },
+        { id: "b", label: "`i + 6`" },
+        { id: "c", label: "`i + 9`" },
+        { id: "d", label: "`i + 1`" },
       ],
       correctId: "c",
       explainWrong: {
-        a: "Quadratic probing jumps by squares, not the probe number itself; the third jump squares 3 to get 9, it doesn't just add 3.",
-        b: "6 isn't a perfect square offset in this sequence; the pattern is 1, 4, 9, from squaring 1, 2, 3, not 1, 2, 3, 6.",
-        d: "i + 1 is the first probe, using 1² = 1. The third probe uses 3² = 9, a much larger jump.",
+        a: "Quadratic probing jumps by squares, not the probe number itself; the third jump squares `3` to get `9`, it doesn't just add `3`.",
+        b: "`6` isn't a perfect square offset in this sequence; the pattern is `1, 4, 9`, from squaring `1, 2, 3`, not `1, 2, 3, 6`.",
+        d: "`i + 1` is the first probe, using `1**2 = 1`. The third probe uses `3**2 = 9`, a much larger jump.",
       },
       revealStep: {
         state: {
@@ -669,7 +669,7 @@ const probingUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the missing math so linear_probe returns the next index to check, wrapping around the table with modulo.",
+      prompt: "Fill in the missing math so `linear_probe` returns the next index to check, wrapping around the table with modulo.",
       code: [
         "def linear_probe(start, attempt, table_size):",
         "    return (start {{op}} attempt) % table_size",
@@ -680,7 +680,7 @@ const probingUnit: Unit = {
           placeholder: "___",
           answer: "+",
           explainWrong:
-            "Linear probing steps forward by a fixed amount each attempt, so the offset is added to start. Subtracting, multiplying, or dividing would not produce the steady one-by-one walk linear probing needs.",
+            "Linear probing steps forward by a fixed amount each attempt, so the offset is added to `start`. Subtracting, multiplying, or dividing would not produce the steady one-by-one walk linear probing needs.",
         },
       ],
       tests: [
@@ -695,10 +695,10 @@ const probingUnit: Unit = {
         "Given a starting index `start`, an `attempt` number, and a hash table size `table_size`, return the next index to probe using quadratic probing: `start + attempt ** 2`, wrapped with `% table_size`.",
       difficulty: "Medium",
       examples: [
-        { input: "start = 1, attempt = 1, table_size = 7", output: "2", explanation: "`(1 + 1**2) % 7 == 2`." },
+        { input: "`start = 1, attempt = 1, table_size = 7`", output: "`2`", explanation: "`(1 + 1**2) % 7 == 2`." },
         {
-          input: "start = 1, attempt = 3, table_size = 7",
-          output: "3",
+          input: "`start = 1, attempt = 3, table_size = 7`",
+          output: "`3`",
           explanation: "`(1 + 3**2) % 7 == 10 % 7 == 3`, wrapping past the end of the table.",
         },
       ],
@@ -731,7 +731,7 @@ const probingUnit: Unit = {
       id: "dsa-hash-tables.probing.2",
       prompt: "Why might quadratic probing avoid long clusters better than linear probing?",
       options: [
-        "Its jump sizes grow (1, 4, 9, ...) instead of always stepping by exactly 1, spreading probes farther apart",
+        "Its jump sizes grow (`1, 4, 9, ...`) instead of always stepping by exactly `1`, spreading probes farther apart",
         "It never has collisions",
         "It always checks every slot in the table",
       ],
@@ -744,12 +744,12 @@ const probingUnit: Unit = {
       prompt: "What makes double hashing's probe sequence different from linear or quadratic probing?",
       options: [
         "The step size itself comes from a second hash function, so it varies by key",
-        "It always uses a step size of exactly 2",
+        "It always uses a step size of exactly `2`",
         "It never wraps around the table",
       ],
       correctIndex: 0,
       explainWrong:
-        "Double hashing doesn't fix the step at 2, and it still wraps with modulo like the others. Its distinguishing feature is that a second hash function computes a step size unique to each key.",
+        "Double hashing doesn't fix the step at `2`, and it still wraps with modulo like the others. Its distinguishing feature is that a second hash function computes a step size unique to each key.",
     },
   ],
 };
@@ -856,7 +856,7 @@ const resizeAndFunctionsUnit: Unit = {
   ladder: [
     {
       kind: "predict",
-      prompt: "A table has 6 entries and 8 slots. What is its load factor, and does it typically trigger a resize at a common threshold of 0.7?",
+      prompt: "A table has `6` entries and `8` slots. What is its load factor, and does it typically trigger a resize at a common threshold of `0.7`?",
       steps: [
         {
           state: {
@@ -867,16 +867,16 @@ const resizeAndFunctionsUnit: Unit = {
         },
       ],
       options: [
-        { id: "a", label: "0.75, yes it crosses 0.7" },
-        { id: "b", label: "0.75, no it stays under 0.7" },
-        { id: "c", label: "1.33, yes it crosses 0.7" },
-        { id: "d", label: "0.48, no it stays under 0.7" },
+        { id: "a", label: "`0.75`, yes it crosses `0.7`" },
+        { id: "b", label: "`0.75`, no it stays under `0.7`" },
+        { id: "c", label: "`1.33`, yes it crosses `0.7`" },
+        { id: "d", label: "`0.48`, no it stays under `0.7`" },
       ],
       correctId: "a",
       explainWrong: {
-        b: "6 / 8 = 0.75 is correct, but 0.75 is above the 0.7 threshold, not below it, so a resize would in fact be triggered.",
-        c: "Load factor is entries divided by slots, 6 / 8, not slots divided by entries; 8 / 6 would give 1.33, which isn't how load factor is defined.",
-        d: "6 / 8 is 0.75, not 0.48; 0.48 isn't the correct division of these two numbers at all.",
+        b: "`6 / 8 = 0.75` is correct, but `0.75` is above the `0.7` threshold, not below it, so a resize would in fact be triggered.",
+        c: "Load factor is entries divided by slots, `6 / 8`, not slots divided by entries; `8 / 6` would give `1.33`, which isn't how load factor is defined.",
+        d: "`6 / 8` is `0.75`, not `0.48`; `0.48` isn't the correct division of these two numbers at all.",
       },
       revealStep: {
         state: {
@@ -889,7 +889,7 @@ const resizeAndFunctionsUnit: Unit = {
     },
     {
       kind: "predict",
-      prompt: "After a table resizes from 4 slots to 8 slots, why can't the old keys simply stay at their old indices?",
+      prompt: "After a table resizes from `4` slots to `8` slots, why can't the old keys simply stay at their old indices?",
       steps: [
         {
           state: {
@@ -907,7 +907,7 @@ const resizeAndFunctionsUnit: Unit = {
       correctId: "a",
       explainWrong: {
         b: "Resizing never touches the key's actual value, only where it's stored; the key itself is unchanged.",
-        c: "There's nothing about a bigger table that makes old indices negative; the real issue is that hash(key) % 4 and hash(key) % 8 are simply different calculations that usually give different results.",
+        c: "There's nothing about a bigger table that makes old indices negative; the real issue is that `hash(key) % 4` and `hash(key) % 8` are simply different calculations that usually give different results.",
       },
       revealStep: {
         state: {
@@ -920,7 +920,7 @@ const resizeAndFunctionsUnit: Unit = {
     },
     {
       kind: "fillin",
-      prompt: "Fill in the comparison so should_resize returns True once load factor exceeds the threshold.",
+      prompt: "Fill in the comparison so `should_resize` returns `True` once load factor exceeds the threshold.",
       code: [
         "def should_resize(entry_count, table_size, threshold):",
         "    load_factor = entry_count / table_size",
@@ -932,7 +932,7 @@ const resizeAndFunctionsUnit: Unit = {
           placeholder: "___",
           answer: ">",
           explainWrong:
-            "A resize should trigger only once the load factor climbs past the threshold, so the comparison needs strictly greater than; < or == would either never trigger correctly or trigger at the wrong exact boundary.",
+            "A resize should trigger only once the load factor climbs past the threshold, so the comparison needs strictly greater than; `<` or `==` would either never trigger correctly or trigger at the wrong exact boundary.",
         },
       ],
       tests: [
@@ -1016,8 +1016,8 @@ const applyHashUnit: Unit = {
         "Given a list of strings `words`, return a dictionary mapping each word to the number of times it appears in `words`. Then, given a string `s` and a table size `size`, return `simple_hash(s, size)`: the sum of `ord(c)` for every character `c` in `s`, reduced with `% size`.",
       difficulty: "Medium",
       examples: [
-        { input: "words = [\"the\", \"cat\", \"the\"]", output: "{\"the\": 2, \"cat\": 1}" },
-        { input: "s = \"cat\", size = 7", output: "sum(ord(c) for c in \"cat\") % 7" },
+        { input: "`words = [\"the\", \"cat\", \"the\"]`", output: "`{\"the\": 2, \"cat\": 1}`" },
+        { input: "`s = \"cat\", size = 7`", output: "`sum(ord(c) for c in \"cat\") % 7`" },
       ],
       constraints: [
         "`words` may be empty, in which case the result is `{}`",
@@ -1067,15 +1067,15 @@ const applyHashUnit: Unit = {
     },
     {
       id: "dsa-hash-tables.apply-hash.2",
-      prompt: "In a simple hash function that sums character codes with ord(), why is the modulo step still necessary?",
+      prompt: "In a simple hash function that sums character codes with `ord()`, why is the modulo step still necessary?",
       options: [
         "To reduce the potentially large sum down to a valid bucket index for the table's size",
         "To make the hash function run faster",
-        "Because ord() values are always negative without it",
+        "Because `ord()` values are always negative without it",
       ],
       correctIndex: 0,
       explainWrong:
-        "ord() values are never negative, and modulo isn't a speed optimization here. Its job is purely to squeeze a sum that can be much larger than the table down into a valid index range.",
+        "`ord()` values are never negative, and modulo isn't a speed optimization here. Its job is purely to squeeze a sum that can be much larger than the table down into a valid index range.",
     },
   ],
 };

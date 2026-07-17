@@ -42,7 +42,7 @@ export function CodePane({ failures, viz, passed, failCount, running, onContinue
       </div>
       {failures.length > 0 && (
         <ul className="animate-fade-up flex flex-col gap-1 rounded-xl border border-error/30 bg-card p-3">
-          {failures.map((f, i) => <li key={i} className="text-error">{f}</li>)}
+          {failures.map((f, i) => <li key={i} className="text-error"><Rich text={f} /></li>)}
         </ul>
       )}
       {passed && (

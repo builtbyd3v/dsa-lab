@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { Card } from "@/lib/types";
+import { Rich } from "./Rich";
 
 export interface RecallPaneProps {
   cards: Card[];
@@ -25,16 +26,16 @@ export function RecallPane({ cards, onAnswer, onDone }: RecallPaneProps) {
   return (
     <div key={i} className="animate-fade-up flex flex-col gap-4">
       <span className="font-mono text-xs tabular-nums text-muted">{i + 1} / {cards.length}</span>
-      <p className="text-xl font-medium text-ink">{card.prompt}</p>
+      <p className="text-xl font-medium text-ink"><Rich text={card.prompt} /></p>
       <div className="flex flex-wrap gap-2">
         {card.options.map((o, idx) => (
           <button key={idx} onClick={() => pick(idx)} disabled={answered !== null}
             className="rounded-lg border border-hairline-strong bg-card px-4 py-2 text-ink transition-all hover:border-ink active:scale-[0.98] disabled:opacity-60">
-            {o}
+            <Rich text={o} />
           </button>
         ))}
       </div>
-      {answered === false && <p className="rounded-xl border border-error/30 bg-card p-3 text-error">{card.explainWrong}</p>}
+      {answered === false && <p className="rounded-xl border border-error/30 bg-card p-3 text-error"><Rich text={card.explainWrong} /></p>}
       {answered === true && <p className="rounded-xl border border-success/30 bg-card p-3 text-success">Correct.</p>}
       {answered !== null && (
         last
