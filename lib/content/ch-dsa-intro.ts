@@ -101,7 +101,7 @@ const dsAndAdtsUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "link0", label: "head", tag: "linked chain", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-          caption: "A linked chain only gives direct access to its head, and its tail if one is tracked.",
+          caption: "A linked chain only gives direct access to its `head`, and its `tail` if one is tracked.",
         },
       ],
       options: [
@@ -124,7 +124,7 @@ const dsAndAdtsUnit: Unit = {
           ],
           arrows: [{ from: "link0", to: "link1", emphasis: "active" }],
         },
-        caption: "Reaching index 1 in a linked chain still means walking from the head, one next pointer at a time.",
+        caption: "Reaching index `1` in a linked chain still means walking from the `head`, one `next` pointer at a time.",
       },
       reviewStep: 4,
     },
@@ -152,9 +152,25 @@ const dsAndAdtsUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write linked_get(head, index) that walks a linked chain, represented as nested dicts like {\"value\": 10, \"next\": ...} ending in None, and returns the value at the given index.",
+        "Given the `head` of a linked chain represented as nested dicts like `{\"value\": 10, \"next\": ...}` ending in `None`, and an integer `index`, return the value stored at that index.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: 'head = {"value": 10, "next": {"value": 20, "next": None}}, index = 1',
+          output: "20",
+        },
+        {
+          input: 'head = {"value": 10, "next": None}, index = 0',
+          output: "10",
+          explanation: "Index `0` is the head node itself, no traversal needed.",
+        },
+      ],
+      constraints: ["`0 <= index < number of nodes in the chain`", "the chain ends with `next` equal to `None`"],
+      bigO: { answer: "O(n)", explain: "Walks `index` steps forward from `head`, following `next` once per step." },
       starter:
         "def linked_get(head, index):\n    # walk `index` steps forward from head, following \"next\" each time\n    # then return that node's \"value\"\n    pass\n",
+      solution:
+        "def linked_get(head, index):\n    node = head\n    for _ in range(index):\n        node = node[\"next\"]\n    return node[\"value\"]\n",
       tests: [
         {
           name: "index 0 is the head's own value",
@@ -395,7 +411,7 @@ const huffmanUnit: Unit = {
             { from: "b", to: "ab", label: "1", emphasis: "active" },
           ],
         },
-        caption: "a and b merge first into ab:5, since they were the two lowest frequencies available.",
+        caption: "`a` and `b` merge first into `ab:5`, since they were the two lowest frequencies available.",
       },
       reviewStep: 1,
     },
@@ -413,7 +429,7 @@ const huffmanUnit: Unit = {
             ],
             arrows: [{ from: "root", to: "d", label: "1" }],
           },
-          caption: "d sits just one edge below the root; a sits much deeper.",
+          caption: "`d` sits just one edge below the root; `a` sits much deeper.",
         },
       ],
       options: [
@@ -442,7 +458,7 @@ const huffmanUnit: Unit = {
             { from: "ab", to: "a", label: "0", emphasis: "active" },
           ],
         },
-        caption: 'a\'s code, "010", is three bits long because a sits three edges below the root.',
+        caption: '`a`\'s code, `"010"`, is three bits long because `a` sits three edges below the root.',
       },
       reviewStep: 8,
     },
@@ -618,7 +634,7 @@ const greedyHeuristicsUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "25 + 10 + 5 + 1 uses 4 coins, and greedy finds it correctly.",
+        caption: "`25 + 10 + 5 + 1` uses 4 coins, and greedy finds it correctly.",
       },
       reviewStep: 2,
     },
@@ -652,16 +668,29 @@ const greedyHeuristicsUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "3 + 3 = 6 using only 2 coins, better than greedy's 3-coin answer.",
+        caption: "`3 + 3 = 6` using only 2 coins, better than greedy's 3-coin answer.",
       },
       reviewStep: 6,
     },
     {
       kind: "write",
       prompt:
-        "Write greedy_coin_count(amount, coins) that returns the number of coins the greedy strategy would use: repeatedly take the largest coin that still fits (coins is sorted largest to smallest, e.g. [25, 10, 5, 1]).",
+        "Given a target `amount` and a list `coins` of coin denominations sorted largest to smallest (e.g. `[25, 10, 5, 1]`), return the number of coins the greedy strategy uses: repeatedly take the largest coin that still fits until `amount` reaches `0`.",
+      difficulty: "Medium",
+      examples: [
+        { input: "amount = 30, coins = [25, 10, 5, 1]", output: "2", explanation: "`25 + 5`." },
+        {
+          input: "amount = 6, coins = [4, 3, 1]",
+          output: "3",
+          explanation: "Greedy takes `4`, then two `1`s, even though `3 + 3` would use fewer coins.",
+        },
+      ],
+      constraints: ["`0 <= amount <= 10^4`", "`coins` is sorted largest to smallest and always includes `1`"],
+      bigO: { answer: "O(n)", explain: "Repeatedly subtracts the largest fitting coin from `amount`, so the number of coin picks grows with `amount`." },
       starter:
         "def greedy_coin_count(amount, coins):\n    # repeatedly take the largest coin that still fits\n    # count how many coins get used in total\n    pass\n",
+      solution:
+        "def greedy_coin_count(amount, coins):\n    count = 0\n    for coin in coins:\n        while amount >= coin:\n            amount -= coin\n            count += 1\n    return count\n",
       tests: [
         { name: "greedy_coin_count(30, [25, 10, 5, 1]) is 2", code: "assert greedy_coin_count(30, [25, 10, 5, 1]) == 2, \"greedy_coin_count(30, [25, 10, 5, 1]) should be 2: 25 + 5\"" },
         {
@@ -852,7 +881,7 @@ const dynamicProgrammingUnit: Unit = {
               { from: "f4", to: "f2" },
             ],
           },
-          caption: "fib(4) branches directly into fib(3) and fib(2).",
+          caption: "`fib(4)` branches directly into `fib(3)` and `fib(2)`.",
         },
       ],
       options: [
@@ -875,7 +904,7 @@ const dynamicProgrammingUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "fib(2) gets computed twice, once as fib(4)'s direct child, once inside fib(3)'s branch.",
+        caption: "`fib(2)` gets computed twice, once as `fib(4)`'s direct child, once inside `fib(3)`'s branch.",
       },
       reviewStep: 1,
     },
@@ -885,7 +914,7 @@ const dynamicProgrammingUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "m2", label: "fib(2) = ?", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-          caption: "fib(2)'s slot in the memo table starts empty.",
+          caption: "`fib(2)`'s slot in the memo table starts empty.",
         },
       ],
       options: [
@@ -912,7 +941,7 @@ const dynamicProgrammingUnit: Unit = {
             { from: "m0", to: "m2", emphasis: "active" },
           ],
         },
-        caption: "fib(2) is computed once here and stored; nothing later recomputes it.",
+        caption: "`fib(2)` is computed once here and stored; nothing later recomputes it.",
       },
       reviewStep: 5,
     },

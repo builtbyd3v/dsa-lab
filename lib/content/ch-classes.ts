@@ -95,7 +95,7 @@ const blueprintInstancesUnit: Unit = {
             ],
             arrows: [{ from: "c1", to: "col" }],
           },
-          caption: "c1.color was set, but c2 is a separate instance with no color attribute of its own.",
+          caption: "`c1.color` was set, but `c2` is a separate instance with no `color` attribute of its own.",
         },
       ],
       options: [
@@ -112,7 +112,7 @@ const blueprintInstancesUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "err", label: "AttributeError", tag: "c2.color", x: 3, y: 2, shape: "box", emphasis: "error" }], arrows: [] },
-        caption: "c2 never had color set on it, so c2.color raises an AttributeError.",
+        caption: "`c2` never had `color` set on it, so `c2.color` raises an `AttributeError`.",
       },
       reviewStep: 4,
     },
@@ -137,8 +137,20 @@ const blueprintInstancesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "class Dog: pass is given. Write make_two_dogs() that creates two separate Dog instances, sets a different .name on each, and returns a tuple of (first_name, second_name).",
+        "Given the class `class Dog: pass`, implement `make_two_dogs()` that creates two separate `Dog` instances, sets a different `.name` on each, and returns a tuple `(first_name, second_name)`.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "make_two_dogs()",
+          output: '("Rex", "Biscuit")',
+          explanation: "Each `Dog` instance gets its own `.name`, and the two names must differ.",
+        },
+      ],
+      constraints: ["Both returned names must be strings", "The two names must not be equal"],
+      bigO: { answer: "O(1)", explain: "Creating two `Dog` instances and setting one attribute each is a fixed amount of work." },
       starter: "class Dog:\n    pass\n\ndef make_two_dogs():\n    # create two Dog() instances with different .name attributes\n    pass\n",
+      solution:
+        'class Dog:\n    pass\n\ndef make_two_dogs():\n    d1 = Dog()\n    d2 = Dog()\n    d1.name = "Rex"\n    d2.name = "Biscuit"\n    return (d1.name, d2.name)\n',
       tests: [
         {
           name: "returns two different names",
@@ -280,7 +292,7 @@ const constructorsMethodsUnit: Unit = {
             ],
             arrows: [{ from: "i", to: "price", emphasis: "active" }],
           },
-          caption: "i.with_tax() passes i as self, so self.price reads 10.",
+          caption: "`i.with_tax()` passes `i` as `self`, so `self.price` reads `10`.",
         },
       ],
       options: [
@@ -297,7 +309,7 @@ const constructorsMethodsUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "11.0", tag: "i.with_tax()", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "self.price is 10, and 10 * 1.1 is 11.0.",
+        caption: "`self.price` is `10`, and `10 * 1.1` is `11.0`.",
       },
       reviewStep: 5,
     },
@@ -321,8 +333,25 @@ const constructorsMethodsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write class Counter with __init__(self, start=0) that sets self.count = start, and a method increment(self) that adds 1 to self.count and returns the new count.",
+      prompt:
+        "Implement a class `Counter` with `__init__(self, start=0)` that sets `self.count` to `start`, and a method `increment(self)` that adds `1` to `self.count` and returns the new count.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "c = Counter(); c.increment()",
+          output: "1",
+          explanation: "`increment()` adds 1 to `self.count` and returns the new value.",
+        },
+        { input: "c2 = Counter(10); c2.increment(); c2.increment()", output: "c2.count == 12" },
+      ],
+      constraints: [
+        "`start` defaults to `0` when omitted",
+        "each `Counter` instance keeps its own independent `count`",
+      ],
+      bigO: { fn: "increment", answer: "O(1)", explain: "`increment` just reads and updates `self.count`, one attribute access regardless of how many times it's called." },
       starter: "class Counter:\n    def __init__(self, start=0):\n        # your code here\n        pass\n\n    def increment(self):\n        # your code here\n        pass\n",
+      solution:
+        "class Counter:\n    def __init__(self, start=0):\n        self.count = start\n\n    def increment(self):\n        self.count += 1\n        return self.count\n",
       tests: [
         { name: "starts at 0 by default", code: 'c = Counter()\nassert c.count == 0, "Counter() with no argument should start count at 0"' },
         { name: "increment adds 1 and returns it", code: 'c = Counter()\nresult = c.increment()\nassert result == 1, "increment() should return 1 after the first call, and update self.count to match"' },
@@ -457,7 +486,7 @@ const dunderCustomUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Money has no __eq__ defined, and m1, m2 are two separate instances.",
+          caption: "`Money` has no `__eq__` defined, and `m1`, `m2` are two separate instances.",
         },
       ],
       options: [
@@ -472,7 +501,7 @@ const dunderCustomUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "res", label: "False", tag: "m1 == m2", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "No __eq__ means == checks object identity, and m1, m2 are different objects, so this is False.",
+        caption: "No `__eq__` means `==` checks object identity, and `m1`, `m2` are different objects, so this is `False`.",
       },
       reviewStep: 4,
     },
@@ -497,9 +526,25 @@ const dunderCustomUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write class Song with __init__(self, title, artist), a __str__ returning \"title by artist\", and an __eq__ that compares two Songs as equal when both title and artist match.",
+        'Implement a class `Song` with `__init__(self, title, artist)`, a `__str__` method returning `"title by artist"`, and an `__eq__` method that treats two `Song` instances as equal when both `title` and `artist` match.',
+      difficulty: "Medium",
+      examples: [
+        { input: 'str(Song("Imagine", "John Lennon"))', output: '"Imagine by John Lennon"' },
+        {
+          input: 'Song("Yesterday", "The Beatles") == Song("Yesterday", "The Beatles")',
+          output: "True",
+          explanation: "Equal when both `title` and `artist` match, even though they are separate objects.",
+        },
+      ],
+      constraints: [
+        "Two `Song` instances with the same `title` and `artist` must compare equal via `==`",
+        '`str(song)` must return exactly `"title by artist"`',
+      ],
+      bigO: { fn: "__init__", answer: "O(1)", explain: "`__init__`, `__str__`, and `__eq__` each touch a fixed handful of attributes." },
       starter:
         "class Song:\n    def __init__(self, title, artist):\n        # your code here\n        pass\n\n    def __str__(self):\n        # your code here\n        pass\n\n    def __eq__(self, other):\n        # your code here\n        pass\n",
+      solution:
+        'class Song:\n    def __init__(self, title, artist):\n        self.title = title\n        self.artist = artist\n\n    def __str__(self):\n        return f"{self.title} by {self.artist}"\n\n    def __eq__(self, other):\n        return self.title == other.title and self.artist == other.artist\n',
       tests: [
         { name: "__str__ formats correctly", code: 's = Song("Imagine", "John Lennon")\nassert str(s) == "Imagine by John Lennon", "str(song) should be \\"Imagine by John Lennon\\": title by artist"' },
         {
@@ -591,9 +636,25 @@ const applyClassesUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        "Write class BankAccount with __init__(self, owner, balance=0), a method deposit(self, amount) that adds amount to self.balance, a method withdraw(self, amount) that subtracts amount from self.balance, and __str__ returning \"owner: $balance\".",
+        'Implement a class `BankAccount` with `__init__(self, owner, balance=0)`, a method `deposit(self, amount)` that adds `amount` to `self.balance`, a method `withdraw(self, amount)` that subtracts `amount` from `self.balance`, and `__str__` returning `"owner: $balance"`.',
+      difficulty: "Medium",
+      examples: [
+        { input: 'acc = BankAccount("Al", 100); acc.deposit(50)', output: "acc.balance == 150" },
+        {
+          input: 'str(BankAccount("Sam"))',
+          output: '"Sam: $0"',
+          explanation: "`balance` defaults to `0` when not provided.",
+        },
+      ],
+      constraints: [
+        "`balance` defaults to `0` when not provided",
+        '`str(account)` must return exactly `"owner: $balance"`',
+      ],
+      bigO: { fn: "deposit", answer: "O(1)", explain: "`deposit`, `withdraw`, and `__str__` each perform a fixed number of attribute operations." },
       starter:
         "class BankAccount:\n    def __init__(self, owner, balance=0):\n        # your code here\n        pass\n\n    def deposit(self, amount):\n        # your code here\n        pass\n\n    def withdraw(self, amount):\n        # your code here\n        pass\n\n    def __str__(self):\n        # your code here\n        pass\n",
+      solution:
+        'class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n\n    def deposit(self, amount):\n        self.balance += amount\n\n    def withdraw(self, amount):\n        self.balance -= amount\n\n    def __str__(self):\n        return f"{self.owner}: ${self.balance}"\n',
       tests: [
         { name: "deposit increases balance", code: 'acc = BankAccount("Al", 100)\nacc.deposit(50)\nassert acc.balance == 150, "after depositing 50 into a 100 balance, balance should be 150"' },
         { name: "withdraw decreases balance", code: 'acc = BankAccount("Al", 150)\nacc.withdraw(30)\nassert acc.balance == 120, "after withdrawing 30 from a 150 balance, balance should be 120"' },

@@ -106,7 +106,7 @@ const listOpsUnit: Unit = {
             ],
             arrows: [{ from: "a", to: "b" }, { from: "b", to: "c" }, { from: "c", to: "d" }],
           },
-          caption: "insert(0, 0) shifts 1, 2, 3 right, giving [0, 1, 2, 3].",
+          caption: "`insert(0, 0)` shifts `1, 2, 3` right, giving `[0, 1, 2, 3]`.",
         },
       ],
       options: [
@@ -130,7 +130,7 @@ const listOpsUnit: Unit = {
           ],
           arrows: [{ from: "a", to: "b" }, { from: "b", to: "c" }],
         },
-        caption: "insert(0, 0) makes [0, 1, 2, 3]; pop() then removes the last item, 3, leaving [0, 1, 2].",
+        caption: "`insert(0, 0)` makes `[0, 1, 2, 3]`; `pop()` then removes the last item, `3`, leaving `[0, 1, 2]`.",
       },
       reviewStep: 2,
     },
@@ -155,8 +155,17 @@ const listOpsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write rotate_left(items) that removes the first element and appends it to the end, then returns the same list (mutated in place).",
+      prompt:
+        "Given a list `items`, remove its first element and append it to the end, mutating `items` in place. Return the same list object (mutated in place), not a copy.",
+      difficulty: "Easy",
+      examples: [
+        { input: "items = [1, 2, 3]", output: "[2, 3, 1]" },
+        { input: "items = [9]", output: "[9]", explanation: "Moving the only item to the end changes nothing." },
+      ],
+      constraints: ["1 <= len(items) <= 10^4", "the function must return the same list object, not a new one"],
+      bigO: { answer: "O(n)", explain: "`pop(0)` shifts every remaining element of `items` left by one slot." },
       starter: "def rotate_left(items):\n    # your code here\n    pass\n",
+      solution: "def rotate_left(items):\n    items.append(items.pop(0))\n    return items\n",
       tests: [
         { name: "[1, 2, 3] rotates to [2, 3, 1]", code: 'result = rotate_left([1, 2, 3])\nassert result == [2, 3, 1], "rotate_left([1, 2, 3]) should be [2, 3, 1]: pop(0) removes the first item, append puts it at the end"' },
         { name: "single item list stays the same", code: 'assert rotate_left([9]) == [9], "rotate_left([9]) should be [9]: moving the only item to the end changes nothing"' },
@@ -312,7 +321,7 @@ const slicingNestingUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "matrix[1] follows the arrow to the second inner list, [4, 5, 6].",
+          caption: "`matrix[1]` follows the arrow to the second inner list, `[4, 5, 6]`.",
         },
       ],
       options: [
@@ -329,7 +338,7 @@ const slicingNestingUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "4", tag: "matrix[1][0]", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "matrix[1] is [4, 5, 6]; taking [0] of that gives 4.",
+        caption: "`matrix[1]` is `[4, 5, 6]`; taking `[0]` of that gives `4`.",
       },
       reviewStep: 5,
     },
@@ -358,8 +367,17 @@ const slicingNestingUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write get_diagonal(matrix) that returns [matrix[0][0], matrix[1][1]] for a 2x2 matrix.",
+      prompt:
+        "Given a 2x2 matrix `matrix` (a list of two lists, each holding two elements), return `[matrix[0][0], matrix[1][1]]`, the values along its main diagonal.",
+      difficulty: "Easy",
+      examples: [
+        { input: "matrix = [[1, 2], [3, 4]]", output: "[1, 4]" },
+        { input: "matrix = [[5, 6], [7, 8]]", output: "[5, 8]" },
+      ],
+      constraints: ["matrix always has exactly 2 rows and 2 columns"],
+      bigO: { answer: "O(1)", explain: "Only two fixed lookups, `matrix[0][0]` and `matrix[1][1]`, happen regardless of input." },
       starter: "def get_diagonal(matrix):\n    # your code here\n    pass\n",
+      solution: "def get_diagonal(matrix):\n    return [matrix[0][0], matrix[1][1]]\n",
       tests: [
         { name: "diagonal of [[1, 2], [3, 4]] is [1, 4]", code: 'assert get_diagonal([[1, 2], [3, 4]]) == [1, 4], "get_diagonal([[1, 2], [3, 4]]) should be [1, 4]: matrix[0][0] is 1, matrix[1][1] is 4"' },
         { name: "diagonal of [[5, 6], [7, 8]] is [5, 8]", code: 'assert get_diagonal([[5, 6], [7, 8]]) == [5, 8], "get_diagonal([[5, 6], [7, 8]]) should be [5, 8]"' },
@@ -506,7 +524,7 @@ const comprehensionsUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "1 and 2 fail n > 2 and are skipped; 3 and 4 pass and get appended.",
+          caption: "`1` and `2` fail `n > 2` and are skipped; `3` and `4` pass and get appended.",
         },
       ],
       options: [
@@ -523,7 +541,7 @@ const comprehensionsUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "[3, 4]", tag: "result", x: 2, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "Only 3 and 4 satisfy n > 2, so result is [3, 4].",
+        caption: "Only `3` and `4` satisfy `n > 2`, so result is `[3, 4]`.",
       },
       reviewStep: 4,
     },
@@ -547,8 +565,17 @@ const comprehensionsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write squares_of_evens(nums) that returns a list of the squares of only the even numbers in nums, using a single list comprehension.",
+      prompt:
+        "Given a list of integers `nums`, return a list containing the square of each even number in `nums`, in their original order. Use a single list comprehension.",
+      difficulty: "Medium",
+      examples: [
+        { input: "nums = [1, 2, 3, 4]", output: "[4, 16]", explanation: "Only `2` and `4` are even, squared to `4` and `16`." },
+        { input: "nums = [1, 3, 5]", output: "[]", explanation: "None of these are even." },
+      ],
+      constraints: ["0 <= len(nums) <= 10^4", "must use a single list comprehension"],
+      bigO: { answer: "O(n)", explain: "The comprehension visits each element of `nums` exactly once." },
       starter: "def squares_of_evens(nums):\n    # your code here\n    pass\n",
+      solution: "def squares_of_evens(nums):\n    return [n * n for n in nums if n % 2 == 0]\n",
       tests: [
         { name: "[1, 2, 3, 4] gives [4, 16]", code: 'assert squares_of_evens([1, 2, 3, 4]) == [4, 16], "squares_of_evens([1, 2, 3, 4]) should be [4, 16]: only 2 and 4 are even, squared to 4 and 16"' },
         { name: "no evens gives empty list", code: 'assert squares_of_evens([1, 3, 5]) == [], "squares_of_evens([1, 3, 5]) should be []: none of these are even"' },
@@ -709,7 +736,7 @@ const dictionariesUnit: Unit = {
             ],
             arrows: [{ from: "ka", to: "va" }, { from: "kb", to: "vb" }],
           },
-          caption: 'd["a"] = 100 overwrites the existing "a" pair; "b" is untouched.',
+          caption: '`d["a"] = 100` overwrites the existing `"a"` pair; `"b"` is untouched.',
         },
       ],
       options: [
@@ -726,7 +753,7 @@ const dictionariesUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "len", label: "2", tag: "len(d)", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: 'd still has exactly two keys, "a" and "b", so len(d) is 2.',
+        caption: '`d` still has exactly two keys, `"a"` and `"b"`, so `len(d)` is `2`.',
       },
       reviewStep: 2,
     },
@@ -750,8 +777,17 @@ const dictionariesUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: 'Write safe_lookup(d, key) that returns d[key] if it exists, or the string "not found" otherwise, using a single dict method call.',
+      prompt:
+        'Given a dict `d` and a `key`, return `d[key]` if `key` exists in `d`, or the string `"not found"` otherwise. Use a single dict method call.',
+      difficulty: "Easy",
+      examples: [
+        { input: 'd = {"a": 1}, key = "a"', output: "1" },
+        { input: 'd = {"a": 1}, key = "z"', output: '"not found"', explanation: '`"z"` is not a key in `d`.' },
+      ],
+      constraints: ["d may be empty", "use dict.get to avoid raising KeyError"],
+      bigO: { answer: "O(1)", explain: "`dict.get` performs a constant-time hash lookup regardless of `d`'s size." },
       starter: "def safe_lookup(d, key):\n    # your code here\n    pass\n",
+      solution: 'def safe_lookup(d, key):\n    return d.get(key, "not found")\n',
       tests: [
         { name: "existing key returns its value", code: 'assert safe_lookup({"a": 1}, "a") == 1, "safe_lookup({\\"a\\": 1}, \\"a\\") should be 1: the key exists"' },
         { name: "missing key returns the fallback", code: 'assert safe_lookup({"a": 1}, "z") == "not found", "safe_lookup({\\"a\\": 1}, \\"z\\") should be \\"not found\\": \\"z\\" is not a key in the dict"' },
@@ -847,9 +883,24 @@ const applyCollectionsUnit: Unit = {
   ladder: [
     {
       kind: "apply",
-      prompt: "Write word_count(sentence) that returns a dict mapping each word in sentence to how many times it appears, using split() and a dict.",
-      starter:
-        'def _viz(d):\n    keys = list(d.keys())\n    nodes = []\n    arrows = []\n    for i, k in enumerate(keys):\n        nodes.append({"id": f"k{i}", "label": str(k), "x": 0, "y": i, "shape": "box", "tag": "key"})\n        nodes.append({"id": f"v{i}", "label": str(d[k]), "x": 2, "y": i, "shape": "circle", "tag": "count"})\n        arrows.append({"from": f"k{i}", "to": f"v{i}"})\n    return {"nodes": nodes, "arrows": arrows}\n\ndef word_count(sentence):\n    # split the sentence into words, then tally each word in a dict\n    pass\n',
+      prompt:
+        "Given a string `sentence` of space-separated words, return a dict mapping each word to the number of times it appears in `sentence`. Use `split()` and a dict.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: 'sentence = "the cat and the dog"',
+          output: '{"the": 2, "cat": 1, "and": 1, "dog": 1}',
+          explanation: '`"the"` appears twice, so it is tallied to `2`.',
+        },
+        { input: 'sentence = "a a a"', output: '{"a": 3}' },
+      ],
+      constraints: ["sentence contains at least one word", "words are separated by single spaces"],
+      bigO: { answer: "O(n)", explain: "`split()` and the tally loop each pass over `sentence` once, where `n` is its length." },
+      hidden:
+        'def _viz(d):\n    keys = list(d.keys())\n    nodes = []\n    arrows = []\n    for i, k in enumerate(keys):\n        nodes.append({"id": f"k{i}", "label": str(k), "x": 0, "y": i, "shape": "box", "tag": "key"})\n        nodes.append({"id": f"v{i}", "label": str(d[k]), "x": 2, "y": i, "shape": "circle", "tag": "count"})\n        arrows.append({"from": f"k{i}", "to": f"v{i}"})\n    return {"nodes": nodes, "arrows": arrows}\n',
+      starter: "def word_count(sentence):\n    # split the sentence into words, then tally each word in a dict\n    pass\n",
+      solution:
+        'def word_count(sentence):\n    words = sentence.split(" ")\n    counts = {}\n    for word in words:\n        counts[word] = counts.get(word, 0) + 1\n    return counts\n',
       tests: [
         {
           name: 'counts repeats correctly',

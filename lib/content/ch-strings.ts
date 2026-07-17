@@ -132,7 +132,7 @@ const indexingSlicingUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: 's[1:4] opens a window over indices 1, 2, 3 of "hello".',
+          caption: '`s[1:4]` opens a window over indices `1`, `2`, `3` of `"hello"`.',
         },
       ],
       options: [
@@ -152,7 +152,7 @@ const indexingSlicingUnit: Unit = {
           nodes: [{ id: "result", label: '"ell"', tag: "result", x: 3, y: 2, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: 's[1:4] on "hello" gives "ell": indices 1, 2, 3, stopping before index 4.',
+        caption: '`s[1:4]` on `"hello"` gives `"ell"`: indices `1`, `2`, `3`, stopping before index `4`.',
       },
       reviewStep: 3,
     },
@@ -176,8 +176,21 @@ const indexingSlicingUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write first_last(s) that returns a 2-character string made of the first character and the last character of s, using s[0] and s[-1].",
+      prompt:
+        "Given a string `s`, return a 2-character string made of `s`'s first character followed by its last character, using `s[0]` and `s[-1]`.",
+      difficulty: "Easy",
+      examples: [
+        { input: '`s = "python"`', output: '`"pn"`', explanation: '`s[0]` is `"p"`, `s[-1]` is `"n"`.' },
+        {
+          input: '`s = "a"`',
+          output: '`"aa"`',
+          explanation: 'In a 1-character string, `s[0]` and `s[-1]` both point at the same character.',
+        },
+      ],
+      constraints: ['`1 <= len(s) <= 1000`'],
+      bigO: { answer: "O(1)", explain: "Only `s[0]` and `s[-1]` are read; the work does not grow with the length of `s`." },
       starter: "def first_last(s):\n    # your code here\n    pass\n",
+      solution: "def first_last(s):\n    return s[0] + s[-1]\n",
       tests: [
         { name: 'first_last("python") is "pn"', code: 'assert first_last("python") == "pn", "first_last(\\"python\\") should be \\"pn\\": s[0] is \\"p\\", s[-1] is \\"n\\""' },
         { name: 'first_last("hi") is "hi"', code: 'assert first_last("hi") == "hi", "first_last(\\"hi\\") should be \\"hi\\": s[0] is \\"h\\", s[-1] is \\"i\\""' },
@@ -313,7 +326,7 @@ const methodsUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "s", label: '"Data Structures"', tag: "s", x: 2, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-          caption: 's holds "Data Structures" before either print call runs.',
+          caption: '`s` holds `"Data Structures"` before either `print` call runs.',
         },
       ],
       options: [
@@ -330,7 +343,7 @@ const methodsUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "s", label: '"Data Structures"', tag: "s (still original)", x: 2, y: 2, shape: "box", emphasis: "active" }], arrows: [] },
-        caption: '"DATA STRUCTURES" prints first from s.upper(), then "Data Structures" prints second: s was never modified.',
+        caption: '`"DATA STRUCTURES"` prints first from `s.upper()`, then `"Data Structures"` prints second: `s` was never modified.',
       },
       reviewStep: 1,
     },
@@ -355,8 +368,17 @@ const methodsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write normalize(s) that returns a new string with s stripped of leading/trailing whitespace AND lowercased, without modifying s itself.",
+      prompt:
+        "Given a string `s`, return a new string with `s` stripped of leading/trailing whitespace and lowercased, without modifying `s` itself.",
+      difficulty: "Easy",
+      examples: [
+        { input: '`s = "  HELLO  "`', output: '`"hello"`', explanation: 'Strip the whitespace, then lowercase.' },
+        { input: '`s = "World"`', output: '`"world"`', explanation: 'Lowercase with no whitespace to strip.' },
+      ],
+      constraints: ['`0 <= len(s) <= 1000`', '`s` must be left unchanged after the call'],
+      bigO: { answer: "O(n)", explain: "Both `strip()` and `lower()` scan every character of `s` once." },
       starter: "def normalize(s):\n    # your code here\n    pass\n",
+      solution: "def normalize(s):\n    return s.strip().lower()\n",
       tests: [
         { name: 'normalize("  HELLO  ") is "hello"', code: 'assert normalize("  HELLO  ") == "hello", "normalize(\\"  HELLO  \\") should be \\"hello\\": strip the whitespace, then lowercase"' },
         { name: 'normalize("World") is "world"', code: 'assert normalize("World") == "world", "normalize(\\"World\\") should be \\"world\\": lowercase with no whitespace to strip"' },
@@ -493,7 +515,7 @@ const splitJoinUnit: Unit = {
             ],
             arrows: [{ from: "a", to: "b" }, { from: "b", to: "c" }, { from: "c", to: "d" }],
           },
-          caption: 'Splitting "a-b-c-d" on "-" produces four pieces: "a", "b", "c", "d".',
+          caption: 'Splitting `"a-b-c-d"` on `"-"` produces four pieces: `"a"`, `"b"`, `"c"`, `"d"`.',
         },
       ],
       options: [
@@ -510,7 +532,7 @@ const splitJoinUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "4", tag: "result", x: 3, y: 2, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: 's.split("-") gives ["a", "b", "c", "d"], a list of length 4.',
+        caption: '`s.split("-")` gives `["a", "b", "c", "d"]`, a list of length `4`.',
       },
       reviewStep: 1,
     },
@@ -534,8 +556,17 @@ const splitJoinUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write to_csv(fields) that takes a list of strings and returns them joined into one comma-separated line.",
+      prompt:
+        "Given a list of strings `fields`, return them joined into one comma-separated line.",
+      difficulty: "Easy",
+      examples: [
+        { input: '`fields = ["a", "b", "c"]`', output: '`"a,b,c"`' },
+        { input: '`fields = []`', output: '`""`', explanation: 'Joining an empty list produces an empty string.' },
+      ],
+      constraints: ['`0 <= len(fields) <= 1000`', 'each element of `fields` is already a string'],
+      bigO: { answer: "O(n)", explain: "`join()` visits every character across all elements of `fields` once." },
       starter: "def to_csv(fields):\n    # your code here\n    pass\n",
+      solution: "def to_csv(fields):\n    return \",\".join(fields)\n",
       tests: [
         { name: 'to_csv(["a", "b", "c"]) is "a,b,c"', code: 'assert to_csv(["a", "b", "c"]) == "a,b,c", "to_csv([\\"a\\", \\"b\\", \\"c\\"]) should be \\"a,b,c\\": join with a comma"' },
         { name: 'to_csv(["single"]) is "single"', code: 'assert to_csv(["single"]) == "single", "to_csv([\\"single\\"]) should be \\"single\\": one element needs no separator inserted"' },
@@ -615,9 +646,19 @@ const applyStringsUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        'Write format_name(full_name) that turns a "First Last" string into "Last, F." — the last name, a comma and space, then the first initial and a period. Use split() to separate the names and slicing to grab the first initial.',
-      starter:
-        'def _viz(name, xs):\n    nodes = [{"id": f"n{i}", "label": repr(v), "x": i, "y": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {"id": "var", "label": name, "x": 0, "y": 1, "shape": "box", "tag": "variable"})\n    arrows = [{"from": "var", "to": "n0"}] + [{"from": f"n{i}", "to": f"n{i+1}"} for i in range(len(xs) - 1)]\n    return {"nodes": nodes, "arrows": arrows}\n\ndef format_name(full_name):\n    # split into first and last, then build "Last, F."\n    pass\n',
+        'Given a string `full_name` in `"First Last"` format, return it reformatted as `"Last, F."` — the last name, a comma and space, then the first initial and a period. Use `split()` to separate the names and slicing to grab the first initial.',
+      difficulty: "Easy",
+      examples: [
+        { input: '`full_name = "Ada Lovelace"`', output: '`"Lovelace, A."`' },
+        { input: '`full_name = "Grace Hopper"`', output: '`"Hopper, G."`' },
+      ],
+      constraints: ['`full_name` always contains exactly one space separating first and last name'],
+      bigO: { answer: "O(n)", explain: "`split()` scans every character of `full_name` once to find the separator." },
+      // _viz is a provided helper for the visualizer; it is run before your code, not something you need to write
+      starter: 'def format_name(full_name):\n    # split into first and last, then build "Last, F."\n    pass\n',
+      solution: 'def format_name(full_name):\n    parts = full_name.split(" ")\n    return parts[1] + ", " + parts[0][0] + "."\n',
+      hidden:
+        'def _viz(name, xs):\n    nodes = [{"id": f"n{i}", "label": repr(v), "x": i, "y": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {"id": "var", "label": name, "x": 0, "y": 1, "shape": "box", "tag": "variable"})\n    arrows = [{"from": "var", "to": "n0"}] + [{"from": f"n{i}", "to": f"n{i+1}"} for i in range(len(xs) - 1)]\n    return {"nodes": nodes, "arrows": arrows}\n',
       tests: [
         { name: '"Ada Lovelace" becomes "Lovelace, A."', code: 'assert format_name("Ada Lovelace") == "Lovelace, A.", "format_name(\\"Ada Lovelace\\") should be \\"Lovelace, A.\\": last name, comma, space, first initial, period"' },
         { name: '"Grace Hopper" becomes "Hopper, G."', code: 'assert format_name("Grace Hopper") == "Hopper, G.", "format_name(\\"Grace Hopper\\") should be \\"Hopper, G.\\""' },

@@ -13,7 +13,7 @@ const branchingUnit: Unit = {
         nodes: [{ id: "score", label: "82", tag: "score", x: 1, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "score = 82 creates the value every condition below will test.",
+      caption: "`score = 82` creates the value every condition below will test.",
     },
     {
       state: {
@@ -23,7 +23,7 @@ const branchingUnit: Unit = {
         ],
         arrows: [{ from: "score", to: "c1", emphasis: "active" }],
       },
-      caption: "if score >= 90 is the first condition Python checks.",
+      caption: "`if score >= 90` is the first condition Python checks.",
     },
     {
       state: {
@@ -37,7 +37,7 @@ const branchingUnit: Unit = {
           { from: "c1", to: "c2", label: "False", emphasis: "active" },
         ],
       },
-      caption: "82 >= 90 is False, so the elif's score >= 80 check runs next.",
+      caption: "`82 >= 90` is False, so the elif's `score >= 80` check runs next.",
     },
     {
       state: {
@@ -53,7 +53,7 @@ const branchingUnit: Unit = {
           { from: "c2", to: "branchB", label: "True", emphasis: "active" },
         ],
       },
-      caption: "82 >= 80 is True, so this branch runs and assigns grade the value B.",
+      caption: "`82 >= 80` is True, so this branch runs and assigns `grade` the value `B`.",
     },
     {
       state: {
@@ -71,7 +71,7 @@ const branchingUnit: Unit = {
           { from: "c2", to: "c3" },
         ],
       },
-      caption: "Python never even checks score >= 70, even though 82 also satisfies it, because once a branch matches, every later elif and else is skipped.",
+      caption: "Python never even checks `score >= 70`, even though `82` also satisfies it, because once a branch matches, every later `elif` and `else` is skipped.",
     },
     {
       state: {
@@ -91,7 +91,7 @@ const branchingUnit: Unit = {
           { from: "c3", to: "c4" },
         ],
       },
-      caption: "The else at the very bottom is skipped the same way; it would only run if nothing above it had matched.",
+      caption: "The `else` at the very bottom is skipped the same way; it would only run if nothing above it had matched.",
     },
   ],
   ladder: [
@@ -105,7 +105,7 @@ const branchingUnit: Unit = {
             nodes: [{ id: "temp", label: "65", tag: "temp", x: 1, y: 1, shape: "box", emphasis: "new" }],
             arrows: [],
           },
-          caption: "temp = 65 will be tested against each condition in order.",
+          caption: "`temp = 65` will be tested against each condition in order.",
         },
       ],
       options: [
@@ -132,7 +132,7 @@ const branchingUnit: Unit = {
             { from: "cond", to: "out", emphasis: "active" },
           ],
         },
-        caption: "65 > 60 is True, and since the earlier conditions were False, this is the first branch that runs.",
+        caption: "`65 > 60` is True, and since the earlier conditions were False, this is the first branch that runs.",
       },
       reviewStep: 4,
     },
@@ -168,7 +168,17 @@ const branchingUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write letter_grade(score) that returns \"A\" for score >= 90, \"B\" for score >= 80, \"C\" for score >= 70, and \"F\" otherwise.",
+        "Given an integer `score`, return the letter grade as a string: `\"A\"` for `score >= 90`, `\"B\"` for `score >= 80`, `\"C\"` for `score >= 70`, and `\"F\"` otherwise.",
+      difficulty: "Easy",
+      examples: [
+        { input: "score = 95", output: "\"A\"", explanation: "95 is at least 90." },
+        { input: "score = 82", output: "\"B\"", explanation: "82 is below 90 but at least 80." },
+        { input: "score = 50", output: "\"F\"", explanation: "50 doesn't reach any of the earlier cutoffs." },
+      ],
+      constraints: ["`0 <= score <= 100`", "Cutoffs are inclusive: `score = 90` counts as `\"A\"`, `score = 80` counts as `\"B\"`"],
+      bigO: { answer: "O(1)", explain: "`letter_grade` checks a fixed handful of `if`/`elif` conditions regardless of `score`'s value." },
+      solution:
+        "def letter_grade(score):\n    if score >= 90:\n        return \"A\"\n    elif score >= 80:\n        return \"B\"\n    elif score >= 70:\n        return \"C\"\n    else:\n        return \"F\"\n",
       starter: "def letter_grade(score):\n    # your code here\n    pass\n",
       tests: [
         { name: "95 is A", code: "assert letter_grade(95) == \"A\", \"letter_grade(95) should be 'A': 95 >= 90\"" },
@@ -235,7 +245,7 @@ const whileUnit: Unit = {
         nodes: [{ id: "n", label: "3", tag: "n", x: 1, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "n = 3 begins the countdown, before the loop has checked anything yet.",
+      caption: "`n = 3` begins the countdown, before the loop has checked anything yet.",
     },
     {
       state: {
@@ -245,7 +255,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond", emphasis: "active" }],
       },
-      caption: "while n > 0: checks the condition first. 3 > 0 is True, so the body runs.",
+      caption: "`while n > 0:` checks the condition first. `3 > 0` is True, so the body runs.",
     },
     {
       state: {
@@ -255,7 +265,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond" }],
       },
-      caption: "The body runs once, and n -= 1 changes that same box from 3 to 2.",
+      caption: "The body runs once, and `n -= 1` changes that same box from `3` to `2`.",
     },
     {
       state: {
@@ -265,7 +275,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond", label: "loop back", emphasis: "active" }],
       },
-      caption: "Python re-checks the condition before every pass. 2 > 0 is still True, so the loop continues.",
+      caption: "Python re-checks the condition before every pass. `2 > 0` is still True, so the loop continues.",
     },
     {
       state: {
@@ -275,7 +285,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond" }],
       },
-      caption: "The body runs again, dropping n from 2 to 1 in that very same box.",
+      caption: "The body runs again, dropping `n` from `2` to `1` in that very same box.",
     },
     {
       state: {
@@ -285,7 +295,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond", label: "loop back", emphasis: "active" }],
       },
-      caption: "1 > 0 is still True, so the loop fires one more time.",
+      caption: "`1 > 0` is still True, so the loop fires one more time.",
     },
     {
       state: {
@@ -295,7 +305,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond" }],
       },
-      caption: "n -= 1 changes the box to 0.",
+      caption: "`n -= 1` changes the box to `0`.",
     },
     {
       state: {
@@ -305,7 +315,7 @@ const whileUnit: Unit = {
         ],
         arrows: [{ from: "n", to: "cond" }],
       },
-      caption: "0 > 0 is False, so the check fails and the loop ends without running the body again.",
+      caption: "`0 > 0` is False, so the check fails and the loop ends without running the body again.",
     },
     {
       state: {
@@ -319,7 +329,7 @@ const whileUnit: Unit = {
           { from: "cond2", to: "danger", emphasis: "error" },
         ],
       },
-      caption: "If the body never changes n, n > 0 stays True forever: an infinite loop that freezes the program.",
+      caption: "If the body never changes `n`, `n > 0` stays True forever: an infinite loop that freezes the program.",
     },
   ],
   ladder: [
@@ -332,7 +342,7 @@ const whileUnit: Unit = {
             nodes: [{ id: "n", label: "5", tag: "n", x: 1, y: 1, shape: "box", emphasis: "new" }],
             arrows: [],
           },
-          caption: "n = 5, and the loop keeps going as long as n > 2.",
+          caption: "`n = 5`, and the loop keeps going as long as `n > 2`.",
         },
       ],
       options: [
@@ -353,7 +363,7 @@ const whileUnit: Unit = {
           ],
           arrows: [{ from: "n", to: "cond" }],
         },
-        caption: "n goes 5, 4, 3, 2: three passes through the body, then the check finally fails at 2 > 2.",
+        caption: "`n` goes `5, 4, 3, 2`: three passes through the body, then the check finally fails at `2 > 2`.",
       },
       reviewStep: 7,
     },
@@ -381,7 +391,16 @@ const whileUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write countdown_list(n) that returns a list counting down from n to 1 (inclusive), using a while loop. For example, countdown_list(3) returns [3, 2, 1].",
+        "Given a positive integer `n`, return a list counting down from `n` to `1` inclusive, built using a `while` loop.",
+      difficulty: "Easy",
+      examples: [
+        { input: "n = 3", output: "[3, 2, 1]" },
+        { input: "n = 1", output: "[1]", explanation: "The loop still runs once when `n` starts at `1`." },
+      ],
+      constraints: ["`1 <= n <= 10^4`", "Use a `while` loop, not a `for` loop"],
+      bigO: { answer: "O(n)", explain: "`countdown_list` runs its `while` loop once per number from `n` down to `1`." },
+      solution:
+        "def countdown_list(n):\n    result = []\n    while n > 0:\n        result.append(n)\n        n -= 1\n    return result\n",
       starter: "def countdown_list(n):\n    # your code here\n    pass\n",
       tests: [
         {
@@ -459,7 +478,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "primes = [2, 3, 5] and total = 0 sit ready before the loop starts.",
+      caption: "`primes = [2, 3, 5]` and `total = 0` sit ready before the loop starts.",
     },
     {
       state: {
@@ -472,7 +491,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n0", emphasis: "active" }],
       },
-      caption: "for p in primes binds p to the first item; p now points at 2.",
+      caption: "`for p in primes` binds `p` to the first item; `p` now points at `2`.",
     },
     {
       state: {
@@ -485,7 +504,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n0" }],
       },
-      caption: "total += p adds 2. Once used, that item dims to show the loop has moved past it.",
+      caption: "`total += p` adds `2`. Once used, that item dims to show the loop has moved past it.",
     },
     {
       state: {
@@ -498,7 +517,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n1", emphasis: "active" }],
       },
-      caption: "The loop's next pass rebinds p to the second item, 3.",
+      caption: "The loop's next pass rebinds `p` to the second item, `3`.",
     },
     {
       state: {
@@ -511,7 +530,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n1" }],
       },
-      caption: "total becomes 5. Two items are consumed and dimmed; one is left to visit.",
+      caption: "`total` becomes `5`. Two items are consumed and dimmed; one is left to visit.",
     },
     {
       state: {
@@ -524,7 +543,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n2", emphasis: "active" }],
       },
-      caption: "p now points at the last item, 5.",
+      caption: "`p` now points at the last item, `5`.",
     },
     {
       state: {
@@ -537,7 +556,7 @@ const forRangeUnit: Unit = {
         ],
         arrows: [{ from: "p", to: "n2" }],
       },
-      caption: "total ends at 10 once every item has been visited and consumed.",
+      caption: "`total` ends at `10` once every item has been visited and consumed.",
     },
   ],
   ladder: [
@@ -555,7 +574,7 @@ const forRangeUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Every item in nums gets added into total, one at a time.",
+          caption: "Every item in `nums` gets added into `total`, one at a time.",
         },
       ],
       options: [
@@ -578,7 +597,7 @@ const forRangeUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "total ends at 8: 4 + 1 + 3, with every item consumed along the way.",
+        caption: "`total` ends at `8`: `4 + 1 + 3`, with every item consumed along the way.",
       },
       reviewStep: 6,
     },
@@ -607,7 +626,16 @@ const forRangeUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write sum_of_evens(nums) that returns the sum of only the even numbers in the list nums, using a for loop.",
+      prompt: "Given a list of integers `nums`, return the sum of only the even numbers in `nums`, using a `for` loop.",
+      difficulty: "Easy",
+      examples: [
+        { input: "nums = [1, 2, 3, 4]", output: "6", explanation: "Only `2` and `4` are even." },
+        { input: "nums = [1, 3, 5]", output: "0", explanation: "None of these numbers are even." },
+      ],
+      constraints: ["`0 <= len(nums) <= 10^4`", "`nums` may contain negative numbers"],
+      bigO: { answer: "O(n)", explain: "`sum_of_evens` visits every element of `nums` once in its `for` loop." },
+      solution:
+        "def sum_of_evens(nums):\n    total = 0\n    for n in nums:\n        if n % 2 == 0:\n            total += n\n    return total\n",
       starter: "def sum_of_evens(nums):\n    total = 0\n    # your code here\n    return total\n",
       tests: [
         {
@@ -683,7 +711,7 @@ const applyFlowUnit: Unit = {
           { from: "cond3", to: "output", emphasis: "active" },
         ],
       },
-      caption: "n = 3: n % 15 isn't 0, but n % 3 is, so the ping branch runs.",
+      caption: "`n = 3`: `n % 15` isn't `0`, but `n % 3` is, so the ping branch runs.",
     },
     {
       state: {
@@ -697,14 +725,23 @@ const applyFlowUnit: Unit = {
           { from: "cond15", to: "output", emphasis: "active" },
         ],
       },
-      caption: "n = 15: checking the combined condition first catches multiples of both 3 and 5, printing pingpong before ping or pong get a chance.",
+      caption: "`n = 15`: checking the combined condition first catches multiples of both `3` and `5`, printing `pingpong` before `ping` or `pong` get a chance.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Write ping_pong(n): return \"pingpong\" if n is divisible by both 3 and 5, \"ping\" if only by 3, \"pong\" if only by 5, and otherwise n itself. Check the combined case first so multiples of 15 never fall into the ping or pong branches by mistake.",
+        "Given an integer `n`, return `\"pingpong\"` if `n` is divisible by both `3` and `5`, `\"ping\"` if divisible by only `3`, `\"pong\"` if divisible by only `5`, and `n` itself otherwise. The combined divisible-by-`15` case must be checked first, so multiples of `15` never fall into the `ping` or `pong` branches by mistake.",
+      difficulty: "Medium",
+      examples: [
+        { input: "n = 9", output: "\"ping\"", explanation: "`9` is divisible by `3` but not by `5`." },
+        { input: "n = 15", output: "\"pingpong\"", explanation: "`15` is divisible by both `3` and `5`, so the combined check must win over the single checks." },
+      ],
+      constraints: ["`1 <= n <= 10^4`", "Check `n % 15 == 0` before checking `n % 3 == 0` or `n % 5 == 0`"],
+      bigO: { answer: "O(1)", explain: "`ping_pong` checks a fixed set of `%` conditions regardless of `n`'s size." },
+      solution:
+        "def ping_pong(n):\n    if n % 15 == 0:\n        return \"pingpong\"\n    elif n % 3 == 0:\n        return \"ping\"\n    elif n % 5 == 0:\n        return \"pong\"\n    else:\n        return n\n",
       starter: "def ping_pong(n):\n    # your code here\n    pass\n",
       tests: [
         {

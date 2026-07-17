@@ -471,7 +471,7 @@ const arrayHeapUnit: Unit = {
           ],
           arrows: [{ from: "a6", to: "a2", label: "(6-1)//2", emphasis: "active" }],
         },
-        caption: "(6-1)//2 = 5//2 = 2. Index 6's parent lives at index 2.",
+        caption: "`(6-1)//2 = 5//2 = 2`. Index 6's parent lives at index 2.",
       },
       reviewStep: 5,
     },
@@ -850,9 +850,18 @@ const applyHeapsUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        "Write parent_index(i) that returns the array index of i's parent using the standard heap formula. Then write k_smallest(nums, k) that uses Python's heapq module to return a list of the k smallest values from nums, in ascending order.",
+        "Given an index `i` into an array-backed heap, return the index of `i`'s parent using the standard heap formula. Then, given a list `nums` and an integer `k`, return the `k` smallest values from `nums` in ascending order, using Python's `heapq` module.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`i = 6`", output: "`2`", explanation: "`(6-1)//2` floors to `2`." },
+        { input: "`nums = [9, 3, 7, 1, 5]`, `k = 2`", output: "`[1, 3]`", explanation: "The two smallest values, ascending." },
+      ],
+      constraints: ["`0 <= i` (a valid array index)", "`1 <= k <= len(nums)`"],
+      bigO: { fn: "k_smallest", answer: "O(n log n)", explain: "`parent_index` is O(1) index math, but the dominant call is `heapq.nsmallest`, which is O(n log k); closest offered option is `O(n log n)`." },
       starter:
         "import heapq\n\ndef parent_index(i):\n    # your code here\n    pass\n\ndef k_smallest(nums, k):\n    # use heapq to return the k smallest values from nums, ascending\n    pass\n",
+      solution:
+        "import heapq\n\ndef parent_index(i):\n    return (i - 1) // 2\n\ndef k_smallest(nums, k):\n    return heapq.nsmallest(k, nums)\n",
       tests: [
         { name: "parent_index(1) is 0", code: "assert parent_index(1) == 0, \"parent_index(1) should be 0: (1-1)//2\"" },
         { name: "parent_index(6) is 2", code: "assert parent_index(6) == 2, \"parent_index(6) should be 2: (6-1)//2\"" },

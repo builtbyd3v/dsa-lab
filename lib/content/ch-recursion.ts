@@ -113,7 +113,7 @@ const baseCaseUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "c2", label: "countdown(2)", tag: "n = 2", x: 2, y: 1, shape: "frame", emphasis: "new" }], arrows: [] },
-          caption: "countdown(2) is called, pushing the first frame.",
+          caption: "`countdown(2)` is called, pushing the first frame.",
         },
       ],
       options: [
@@ -130,7 +130,7 @@ const baseCaseUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "printed", label: '"2, 1, liftoff!"', tag: "printed", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: 'countdown(2) prints 2, then 1, then hits the base case and prints "liftoff!".',
+        caption: '`countdown(2)` prints `2`, then `1`, then hits the base case and prints `"liftoff!"`.',
       },
       reviewStep: 4,
     },
@@ -155,8 +155,17 @@ const baseCaseUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write sum_up_to(n) that recursively returns the sum of all integers from 1 to n. Give it a base case for n == 0 that returns 0.",
+      prompt:
+        "Given an integer `n`, return the sum of all integers from `1` to `n`. Use recursion with a base case of `n == 0` returning `0`.",
+      difficulty: "Easy",
+      examples: [
+        { input: "n = 3", output: "6", explanation: "`3 + 2 + 1 + 0`." },
+        { input: "n = 0", output: "0", explanation: "The base case: nothing left to add." },
+      ],
+      constraints: ["`0 <= n <= 10^3`", "`n` is always a non-negative integer"],
+      bigO: { answer: "O(n)", explain: "Recurses once for each integer from `n` down to `0`, doing one addition per call." },
       starter: "def sum_up_to(n):\n    # base case: n == 0\n    # otherwise: n + sum_up_to(n - 1)\n    pass\n",
+      solution: "def sum_up_to(n):\n    if n == 0:\n        return 0\n    return n + sum_up_to(n - 1)\n",
       tests: [
         { name: "sum_up_to(0) is 0 (base case)", code: "assert sum_up_to(0) == 0, \"sum_up_to(0) should be 0: this is the base case, nothing left to add\"" },
         { name: "sum_up_to(3) is 6", code: "assert sum_up_to(3) == 6, \"sum_up_to(3) should be 6: 3 + 2 + 1 + 0\"" },
@@ -316,7 +325,7 @@ const recursiveMathUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "f3", label: "factorial(3)", tag: "n = 3", x: 2, y: 1, shape: "frame", emphasis: "new" }], arrows: [] },
-          caption: "factorial(3) is called and immediately needs factorial(2)'s result first.",
+          caption: "`factorial(3)` is called and immediately needs `factorial(2)`'s result first.",
         },
       ],
       options: [
@@ -333,7 +342,7 @@ const recursiveMathUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "6", tag: "factorial(3) = 3 * 2", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "factorial(3)'s own multiplication, 3 * 2, is the last one to happen, since its frame is the last to resume.",
+        caption: "`factorial(3)`'s own multiplication, `3 * 2`, is the last one to happen, since its frame is the last to resume.",
       },
       reviewStep: 8,
     },
@@ -358,8 +367,17 @@ const recursiveMathUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write power(base, exp) that recursively returns base raised to exp. Give it a base case for exp == 0 that returns 1.",
+      prompt:
+        "Given `base` and a non-negative integer `exp`, return `base` raised to the power `exp`. Use recursion with a base case of `exp == 0` returning `1`.",
+      difficulty: "Easy",
+      examples: [
+        { input: "base = 2, exp = 3", output: "8", explanation: "`2 * 2 * 2`." },
+        { input: "base = 5, exp = 0", output: "1", explanation: "The base case: any number to the 0th power is `1`." },
+      ],
+      constraints: ["`0 <= exp <= 20`", "`base` is an integer"],
+      bigO: { answer: "O(n)", explain: "Recurses `exp` times, doing one multiplication by `base` per call." },
       starter: "def power(base, exp):\n    # base case: exp == 0\n    # otherwise: base * power(base, exp - 1)\n    pass\n",
+      solution: "def power(base, exp):\n    if exp == 0:\n        return 1\n    return base * power(base, exp - 1)\n",
       tests: [
         { name: "power(2, 3) is 8", code: "assert power(2, 3) == 8, \"power(2, 3) should be 8: 2 * 2 * 2\"" },
         { name: "power(5, 0) is 1 (base case)", code: "assert power(5, 0) == 1, \"power(5, 0) should be 1: the base case, any number to the 0th power\"" },
@@ -508,7 +526,7 @@ const recursionOnSequencesUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "s1", label: "sum_list([1, 2, 3])", tag: "head = 1, rest = [2, 3]", x: 2, y: 1, shape: "frame", emphasis: "new" }], arrows: [] },
-          caption: "sum_list([1, 2, 3]) splits into head 1 and rest [2, 3].",
+          caption: "`sum_list([1, 2, 3])` splits into head `1` and rest `[2, 3]`.",
         },
       ],
       options: [
@@ -525,7 +543,7 @@ const recursionOnSequencesUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "result", label: "6", tag: "sum_list([1, 2, 3]) = 1 + 2 + 3", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "Each head, 1, 2, and 3, gets added in as the calls unwind, for a total of 6.",
+        caption: "Each head, `1`, `2`, and `3`, gets added in as the calls unwind, for a total of `6`.",
       },
       reviewStep: 6,
     },
@@ -551,9 +569,18 @@ const recursionOnSequencesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write build_countdown_list(n) that recursively builds and returns a list counting down from n to 1. Give it a base case for n == 0 that returns an empty list.",
-      starter:
-        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef build_countdown_list(n):\n    # base case: n == 0 returns an empty list\n    # otherwise: n followed by build_countdown_list(n - 1)\n    pass\n",
+        "Given a non-negative integer `n`, return a list counting down from `n` to `1`. Use recursion with a base case of `n == 0` returning an empty list `[]`.",
+      difficulty: "Easy",
+      examples: [
+        { input: "n = 3", output: "[3, 2, 1]" },
+        { input: "n = 0", output: "[]", explanation: "The base case: nothing left to count down." },
+      ],
+      constraints: ["`0 <= n <= 10^3`"],
+      bigO: { answer: "O(n)", explain: "Recurses once for each integer from `n` down to `0`, building one list element per call." },
+      hidden:
+        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}",
+      starter: "def build_countdown_list(n):\n    # base case: n == 0 returns an empty list\n    # otherwise: n followed by build_countdown_list(n - 1)\n    pass\n",
+      solution: "def build_countdown_list(n):\n    if n == 0:\n        return []\n    return [n] + build_countdown_list(n - 1)\n",
       tests: [
         { name: "build_countdown_list(0) is [] (base case)", code: "assert build_countdown_list(0) == [], \"build_countdown_list(0) should be []: the base case, nothing left to count down\"" },
         { name: "build_countdown_list(3) is [3, 2, 1]", code: "assert build_countdown_list(3) == [3, 2, 1], \"build_countdown_list(3) should be [3, 2, 1]: each call puts n in front of the list built by build_countdown_list(n - 1)\"" },
@@ -645,8 +672,16 @@ const applyRecursionUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        "Implement fibonacci(n) recursively: fibonacci(0) returns 0, fibonacci(1) returns 1, and otherwise fibonacci(n) returns fibonacci(n - 1) + fibonacci(n - 2).",
+        "Given a non-negative integer `n`, return the `n`th Fibonacci number, computed recursively. `fibonacci(0)` returns `0`, `fibonacci(1)` returns `1`, and otherwise `fibonacci(n)` returns `fibonacci(n - 1) + fibonacci(n - 2)`.",
+      difficulty: "Medium",
+      examples: [
+        { input: "n = 5", output: "5", explanation: "Sequence: `0, 1, 1, 2, 3, 5`." },
+        { input: "n = 0", output: "0", explanation: "The first base case." },
+      ],
+      constraints: ["`0 <= n <= 30`"],
+      bigO: { answer: "O(n²)", explain: "Each call branches into two more recursive calls, so the naive call tree grows explosively with `n`; among the offered options, `O(n²)` is closest to that blowup." },
       starter: "def fibonacci(n):\n    # two base cases: n == 0 and n == 1\n    # otherwise: fibonacci(n - 1) + fibonacci(n - 2)\n    pass\n",
+      solution: "def fibonacci(n):\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    return fibonacci(n - 1) + fibonacci(n - 2)\n",
       tests: [
         { name: "fibonacci(0) is 0 (base case)", code: "assert fibonacci(0) == 0, \"fibonacci(0) should be 0: this is one of the two base cases, not something to compute recursively\"" },
         { name: "fibonacci(1) is 1 (base case)", code: "assert fibonacci(1) == 1, \"fibonacci(1) should be 1: this is the second base case; without it, fibonacci would never stop recursing\"" },

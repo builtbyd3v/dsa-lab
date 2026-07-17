@@ -14,7 +14,7 @@ const binaryTreesUnit: Unit = {
         nodes: [{ id: "r", label: "8", tag: "root", x: 3, y: 0, shape: "circle", emphasis: "new" }],
         arrows: [],
       },
-      caption: "A tree with just one node: 8 is both the root, since it has no parent, and a leaf, since it has no children yet.",
+      caption: "A tree with just one node: `8` is both the root, since it has no parent, and a leaf, since it has no children yet.",
     },
     {
       state: {
@@ -28,7 +28,7 @@ const binaryTreesUnit: Unit = {
           { from: "r", to: "rt", emphasis: "active" },
         ],
       },
-      caption: "8 gains two children, 3 on the left and 10 on the right. Both 3 and 10 are leaves: neither has children of its own yet.",
+      caption: "`8` gains two children, `3` on the left and `10` on the right. Both `3` and `10` are leaves: neither has children of its own yet.",
     },
     {
       state: {
@@ -44,7 +44,7 @@ const binaryTreesUnit: Unit = {
           { from: "l", to: "lr", emphasis: "active" },
         ],
       },
-      caption: "3 gains its own two children, 1 and 6. Now 3 is neither root nor leaf: it's an internal node, sitting between 8 above and 1, 6 below.",
+      caption: "`3` gains its own two children, `1` and `6`. Now `3` is neither root nor leaf: it's an internal node, sitting between `8` above and `1`, `6` below.",
     },
     {
       state: {
@@ -57,7 +57,7 @@ const binaryTreesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "10 stays a leaf: this tree never gave it any children. Leaves are wherever a branch simply stops.",
+      caption: "`10` stays a leaf: this tree never gave it any children. Leaves are wherever a branch simply stops.",
     },
     {
       state: {
@@ -70,7 +70,7 @@ const binaryTreesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Height counts edges on the longest path from root to a leaf: root to 3 to 1 is 2 edges, so this tree's height is 2.",
+      caption: "Height counts edges on the longest path from root to a leaf: root to `3` to `1` is `2` edges, so this tree's height is `2`.",
     },
     {
       state: {
@@ -83,7 +83,7 @@ const binaryTreesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Height is also defined per node: 3's subtree has height 1 (one edge down to a leaf), while 10, a leaf itself, has height 0.",
+      caption: "Height is also defined per node: `3`'s subtree has height `1` (one edge down to a leaf), while `10`, a leaf itself, has height `0`.",
     },
   ],
   ladder: [
@@ -106,7 +106,7 @@ const binaryTreesUnit: Unit = {
               { from: "l", to: "ll" },
             ],
           },
-          caption: "5 is root; 2 and 9 are its children; 1 is 2's only child.",
+          caption: "`5` is root; `2` and `9` are its children; `1` is `2`'s only child.",
         },
       ],
       options: [
@@ -126,7 +126,7 @@ const binaryTreesUnit: Unit = {
           nodes: [{ id: "r", label: "5", tag: "root, height 2", x: 3, y: 0, shape: "circle", emphasis: "active" }],
           arrows: [],
         },
-        caption: "The longest path, 5 to 2 to 1, has 2 edges, so the tree's height is 2.",
+        caption: "The longest path, `5` to `2` to `1`, has `2` edges, so the tree's height is `2`.",
       },
       reviewStep: 4,
     },
@@ -162,8 +162,20 @@ const binaryTreesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Using nested dicts with keys 'val', 'left', 'right' (None when a child is absent), write tree_height(node) that returns the height of the tree rooted at node: -1 for None (empty tree), 0 for a single leaf, and otherwise 1 plus the taller of the two child subtrees.",
+        "Given a binary tree `node` represented as nested dicts with keys `'val'`, `'left'`, `'right'` (`None` when a child is absent), return its height: `-1` for `None` (an empty tree), `0` for a single leaf, and otherwise `1` plus the taller of its two child subtrees.",
+      difficulty: "Medium",
+      examples: [
+        { input: "node = None", output: "-1", explanation: "An empty tree has height `-1`." },
+        { input: "node = {'val': 5, 'left': None, 'right': None}", output: "0", explanation: "A single leaf has height `0`." },
+      ],
+      constraints: [
+        "`node` is `None` or a dict with `'val'`, `'left'`, `'right'`",
+        "height is measured in edges, not node count",
+      ],
+      bigO: { answer: "O(n)", explain: "`tree_height` recurses into every node once to find the longest path, so cost grows with the total node count `n`." },
       starter: "def tree_height(node):\n    # None (empty) has height -1\n    pass\n",
+      solution:
+        "def tree_height(node):\n    if node is None:\n        return -1\n    return 1 + max(tree_height(node['left']), tree_height(node['right']))\n",
       tests: [
         { name: "empty tree is -1", code: "assert tree_height(None) == -1, \"tree_height(None) should be -1: an empty tree has no nodes at all\"" },
         {
@@ -234,7 +246,7 @@ const bstSearchInsertUnit: Unit = {
           { from: "r", to: "rt" },
         ],
       },
-      caption: "Searching for 3 starts at the root, 8.",
+      caption: "Searching for `3` starts at the root, `8`.",
     },
     {
       state: {
@@ -245,7 +257,7 @@ const bstSearchInsertUnit: Unit = {
         ],
         arrows: [{ from: "r", to: "l", emphasis: "active" }],
       },
-      caption: "3 is less than 8, so the search descends left.",
+      caption: "`3` is less than `8`, so the search descends left.",
     },
     {
       state: {
@@ -256,7 +268,7 @@ const bstSearchInsertUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "3 matches the node at this position: the search stops here, found in exactly 2 comparisons.",
+      caption: "`3` matches the node at this position: the search stops here, found in exactly `2` comparisons.",
     },
     {
       state: {
@@ -271,7 +283,7 @@ const bstSearchInsertUnit: Unit = {
           { from: "r", to: "rt" },
         ],
       },
-      caption: "Inserting 6 follows the same compare-and-descend path used for search, until it finds an empty spot.",
+      caption: "Inserting `6` follows the same compare-and-descend path used for search, until it finds an empty spot.",
     },
     {
       state: {
@@ -282,7 +294,7 @@ const bstSearchInsertUnit: Unit = {
         ],
         arrows: [{ from: "r", to: "l", emphasis: "active" }],
       },
-      caption: "6 is less than 8: go left, to 3.",
+      caption: "`6` is less than `8`: go left, to `3`.",
     },
     {
       state: {
@@ -293,7 +305,7 @@ const bstSearchInsertUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "6 is greater than 3: go right. 3 has no right child yet, so this is where 6 will land.",
+      caption: "`6` is greater than `3`: go right. `3` has no right child yet, so this is where `6` will land.",
     },
     {
       state: {
@@ -305,7 +317,7 @@ const bstSearchInsertUnit: Unit = {
         ],
         arrows: [{ from: "l", to: "new6", emphasis: "active" }],
       },
-      caption: "6 is inserted as a brand new leaf, the right child of 3: insertion always lands where search would have found an empty spot.",
+      caption: "`6` is inserted as a brand new leaf, the right child of `3`: insertion always lands where search would have found an empty spot.",
     },
     {
       state: {
@@ -319,7 +331,7 @@ const bstSearchInsertUnit: Unit = {
           { from: "s1", to: "s3" },
         ],
       },
-      caption: "Inserting 5, then 3, then 8 builds a short, balanced-looking tree: 5 on top, 3 and 8 as its two children.",
+      caption: "Inserting `5`, then `3`, then `8` builds a short, balanced-looking tree: `5` on top, `3` and `8` as its two children.",
     },
     {
       state: {
@@ -333,7 +345,7 @@ const bstSearchInsertUnit: Unit = {
           { from: "v2", to: "v3", emphasis: "active" },
         ],
       },
-      caption: "The exact same three values, 3, 5, 8, inserted in already-sorted order instead, produce a completely different shape: a long vine leaning right, with no branching at all.",
+      caption: "The exact same three values, `3`, `5`, `8`, inserted in already-sorted order instead, produce a completely different shape: a long vine leaning right, with no branching at all.",
     },
   ],
   ladder: [
@@ -354,7 +366,7 @@ const bstSearchInsertUnit: Unit = {
               { from: "r", to: "rt" },
             ],
           },
-          caption: "The tree has 20 at the root, 10 on the left, 30 on the right.",
+          caption: "The tree has `20` at the root, `10` on the left, `30` on the right.",
         },
       ],
       options: [
@@ -374,7 +386,7 @@ const bstSearchInsertUnit: Unit = {
           nodes: [{ id: "rt", label: "30", tag: "no left child, not found", x: 5, y: 2, shape: "circle", emphasis: "error" }],
           arrows: [],
         },
-        caption: "20 is checked first (25 > 20, go right), then 30 (25 < 30, go left), but 30 has no left child, so 25 is not found.",
+        caption: "`20` is checked first (`25 > 20`, go right), then `30` (`25 < 30`, go left), but `30` has no left child, so `25` is not found.",
       },
       reviewStep: 1,
     },
@@ -387,7 +399,7 @@ const bstSearchInsertUnit: Unit = {
             nodes: [{ id: "one", label: "1", tag: "first insert", x: 1, y: 0, shape: "circle", emphasis: "new" }],
             arrows: [],
           },
-          caption: "1 becomes the root, since it's inserted first into an empty tree.",
+          caption: "`1` becomes the root, since it's inserted first into an empty tree.",
         },
       ],
       options: [
@@ -414,7 +426,7 @@ const bstSearchInsertUnit: Unit = {
             { from: "n2", to: "n3", emphasis: "active" },
           ],
         },
-        caption: "Each new value is bigger than everything before it, so it always descends right, building a long vine instead of a branching tree.",
+        caption: "Each new value (`2`, `3`, `4`) is bigger than everything before it, so it always descends right, building a long vine instead of a branching tree.",
       },
       reviewStep: 8,
     },
@@ -456,8 +468,21 @@ const bstSearchInsertUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write bst_insert(node, val) that returns a new BST with val inserted in the correct position, using dicts with keys 'val', 'left', 'right'. If node is None, return a new leaf dict for val.",
+        "Given a BST `node` (nested dicts with keys `'val'`, `'left'`, `'right'`) and a value `val`, return the BST with `val` inserted in the correct position. If `node` is `None`, return a new leaf dict for `val`.",
+      difficulty: "Medium",
+      examples: [
+        { input: "node = None, val = 5", output: "{'val': 5, 'left': None, 'right': None}" },
+        {
+          input: "node = {'val': 5, 'left': None, 'right': None}, val = 3",
+          output: "node['left'] == {'val': 3, 'left': None, 'right': None}",
+          explanation: "`3` is less than `5`, so it becomes the left child.",
+        },
+      ],
+      constraints: ["`val` is not already present in the tree", "the tree must stay a valid BST after insertion"],
+      bigO: { answer: "O(n)", explain: "As this unit's `watch` steps show, inserting already-sorted values builds a vine-shaped BST, so `bst_insert` can walk all `n` nodes in the worst case." },
       starter: "def bst_insert(node, val):\n    # return a new leaf dict if node is None, otherwise descend and insert\n    pass\n",
+      solution:
+        "def bst_insert(node, val):\n    if node is None:\n        return {'val': val, 'left': None, 'right': None}\n    if val < node['val']:\n        node['left'] = bst_insert(node['left'], val)\n    else:\n        node['right'] = bst_insert(node['right'], val)\n    return node\n",
       tests: [
         {
           name: "inserting into empty tree makes a leaf",
@@ -527,7 +552,7 @@ const bstRemoveUnit: Unit = {
           { from: "r", to: "rt" },
         ],
       },
-      caption: "Removing 3, a leaf with no children at all: the simplest case.",
+      caption: "Removing `3`, a leaf with no children at all: the simplest case.",
     },
     {
       state: {
@@ -537,7 +562,7 @@ const bstRemoveUnit: Unit = {
         ],
         arrows: [{ from: "r", to: "rt" }],
       },
-      caption: "A leaf is simply detached: 3 is removed outright, and the spot it occupied just becomes empty.",
+      caption: "A leaf is simply detached: `3` is removed outright, and the spot it occupied just becomes empty.",
     },
     {
       state: {
@@ -548,7 +573,7 @@ const bstRemoveUnit: Unit = {
         ],
         arrows: [{ from: "rt", to: "child" }],
       },
-      caption: "Now removing 10, which has exactly one child, 9.",
+      caption: "Now removing `10`, which has exactly one child, `9`.",
     },
     {
       state: {
@@ -558,7 +583,7 @@ const bstRemoveUnit: Unit = {
         ],
         arrows: [{ from: "r", to: "child", emphasis: "active" }],
       },
-      caption: "With one child, that child is spliced directly into the removed node's spot: 9 now hangs straight off 8, taking 10's old place.",
+      caption: "With one child, that child is spliced directly into the removed node's spot: `9` now hangs straight off `8`, taking `10`'s old place.",
     },
     {
       state: {
@@ -574,7 +599,7 @@ const bstRemoveUnit: Unit = {
           { from: "rt", to: "rtl" },
         ],
       },
-      caption: "Removing 8 now, which has two children, 3 and 12: the hardest case. Its in-order successor, the smallest value in its right subtree, is 9.",
+      caption: "Removing `8` now, which has two children, `3` and `12`: the hardest case. Its in-order successor, the smallest value in its right subtree, is `9`.",
     },
     {
       state: {
@@ -590,7 +615,7 @@ const bstRemoveUnit: Unit = {
           { from: "rt", to: "rtl" },
         ],
       },
-      caption: "9's value is copied up into the root's spot, replacing 8. Now there are two 9s: the copy at the root, and the original still down in the right subtree.",
+      caption: "`9`'s value is copied up into the root's spot, replacing `8`. Now there are two `9`s: the copy at the root, and the original still down in the right subtree.",
     },
     {
       state: {
@@ -604,7 +629,7 @@ const bstRemoveUnit: Unit = {
           { from: "r", to: "rt" },
         ],
       },
-      caption: "The original successor node, now a duplicate leaf, is deleted using the plain leaf-removal case: the tree ends with exactly one 9, at the root.",
+      caption: "The original successor node, now a duplicate leaf, is deleted using the plain leaf-removal case: the tree ends with exactly one `9`, at the root.",
     },
   ],
   ladder: [
@@ -658,7 +683,7 @@ const bstRemoveUnit: Unit = {
               { from: "n", to: "right" },
             ],
           },
-          caption: "The node being removed has both a left and right subtree.",
+          caption: "The node being removed has both a `left` and `right` subtree.",
         },
       ],
       options: [
@@ -678,7 +703,7 @@ const bstRemoveUnit: Unit = {
           nodes: [{ id: "succ", label: "smallest in right subtree", tag: "successor", x: 4, y: 3, shape: "circle", emphasis: "active" }],
           arrows: [],
         },
-        caption: "The in-order successor is always the smallest value in the right subtree, found by walking left from the right child as far as possible.",
+        caption: "The in-order successor is always the smallest value in the `right` subtree, found by walking `left` from the right child as far as possible.",
       },
       reviewStep: 4,
     },
@@ -716,9 +741,26 @@ const bstRemoveUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write bst_remove(node, val) using dicts with keys 'val', 'left', 'right'. Handle all three cases: leaf (return None), one child (return that child), and two children (copy the in-order successor's value up, then remove the successor from the right subtree).",
+        "Given a BST `node` (nested dicts with keys `'val'`, `'left'`, `'right'`) and a value `val` to remove, return the BST with `val` removed. Handle all three cases: a leaf is removed by returning `None`, a node with one child is replaced by that child, and a node with two children has its in-order successor's value copied up before the successor itself is removed from the right subtree.",
+      difficulty: "Hard",
+      examples: [
+        {
+          input: "node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, val = 3",
+          output: "node['left'] is None",
+          explanation: "Removing leaf `3` simply detaches it.",
+        },
+        {
+          input: "node with val = 8, two children, right subtree's smallest value is 9, val = 8",
+          output: "node['val'] == 9",
+          explanation: "The in-order successor's value, `9`, is copied up to replace `8`.",
+        },
+      ],
+      constraints: ["`val` is always present in the tree", "the result must remain a valid BST"],
+      bigO: { answer: "O(n)", explain: "A skewed BST (as seen elsewhere in this chapter) can force `bst_remove` to walk down `n` nodes before reaching `val`." },
       starter:
         "def bst_remove(node, val):\n    if node is None:\n        return None\n    if val < node['val']:\n        node['left'] = bst_remove(node['left'], val)\n    elif val > node['val']:\n        node['right'] = bst_remove(node['right'], val)\n    else:\n        # this is the node to remove: handle leaf, one-child, and two-children cases\n        pass\n    return node\n",
+      solution:
+        "def bst_remove(node, val):\n    if node is None:\n        return None\n    if val < node['val']:\n        node['left'] = bst_remove(node['left'], val)\n    elif val > node['val']:\n        node['right'] = bst_remove(node['right'], val)\n    else:\n        if node['left'] is None and node['right'] is None:\n            return None\n        if node['left'] is None:\n            return node['right']\n        if node['right'] is None:\n            return node['left']\n        successor = node['right']\n        while successor['left'] is not None:\n            successor = successor['left']\n        node['val'] = successor['val']\n        node['right'] = bst_remove(node['right'], successor['val'])\n    return node\n",
       tests: [
         {
           name: "removes a leaf",
@@ -792,7 +834,7 @@ const traversalsUnit: Unit = {
           { from: "l", to: "lr" },
         ],
       },
-      caption: "This tree will be walked four different ways: in-order, pre-order, post-order, and level-order.",
+      caption: "This tree will be walked four different ways: `in-order`, `pre-order`, `post-order`, and `level-order`.",
     },
     {
       state: {
@@ -802,7 +844,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "In-order walks left subtree, then node, then right subtree. That sends it all the way down to 1 first, emitting it.",
+      caption: "In-order walks left subtree, then node, then right subtree. That sends it all the way down to `1` first, emitting it.",
     },
     {
       state: {
@@ -812,7 +854,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Back up to 3 next, emitting it right after its left subtree finished.",
+      caption: "Back up to `3` next, emitting it right after its left subtree finished.",
     },
     {
       state: {
@@ -822,7 +864,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Then 3's right subtree, 6, is visited and emitted.",
+      caption: "Then `3`'s right subtree, `6`, is visited and emitted.",
     },
     {
       state: {
@@ -832,7 +874,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "8 is emitted once its entire left subtree is done, then finally 10. In-order produces 1, 3, 6, 8, 10: perfectly sorted.",
+      caption: "`8` is emitted once its entire left subtree is done, then finally `10`. In-order produces `1, 3, 6, 8, 10`: perfectly sorted.",
     },
     {
       state: {
@@ -842,7 +884,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Pre-order visits the node itself before either subtree, so 8 is emitted immediately, first.",
+      caption: "Pre-order visits the node itself before either subtree, so `8` is emitted immediately, first.",
     },
     {
       state: {
@@ -851,7 +893,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Pre-order continues node-then-subtrees at every level: 8, then 3, then 3's children 1 and 6, then finally 10.",
+      caption: "Pre-order continues node-then-subtrees at every level: `8`, then `3`, then `3`'s children `1` and `6`, then finally `10`.",
     },
     {
       state: {
@@ -860,7 +902,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Post-order visits both subtrees fully before the node itself, so children always appear before their parent: 1, 6, 3, 10, 8.",
+      caption: "Post-order visits both subtrees fully before the node itself, so children always appear before their parent: `1, 6, 3, 10, 8`.",
     },
     {
       state: {
@@ -869,7 +911,7 @@ const traversalsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Level-order visits row by row, top to bottom, left to right: 8, then 3 and 10, then 1 and 6, a completely different rhythm from the other three.",
+      caption: "Level-order visits row by row, top to bottom, left to right: `8`, then `3` and `10`, then `1` and `6`, a completely different rhythm from the other three.",
     },
   ],
   ladder: [
@@ -890,7 +932,7 @@ const traversalsUnit: Unit = {
               { from: "r", to: "rt" },
             ],
           },
-          caption: "Any valid BST keeps left subtree values smaller and right subtree values larger, at every node.",
+          caption: "Any valid BST keeps `left` subtree values smaller and `right` subtree values larger, at every node.",
         },
       ],
       options: [
@@ -910,7 +952,7 @@ const traversalsUnit: Unit = {
           nodes: [{ id: "out", label: "2, 5, 9", tag: "in-order output", x: 3, y: 4, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "In-order visits left, node, right at every level, which for a BST always emits values in ascending sorted order: 2, 5, 9.",
+        caption: "In-order visits left, node, right at every level, which for a BST always emits values in ascending sorted order: `2, 5, 9`.",
       },
       reviewStep: 4,
     },
@@ -950,7 +992,7 @@ const traversalsUnit: Unit = {
           nodes: [{ id: "out", label: "8, 3, 10", tag: "level-order output", x: 3, y: 4, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "Level-order visits the root's row first (just 8), then the next row left to right (3, 10): 8, 3, 10.",
+        caption: "Level-order visits the root's row first (just `8`), then the next row left to right (`3`, `10`): `8, 3, 10`.",
       },
       reviewStep: 7,
     },
@@ -986,8 +1028,19 @@ const traversalsUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write pre_order(node, output) that appends values to the output list in pre-order (node, then left subtree, then right subtree), using dicts with keys 'val', 'left', 'right'.",
+        "Given a binary tree `node` (nested dicts with keys `'val'`, `'left'`, `'right'`) and a list `output`, append every value to `output` in pre-order: the node itself, then its left subtree, then its right subtree.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "node = {'val': 8, 'left': {'val': 3, ...}, 'right': {'val': 10, ...}}, output = []",
+          output: "output == [8, 3, 10]",
+        },
+      ],
+      constraints: ["`node` may be `None`, in which case nothing is appended", "`output` is mutated in place"],
+      bigO: { answer: "O(n)", explain: "`pre_order` visits every node in the tree exactly once, so its cost grows linearly with the node count `n`." },
       starter: "def pre_order(node, output):\n    # node first, then left, then right\n    pass\n",
+      solution:
+        "def pre_order(node, output):\n    if node is None:\n        return\n    output.append(node['val'])\n    pre_order(node['left'], output)\n    pre_order(node['right'], output)\n",
       tests: [
         {
           name: "visits node before children",
@@ -1063,7 +1116,7 @@ const applyTreesUnit: Unit = {
           { from: "r", to: "rt" },
         ],
       },
-      caption: "A recursive contains(node, target) function reuses the same compare-and-descend idea from search, just returning a plain True or False.",
+      caption: "A recursive `contains(node, target)` function reuses the same compare-and-descend idea from search, just returning a plain `True` or `False`.",
     },
     {
       state: {
@@ -1073,15 +1126,24 @@ const applyTreesUnit: Unit = {
         ],
         arrows: [{ from: "r", to: "rt", emphasis: "active" }],
       },
-      caption: "contains(root, 10) compares 10 to the root, descends right, and finds a match: it returns True.",
+      caption: "`contains(root, 10)` compares `10` to the root, descends right, and finds a match: it returns `True`.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Using nested dicts with keys 'val', 'left', 'right' (None when a child is absent), write contains(node, target) that returns True if target exists anywhere in the BST rooted at node, and False otherwise.",
+        "Given a BST `node` (nested dicts with keys `'val'`, `'left'`, `'right'`, `None` when a child is absent) and a value `target`, return `True` if `target` exists anywhere in the tree rooted at `node`, and `False` otherwise.",
+      difficulty: "Easy",
+      examples: [
+        { input: "node with val = 8, left = 3, right = 10; target = 10", output: "True" },
+        { input: "node = None, target = 5", output: "False", explanation: "An empty tree contains nothing." },
+      ],
+      constraints: ["`node` may be `None`", "the tree satisfies the BST property"],
+      bigO: { answer: "O(n)", explain: "`contains` reuses `bst_search`'s descent, which can walk all `n` nodes when the BST is skewed rather than balanced." },
       starter: "def contains(node, target):\n    # compare and descend, just like bst_search\n    pass\n",
+      solution:
+        "def contains(node, target):\n    if node is None:\n        return False\n    if node['val'] == target:\n        return True\n    if target < node['val']:\n        return contains(node['left'], target)\n    return contains(node['right'], target)\n",
       tests: [
         {
           name: "finds root value",

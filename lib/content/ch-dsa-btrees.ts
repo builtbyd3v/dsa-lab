@@ -24,7 +24,7 @@ const whyBtreesUnit: Unit = {
           { from: "n30", to: "n40" }, { from: "n40", to: "n50" },
         ],
       },
-      caption: "Insert 10, 20, 30, 40, 50 into a plain BST in sorted order, and it degenerates into a straight chain, height 4.",
+      caption: "Insert `10, 20, 30, 40, 50` into a plain BST in sorted order, and it degenerates into a straight chain, height `4`.",
     },
     {
       state: {
@@ -40,7 +40,7 @@ const whyBtreesUnit: Unit = {
           { from: "n30", to: "n40" }, { from: "n40", to: "n50" },
         ],
       },
-      caption: "Finding 50 in this chain takes 5 node visits, worst case: one comparison, and potentially one slow disk read, per level.",
+      caption: "Finding `50` in this chain takes `5` node visits, worst case: one comparison, and potentially one slow disk read, per level.",
     },
     {
       state: {
@@ -52,7 +52,7 @@ const whyBtreesUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l" }, { from: "root", to: "m" }, { from: "root", to: "r" }],
       },
-      caption: "The exact same 5 values, packed into a 2-3-4 tree: the root holds 2 keys at once, so everything fits in height 1, just two levels.",
+      caption: "The exact same `5` values, packed into a `2-3-4` tree: the root holds `2` keys at once, so everything fits in height `1`, just two levels.",
     },
     {
       state: {
@@ -64,7 +64,7 @@ const whyBtreesUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l" }, { from: "root", to: "m" }, { from: "root", to: "r", emphasis: "active" }],
       },
-      caption: "Finding 50 here takes only 2 node visits: the root, then the right child. Compare that to the 5 visits the skinny chain needed.",
+      caption: "Finding `50` here takes only `2` node visits: the root, then the right child. Compare that to the `5` visits the skinny chain needed.",
     },
     {
       state: {
@@ -96,7 +96,7 @@ const whyBtreesUnit: Unit = {
             nodes: [{ id: "n", label: "20 | 40 | 60", tag: "3 keys", x: 3, y: 1, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "A node holding 3 keys.",
+          caption: "A node holding `3` keys.",
         },
       ],
       options: [
@@ -120,7 +120,7 @@ const whyBtreesUnit: Unit = {
           ],
           arrows: [{ from: "n", to: "c1" }, { from: "n", to: "c2" }, { from: "n", to: "c3" }, { from: "n", to: "c4" }],
         },
-        caption: "3 keys split the range into 4 buckets: less than 20, between 20 and 40, between 40 and 60, and greater than 60. Each bucket is a child.",
+        caption: "`3` keys split the range into `4` buckets: less than `20`, between `20` and `40`, between `40` and `60`, and greater than `60`. Each bucket is a child.",
       },
       reviewStep: 2,
     },
@@ -173,7 +173,7 @@ const search234Unit: Unit = {
         ],
         arrows: [{ from: "root", to: "c1" }, { from: "root", to: "c2" }, { from: "root", to: "c3" }, { from: "root", to: "c4" }],
       },
-      caption: "A node with 3 keys always has 4 children: the keys split the range of possible values into 4 buckets.",
+      caption: "A node with `3` keys always has `4` children: the keys split the range of possible values into `4` buckets.",
     },
     {
       state: {
@@ -186,7 +186,7 @@ const search234Unit: Unit = {
         ],
         arrows: [{ from: "root", to: "c1" }, { from: "root", to: "c2", emphasis: "active" }, { from: "root", to: "c3" }, { from: "root", to: "c4" }],
       },
-      caption: "Searching for 30: compare against the keys left to right. 30 is greater than 20 but less than 40, so descend into the child BETWEEN those two keys.",
+      caption: "Searching for `30`: compare against the keys left to right. `30` is greater than `20` but less than `40`, so descend into the child BETWEEN those two keys.",
     },
     {
       state: {
@@ -195,7 +195,7 @@ const search234Unit: Unit = {
         ],
         arrows: [],
       },
-      caption: "That child holds exactly 30: found it.",
+      caption: "That child holds exactly `30`: found it.",
     },
     {
       state: {
@@ -208,7 +208,7 @@ const search234Unit: Unit = {
         ],
         arrows: [{ from: "root", to: "c1" }, { from: "root", to: "c2" }, { from: "root", to: "c3" }, { from: "root", to: "c4", emphasis: "active" }],
       },
-      caption: "Searching for 75: it's greater than every key in the root, 20, 40, and 60. When a value beats all the keys, descend into the LAST child.",
+      caption: "Searching for `75`: it's greater than every key in the root, `20`, `40`, and `60`. When a value beats all the keys, descend into the LAST child.",
     },
     {
       state: {
@@ -217,7 +217,7 @@ const search234Unit: Unit = {
         ],
         arrows: [],
       },
-      caption: "75 sits between 70 and 80 in this leaf, but there's no child to descend into any further: since it doesn't match either key exactly, 75 isn't in this tree.",
+      caption: "`75` sits between `70` and `80` in this leaf, but there's no child to descend into any further: since it doesn't match either key exactly, `75` isn't in this tree.",
     },
     {
       state: {
@@ -230,14 +230,14 @@ const search234Unit: Unit = {
         ],
         arrows: [{ from: "root", to: "c1", emphasis: "active" }, { from: "root", to: "c2" }, { from: "root", to: "c3" }, { from: "root", to: "c4" }],
       },
-      caption: "Searching for 10: it's less than the very first key, 20. When a value is smaller than every key, descend into the FIRST child.",
+      caption: "Searching for `10`: it's less than the very first key, `20`. When a value is smaller than every key, descend into the FIRST child.",
     },
     {
       state: {
         nodes: [{ id: "c1", label: "10", tag: "match!", x: 3, y: 1, shape: "box", emphasis: "active" }],
         arrows: [],
       },
-      caption: "That first child holds exactly 10: found.",
+      caption: "That first child holds exactly `10`: found.",
     },
   ],
   ladder: [
@@ -250,7 +250,7 @@ const search234Unit: Unit = {
             nodes: [{ id: "root", label: "15 | 35 | 55", tag: "searching for 45", x: 3, y: 0, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "Compare 45 against each key, left to right.",
+          caption: "Compare `45` against each key, left to right.",
         },
       ],
       options: [
@@ -271,7 +271,7 @@ const search234Unit: Unit = {
           ],
           arrows: [{ from: "root", to: "target", emphasis: "active" }],
         },
-        caption: "45 is greater than 35 but less than 55, so it falls in the 3rd bucket, the child between those two keys.",
+        caption: "`45` is greater than `35` but less than `55`, so it falls in the 3rd bucket, the child between those two keys.",
       },
       reviewStep: 3,
     },
@@ -357,7 +357,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l", emphasis: "active" }, { from: "root", to: "r" }],
       },
-      caption: "Insert 25: since 25 is less than root's key 40, the next step would descend into the left child. But that child already holds 3 keys: it's full.",
+      caption: "Insert `25`: since `25` is less than root's key `40`, the next step would descend into the left child. But that child already holds `3` keys: it's full.",
     },
     {
       state: {
@@ -366,7 +366,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A 2-3-4 tree never lets an insert descend into a full node. It splits that node FIRST, preemptively, on the way down.",
+      caption: "A `2-3-4` tree never lets an insert descend into a full node. It splits that node FIRST, preemptively, on the way down.",
     },
     {
       state: {
@@ -378,7 +378,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "la" }, { from: "root", to: "lb" }, { from: "root", to: "r" }],
       },
-      caption: "The middle key, 20, rises up into the parent. The two remaining keys, 10 and 30, become separate single-key children.",
+      caption: "The middle key, `20`, rises up into the parent. The two remaining keys, `10` and `30`, become separate single-key children.",
     },
     {
       state: {
@@ -387,7 +387,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "The root now has 2 keys, still under its own limit of 3, so no further splitting cascades upward here.",
+      caption: "The root now has `2` keys, still under its own limit of `3`, so no further splitting cascades upward here.",
     },
     {
       state: {
@@ -399,7 +399,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "la" }, { from: "root", to: "lb", emphasis: "active" }, { from: "root", to: "r" }],
       },
-      caption: "Now resume the original insert: 25 falls between 20 and 40, so descend into the middle child, the one holding 30.",
+      caption: "Now resume the original insert: `25` falls between `20` and `40`, so descend into the middle child, the one holding `30`.",
     },
     {
       state: {
@@ -408,7 +408,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "That child only had 1 key, well under the limit of 3, so 25 is simply added: it becomes [25, 30].",
+      caption: "That child only had `1` key, well under the limit of `3`, so `25` is simply added: it becomes `[25, 30]`.",
     },
     {
       state: {
@@ -420,7 +420,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "la" }, { from: "root", to: "lb" }, { from: "root", to: "r" }],
       },
-      caption: "The tree stayed at the same height, 2 levels, even after the insert. Splitting is always preemptive, which is exactly what keeps 2-3-4 trees shallow.",
+      caption: "The tree stayed at the same height, `2` levels, even after the insert. Splitting is always preemptive, which is exactly what keeps `2-3-4` trees shallow.",
     },
     {
       state: {
@@ -430,7 +430,7 @@ const insertSplitUnit: Unit = {
         ],
         arrows: [{ from: "old", to: "new" }],
       },
-      caption: "A plain BST would just tack 25 on as a brand-new node, one level deeper. A B-tree instead grows outward, sideways, not downward.",
+      caption: "A plain BST would just tack `25` on as a brand-new node, one level deeper. A B-tree instead grows outward, sideways, not downward.",
     },
   ],
   ladder: [
@@ -443,7 +443,7 @@ const insertSplitUnit: Unit = {
             nodes: [{ id: "n", label: "5, 15, 25", tag: "full, about to split", x: 3, y: 1, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "This node has 3 keys and must split before the insert can descend through it.",
+          caption: "This node has `3` keys and must split before the insert can descend through it.",
         },
       ],
       options: [
@@ -465,7 +465,7 @@ const insertSplitUnit: Unit = {
           ],
           arrows: [{ from: "risen", to: "left" }, { from: "risen", to: "right" }],
         },
-        caption: "15, the middle key, rises up. 5 and 25 become two separate single-key children, one on each side.",
+        caption: "`15`, the middle key, rises up. `5` and `25` become two separate single-key children, one on each side.",
       },
       reviewStep: 2,
     },
@@ -552,7 +552,7 @@ const removeRotateFuseUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l" }, { from: "root", to: "r" }],
       },
-      caption: "Remove 20 from the left child, which only holds that one key.",
+      caption: "Remove `20` from the left child, which only holds that one key.",
     },
     {
       state: {
@@ -563,7 +563,7 @@ const removeRotateFuseUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l" }, { from: "root", to: "r" }],
       },
-      caption: "The left child now has 0 keys, underflowing below the minimum of 1. It must borrow or fuse to fix this.",
+      caption: "The left child now has `0` keys, underflowing below the minimum of `1`. It must borrow or fuse to fix this.",
     },
     {
       state: {
@@ -574,7 +574,7 @@ const removeRotateFuseUnit: Unit = {
         ],
         arrows: [{ from: "root", to: "l", emphasis: "active" }, { from: "root", to: "r" }],
       },
-      caption: "The right sibling has 2 keys, a key to spare, so we ROTATE: the parent's key, 50, drops down into the empty left child, and the sibling's smallest key, 70, rises up to take its place in the parent.",
+      caption: "The right sibling has `2` keys, a key to spare, so we ROTATE: the parent's key, `50`, drops down into the empty left child, and the sibling's smallest key, `70`, rises up to take its place in the parent.",
     },
     {
       state: {
@@ -596,7 +596,7 @@ const removeRotateFuseUnit: Unit = {
         ],
         arrows: [{ from: "root2", to: "l2" }, { from: "root2", to: "r2" }],
       },
-      caption: "Different case: remove 20 again, but this time the sibling, 80, only has 1 key too. It has nothing to lend.",
+      caption: "Different case: remove `20` again, but this time the sibling, `80`, only has `1` key too. It has nothing to lend.",
     },
     {
       state: {
@@ -616,7 +616,7 @@ const removeRotateFuseUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Fusion pulls the parent's key, 50, down and combines it with the sibling's key, 80, into one merged node. If the parent empties out as a result, the whole tree can shrink by a level.",
+      caption: "Fusion pulls the parent's key, `50`, down and combines it with the sibling's key, `80`, into one merged node. If the parent empties out as a result, the whole tree can shrink by a level.",
     },
   ],
   ladder: [

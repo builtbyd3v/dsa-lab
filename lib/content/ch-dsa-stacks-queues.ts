@@ -18,7 +18,7 @@ const stackUnit: Unit = {
         nodes: [{ id: "s0", label: "10", tag: "top", x: 2, y: 4, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "push(10) adds the first box at the bottom of the stack; being the only one, it's also the top.",
+      caption: "`push(10)` adds the first box at the bottom of the stack; being the only one, it's also the top.",
     },
     {
       state: {
@@ -28,7 +28,7 @@ const stackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "push(20) stacks a new box above the first; the top tag moves to whichever box was pushed most recently.",
+      caption: "`push(20)` stacks a new box above the first; the top tag moves to whichever box was pushed most recently.",
     },
     {
       state: {
@@ -39,7 +39,7 @@ const stackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "push(30) adds another box on top; boxes stack upward, so a lower y means closer to the top.",
+      caption: "`push(30)` adds another box on top; boxes stack upward, so a lower `y` means closer to the top.",
     },
     {
       state: {
@@ -50,7 +50,7 @@ const stackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "peek() looks at the top box (30) without removing it: the stack is unchanged.",
+      caption: "`peek()` looks at the top box (`30`) without removing it: the stack is unchanged.",
     },
     {
       state: {
@@ -61,7 +61,7 @@ const stackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "pop() removes the top box, 30, taking it off the stack.",
+      caption: "`pop()` removes the top box, `30`, taking it off the stack.",
     },
     {
       state: {
@@ -71,7 +71,7 @@ const stackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "After the pop, 20 becomes the new top: LIFO means the most recently pushed box is always removed first.",
+      caption: "After the pop, `20` becomes the new top: LIFO means the most recently pushed box is always removed first.",
     },
   ],
   ladder: [
@@ -88,7 +88,7 @@ const stackUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Three values have been pushed in order: 1, then 2, then 3.",
+          caption: "Three values have been pushed in order: `1`, then `2`, then `3`.",
         },
       ],
       options: [
@@ -109,7 +109,7 @@ const stackUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "pop() removed 3, and 2 is now the top of the stack.",
+        caption: "`pop()` removed `3`, and `2` is now the top of the stack.",
       },
       reviewStep: 6,
     },
@@ -147,7 +147,15 @@ const stackUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write is_empty(stack) and peek(stack) for a stack represented as a Python list, where the end of the list is the top. peek on an empty stack should return None instead of erroring.",
+        "Given a stack represented as a Python list where the end of the list is the top, implement `is_empty(stack)`, returning whether the stack has no items, and `peek(stack)`, returning the top item without removing it, or `None` if the stack is empty.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`is_empty([])`", output: "`True`" },
+        { input: "`peek([1, 2, 3])`", output: "`3`", explanation: "The top of a list-based stack is its last element." },
+        { input: "`peek([])`", output: "`None`", explanation: "There is no top item to look at on an empty stack." },
+      ],
+      constraints: ["`0 <= len(stack) <= 10^4`", "the end of the list is the top of the stack"],
+      bigO: { fn: "peek", answer: "O(1)", explain: "Checking length and reading the last element of `stack` are both constant-time." },
       starter: [
         "def is_empty(stack):",
         "    pass",
@@ -155,6 +163,15 @@ const stackUnit: Unit = {
         "def peek(stack):",
         "    # return the top item without removing it, or None if empty",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "def is_empty(stack):",
+        "    return len(stack) == 0",
+        "",
+        "def peek(stack):",
+        "    if is_empty(stack):",
+        "        return None",
+        "    return stack[-1]",
       ].join("\n"),
       tests: [
         {
@@ -229,7 +246,7 @@ const queueUnit: Unit = {
         nodes: [{ id: "q0", label: "10", tag: "front & back", x: 1, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "enqueue(10) adds the first item; being the only one, it's both the front and the back.",
+      caption: "`enqueue(10)` adds the first item; being the only one, it's both the front and the back.",
     },
     {
       state: {
@@ -239,7 +256,7 @@ const queueUnit: Unit = {
         ],
         arrows: [{ from: "q0", to: "q1", emphasis: "active" }],
       },
-      caption: "enqueue(20) joins at the back; the front tag stays with the oldest item, 10.",
+      caption: "`enqueue(20)` joins at the back; the front tag stays with the oldest item, `10`.",
     },
     {
       state: {
@@ -253,7 +270,7 @@ const queueUnit: Unit = {
           { from: "q1", to: "q2", emphasis: "active" },
         ],
       },
-      caption: "enqueue(30) always joins at the back, keeping the queue in arrival order: 10, 20, 30.",
+      caption: "`enqueue(30)` always joins at the back, keeping the queue in arrival order: `10, 20, 30`.",
     },
     {
       state: {
@@ -267,7 +284,7 @@ const queueUnit: Unit = {
           { from: "q1", to: "q2" },
         ],
       },
-      caption: "dequeue() removes from the front: the oldest item, 10, is next to leave.",
+      caption: "`dequeue()` removes from the front: the oldest item, `10`, is next to leave.",
     },
     {
       state: {
@@ -278,7 +295,7 @@ const queueUnit: Unit = {
         ],
         arrows: [{ from: "q1", to: "q2" }],
       },
-      caption: "10 leaves the queue: FIFO means the first item enqueued is the first one dequeued.",
+      caption: "`10` leaves the queue: FIFO means the first item enqueued is the first one dequeued.",
     },
     {
       state: {
@@ -288,7 +305,7 @@ const queueUnit: Unit = {
         ],
         arrows: [{ from: "q1", to: "q2" }],
       },
-      caption: "After the dequeue, 20 becomes the new front while 30 remains the back.",
+      caption: "After the dequeue, `20` becomes the new front while `30` remains the back.",
     },
   ],
   ladder: [
@@ -308,7 +325,7 @@ const queueUnit: Unit = {
               { from: "q1", to: "q2" },
             ],
           },
-          caption: "Three values were enqueued in order: 1, then 2, then 3.",
+          caption: "Three values were enqueued in order: `1`, then `2`, then `3`.",
         },
       ],
       options: [
@@ -329,7 +346,7 @@ const queueUnit: Unit = {
           ],
           arrows: [{ from: "q1", to: "q2" }],
         },
-        caption: "dequeue() removed 1, the first item enqueued, and 2 is now the front.",
+        caption: "`dequeue()` removed `1`, the first item enqueued, and `2` is now the front.",
       },
       reviewStep: 6,
     },
@@ -371,7 +388,14 @@ const queueUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write enqueue(queue, item) and dequeue(queue) for a queue represented as a Python list, where index 0 is the front and the end of the list is the back.",
+        "Given a queue represented as a Python list where index `0` is the front and the end of the list is the back, implement `enqueue(queue, item)`, adding `item` to the back, and `dequeue(queue)`, removing and returning the front item.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`enqueue([1, 2], 3)`", output: "`[1, 2, 3]`" },
+        { input: "`dequeue([1, 2, 3])`", output: "`1`, leaving `[2, 3]`", explanation: "dequeue removes and returns the item at index `0`." },
+      ],
+      constraints: ["`0 <= len(queue) <= 10^4`", "index `0` is always the front of the queue"],
+      bigO: { fn: "dequeue", answer: "O(n)", explain: "Removing index `0` with `pop(0)` must shift every remaining element down by one." },
       starter: [
         "def enqueue(queue, item):",
         "    pass",
@@ -379,6 +403,13 @@ const queueUnit: Unit = {
         "def dequeue(queue):",
         "    # remove and return the front item",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "def enqueue(queue, item):",
+        "    queue.append(item)",
+        "",
+        "def dequeue(queue):",
+        "    return queue.pop(0)",
       ].join("\n"),
       tests: [
         {
@@ -451,7 +482,7 @@ const dequeAndPythonUnit: Unit = {
         nodes: [{ id: "d0", label: "5", tag: "front", x: 2, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "appendleft(5) adds to the front of a deque; a deque supports insertion at both ends.",
+      caption: "`appendleft(5)` adds to the front of a deque; a deque supports insertion at both ends.",
     },
     {
       state: {
@@ -461,7 +492,7 @@ const dequeAndPythonUnit: Unit = {
         ],
         arrows: [{ from: "d0", to: "d1", emphasis: "active" }],
       },
-      caption: "append(10) adds to the back, the same as a normal queue's enqueue.",
+      caption: "`append(10)` adds to the back, the same as a normal queue's enqueue.",
     },
     {
       state: {
@@ -471,14 +502,14 @@ const dequeAndPythonUnit: Unit = {
         ],
         arrows: [{ from: "d0", to: "d1" }],
       },
-      caption: "pop() removes from the back of a deque, just like a stack's pop.",
+      caption: "`pop()` removes from the back of a deque, just like a stack's pop.",
     },
     {
       state: {
         nodes: [{ id: "d0", label: "5", tag: "front & back", x: 2, y: 1, shape: "box", emphasis: "active" }],
         arrows: [],
       },
-      caption: "With only one item left, 5 is now both the front and back of the deque.",
+      caption: "With only one item left, `5` is now both the front and back of the deque.",
     },
     {
       state: {
@@ -492,7 +523,7 @@ const dequeAndPythonUnit: Unit = {
           { from: "e1", to: "e2" },
         ],
       },
-      caption: "Python's deque.popleft() removes from the front in O(1) time, unlike a plain list's pop(0), which is slow.",
+      caption: "Python's `deque.popleft()` removes from the front in `O(1)` time, unlike a plain list's `pop(0)`, which is slow.",
     },
   ],
   ladder: [
@@ -529,7 +560,7 @@ const dequeAndPythonUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "append(x) and pop() both work at the end of the list, which never requires shifting other elements.",
+        caption: "`append(x)` and `pop()` both work at the end of the list, which never requires shifting other elements.",
       },
       reviewStep: 1,
     },
@@ -560,7 +591,14 @@ const dequeAndPythonUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write is_palindrome(chars) that uses a collections.deque to check whether a list of characters reads the same forwards and backwards, by repeatedly comparing and removing from both ends.",
+        "Given a list of characters `chars`, return `True` if it reads the same forwards and backwards, and `False` otherwise. Use a `collections.deque` to repeatedly compare and remove characters from both ends.",
+      difficulty: "Medium",
+      examples: [
+        { input: "`chars = list('racecar')`", output: "`True`" },
+        { input: "`chars = list('hello')`", output: "`False`" },
+      ],
+      constraints: ["`0 <= len(chars) <= 10^4`"],
+      bigO: { answer: "O(n)", explain: "Each character is compared and removed from an end of the `deque` exactly once." },
       starter: [
         "from collections import deque",
         "",
@@ -568,6 +606,16 @@ const dequeAndPythonUnit: Unit = {
         "    d = deque(chars)",
         "    # compare and remove from both ends until proven false or done",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "from collections import deque",
+        "",
+        "def is_palindrome(chars):",
+        "    d = deque(chars)",
+        "    while len(d) > 1:",
+        "        if d.popleft() != d.pop():",
+        "            return False",
+        "    return True",
       ].join("\n"),
       tests: [
         {
@@ -635,7 +683,7 @@ const applyStackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Scanning ( [ ] ), each opening bracket gets pushed onto the stack.",
+      caption: "Scanning `( [ ] )`, each opening bracket gets pushed onto the stack.",
     },
     {
       state: { nodes: [], arrows: [] },
@@ -646,7 +694,19 @@ const applyStackUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        "Write is_balanced(s) that returns True if every ( [ { in the string s is closed by the matching ) ] } in the correct order, and False otherwise. Use a Python list as a stack.",
+        "Given a string `s`, return `True` if every `(`, `[`, `{` is closed by the matching `)`, `]`, `}` in the correct order, and `False` otherwise. Use a Python list as a stack.",
+      difficulty: "Medium",
+      examples: [
+        { input: "`s = \"([])\"`", output: "`True`", explanation: "Each bracket closes its most recent match." },
+        {
+          input: "`s = \"([)]\"`",
+          output: "`False`",
+          explanation: "`]` closes before `[` does, so `)` closes the wrong bracket out of order.",
+        },
+        { input: "`s = \"(()\"`", output: "`False`", explanation: "One `(` is left unclosed." },
+      ],
+      constraints: ["`0 <= len(s) <= 10^4`", "`s` consists only of the characters `(`, `)`, `[`, `]`, `{`, `}`"],
+      bigO: { answer: "O(n)", explain: "One pass over `s`, with an O(1) push or pop on the stack for each character." },
       starter: [
         "def is_balanced(s):",
         "    pairs = {')': '(', ']': '[', '}': '{'}",
@@ -660,6 +720,18 @@ const applyStackUnit: Unit = {
         "            pass",
         "    # after the loop, the stack must be empty for a balanced string",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "def is_balanced(s):",
+        "    pairs = {')': '(', ']': '[', '}': '{'}",
+        "    stack = []",
+        "    for ch in s:",
+        "        if ch in '([{':",
+        "            stack.append(ch)",
+        "        elif ch in ')]}':",
+        "            if not stack or stack.pop() != pairs[ch]:",
+        "                return False",
+        "    return len(stack) == 0",
       ].join("\n"),
       tests: [
         {

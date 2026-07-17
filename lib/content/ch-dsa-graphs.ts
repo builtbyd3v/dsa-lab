@@ -541,7 +541,7 @@ const bfsUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Queue: [B, C], with B at the front.",
+          caption: "Queue: `[B, C]`, with B at the front.",
         },
       ],
       options: [
@@ -584,9 +584,25 @@ const bfsUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write bfs_order(graph, start) that returns a list of nodes in BFS visit order, starting from start. graph is a dict mapping each node to a list of its neighbors, e.g. {\"S\": [\"A\", \"B\"], \"A\": [\"S\", \"C\"], ...}. Visit each node only once, and process neighbors in the order they appear in graph[node].",
+        "Given a graph as a dict mapping each node to a list of its neighbors (for example, `{\"S\": [\"A\", \"B\"], \"A\": [\"S\", \"C\"]}`) and a `start` node, return a list of nodes in BFS visit order beginning at `start`. Visit each node only once, and process neighbors in the order they appear in `graph[node]`.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "`graph = {\"A\": [\"B\"], \"B\": [\"A\", \"C\"], \"C\": [\"B\"]}`, `start = \"A\"`",
+          output: "`[\"A\", \"B\", \"C\"]`",
+        },
+        {
+          input: "`graph = {\"X\": []}`, `start = \"X\"`",
+          output: "`[\"X\"]`",
+          explanation: "A graph with a single node and no edges returns just that node.",
+        },
+      ],
+      constraints: ["`1 <= number of nodes <= 10^3`", "`start` is always a key in `graph`"],
+      bigO: { answer: "O(n)", explain: "`bfs_order` visits every node and edge in `graph` exactly once; closest offered option to the true `O(V+E)` is `O(n)`." },
       starter:
         "from collections import deque\n\ndef bfs_order(graph, start):\n    # return a list of nodes in BFS visit order from start\n    pass\n",
+      solution:
+        "from collections import deque\n\ndef bfs_order(graph, start):\n    visited = {start}\n    queue = deque([start])\n    order = []\n    while queue:\n        node = queue.popleft()\n        order.append(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                visited.add(neighbor)\n                queue.append(neighbor)\n    return order\n",
       tests: [
         {
           name: "simple chain",

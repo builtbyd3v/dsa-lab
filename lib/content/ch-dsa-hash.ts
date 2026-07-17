@@ -39,7 +39,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Storing key "cat" starts with the raw key, before any hashing has happened.',
+      caption: 'Storing key `"cat"` starts with the raw key, before any hashing has happened.',
     },
     {
       state: {
@@ -49,7 +49,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [{ from: "key", to: "hashfn", emphasis: "active" }],
       },
-      caption: 'hash("cat") runs the key through Python\'s built-in hash function, producing some large integer, here 41 for illustration.',
+      caption: '`hash("cat")` runs the key through Python\'s built-in hash function, producing some large integer, here `41` for illustration.',
     },
     {
       state: {
@@ -59,7 +59,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [{ from: "hashfn", to: "modfn", emphasis: "active" }],
       },
-      caption: "41 % 7 squeezes that huge number down into a valid bucket index: 6, since the table only has 7 slots.",
+      caption: "`41 % 7` squeezes that huge number down into a valid bucket index: `6`, since the table only has 7 slots.",
     },
     {
       state: {
@@ -74,7 +74,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: '"cat" lands in bucket row 6, the exact index the hash-then-mod math produced.',
+      caption: '`"cat"` lands in bucket row `6`, the exact index the hash-then-mod math produced.',
     },
     {
       state: {
@@ -84,7 +84,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [{ from: "key2", to: "hashfn2", emphasis: "active" }],
       },
-      caption: 'A different key, "dog", produces a different hash, 30, which mods down to index 2.',
+      caption: 'A different key, `"dog"`, produces a different hash, `30`, which mods down to index `2`.',
     },
     {
       state: {
@@ -99,7 +99,7 @@ const hashingBucketsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: '"dog" lands at index 2, a completely different bucket from "cat", because its hash mods to a different number.',
+      caption: '`"dog"` lands at index `2`, a completely different bucket from `"cat"`, because its hash mods to a different number.',
     },
   ],
   ladder: [
@@ -113,7 +113,7 @@ const hashingBucketsUnit: Unit = {
             nodes: [{ id: "h", label: "hash(key) = 23", tag: "hash function", x: 3, y: 1, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "The raw hash value, 23, still needs to be squeezed down to fit the table's 5 buckets.",
+          caption: "The raw hash value, `23`, still needs to be squeezed down to fit the table's 5 buckets.",
         },
       ],
       options: [
@@ -133,7 +133,7 @@ const hashingBucketsUnit: Unit = {
           nodes: [{ id: "b3", label: "key", tag: "bucket 3", x: 3, y: 2, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "23 % 5 = 3, so the key lands in bucket 3.",
+        caption: "`23 % 5 = 3`, so the key lands in bucket `3`.",
       },
       reviewStep: 3,
     },
@@ -158,8 +158,25 @@ const hashingBucketsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write bucket_for(key, table_size) that returns the bucket index for key using Python's built-in hash() function and modulo.",
+      prompt:
+        "Given a `key` and a hash table size `table_size`, return the bucket index for `key` using Python's built-in `hash()` function reduced with modulo.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "key = \"cat\", table_size = 7",
+          output: "hash(\"cat\") % 7",
+          explanation: "The bucket index is always `hash(key) % table_size`.",
+        },
+        { input: "key = 42, table_size = 7", output: "a value between `0` and `6`" },
+      ],
+      constraints: [
+        "`table_size > 0`",
+        "`key` can be any hashable Python value",
+        "the returned index must satisfy `0 <= index < table_size`",
+      ],
+      bigO: { answer: "O(1)", explain: "`hash(key)` and `%` are constant-time operations, regardless of `table_size`." },
       starter: "def bucket_for(key, table_size):\n    # use hash(key) and modulo\n    pass\n",
+      solution: "def bucket_for(key, table_size):\n    return hash(key) % table_size\n",
       tests: [
         {
           name: "index is always in range",
@@ -218,7 +235,7 @@ const chainingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Bucket 2 already holds "dog", the only key that has hashed there so far.',
+      caption: 'Bucket `2` already holds `"dog"`, the only key that has hashed there so far.',
     },
     {
       state: {
@@ -228,7 +245,7 @@ const chainingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: '"pig" is being inserted, and it also hashes to bucket 2: a collision with "dog".',
+      caption: '`"pig"` is being inserted, and it also hashes to bucket `2`: a collision with `"dog"`.',
     },
     {
       state: {
@@ -238,7 +255,7 @@ const chainingUnit: Unit = {
         ],
         arrows: [{ from: "b2", to: "chain1", emphasis: "active" }],
       },
-      caption: 'Instead of overwriting "dog", chaining links "pig" onto the bucket as a chain: the bucket now holds a small list of entries.',
+      caption: 'Instead of overwriting `"dog"`, chaining links `"pig"` onto the bucket as a chain: the bucket now holds a small list of entries.',
     },
     {
       state: {
@@ -249,7 +266,7 @@ const chainingUnit: Unit = {
         ],
         arrows: [{ from: "b2", to: "chain1" }],
       },
-      caption: '"owl" also hashes to bucket 2, a second collision on the same bucket.',
+      caption: '`"owl"` also hashes to bucket `2`, a second collision on the same bucket.',
     },
     {
       state: {
@@ -263,7 +280,7 @@ const chainingUnit: Unit = {
           { from: "chain1", to: "chain2", emphasis: "active" },
         ],
       },
-      caption: '"owl" links onto the end of the chain, after "pig", growing the chain to three entries deep.',
+      caption: '`"owl"` links onto the end of the chain, after `"pig"`, growing the chain to three entries deep.',
     },
     {
       state: {
@@ -277,7 +294,7 @@ const chainingUnit: Unit = {
           { from: "chain1", to: "chain2" },
         ],
       },
-      caption: 'Searching for "owl" starts at bucket 2 and checks "dog" first: not a match, so the search keeps walking.',
+      caption: 'Searching for `"owl"` starts at bucket `2` and checks `"dog"` first: not a match, so the search keeps walking.',
     },
     {
       state: {
@@ -291,7 +308,7 @@ const chainingUnit: Unit = {
           { from: "chain1", to: "chain2" },
         ],
       },
-      caption: '"pig" is checked next: still not a match, so the search steps to the next link.',
+      caption: '`"pig"` is checked next: still not a match, so the search steps to the next link.',
     },
     {
       state: {
@@ -305,7 +322,7 @@ const chainingUnit: Unit = {
           { from: "chain1", to: "chain2" },
         ],
       },
-      caption: '"owl" is found at the third link: with chaining, search walks the whole chain until it matches, or runs off the end.',
+      caption: '`"owl"` is found at the third link: with chaining, search walks the whole chain until it matches, or runs off the end.',
     },
   ],
   ladder: [
@@ -326,7 +343,7 @@ const chainingUnit: Unit = {
               { from: "b", to: "c" },
             ],
           },
-          caption: 'The chain at bucket 4 links "ant" to "bee" to "cow", in that order.',
+          caption: 'The chain at bucket `4` links `"ant"` to `"bee"` to `"cow"`, in that order.',
         },
       ],
       options: [
@@ -353,7 +370,7 @@ const chainingUnit: Unit = {
             { from: "b", to: "c" },
           ],
         },
-        caption: 'The search checks "ant", then "bee", then finally "cow": a full walk to the end of the chain.',
+        caption: 'The search checks `"ant"`, then `"bee"`, then finally `"cow"`: a full walk to the end of the chain.',
       },
       reviewStep: 5,
     },
@@ -385,8 +402,27 @@ const chainingUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write chain_insert(table, index, key) that appends key to the chain (a list) living at table[index], creating that chain as an empty list first if it doesn't exist yet.",
+        "Given a `table` (a dict mapping bucket index to a list of keys), a bucket `index`, and a `key`, append `key` to the chain living at `table[index]`, creating that chain as an empty list first if `index` is not yet in `table`.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "table = {}, index = 2, key = \"dog\"",
+          output: "table == {2: [\"dog\"]}",
+          explanation: "The chain at index `2` is created as an empty list before `\"dog\"` is appended.",
+        },
+        {
+          input: "table = {2: [\"dog\"]}, index = 2, key = \"pig\"",
+          output: "table == {2: [\"dog\", \"pig\"]}",
+          explanation: "`\"pig\"` chains onto the existing entry instead of replacing it.",
+        },
+      ],
+      constraints: [
+        "`table` maps `index -> list of keys`",
+        "inserting on a bucket that already has a chain appends to it, it never overwrites",
+      ],
+      bigO: { answer: "O(1)", explain: "Dict lookup by `index` and `list.append` are both average constant-time operations." },
       starter: "def chain_insert(table, index, key):\n    # table is a dict mapping index -> list of keys\n    pass\n",
+      solution: "def chain_insert(table, index, key):\n    if index not in table:\n        table[index] = []\n    table[index].append(key)\n",
       tests: [
         {
           name: "creates chain on first insert",
@@ -448,7 +484,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: '"cat" already sits at index 2. A new key, "bat", is about to be inserted, and it also hashes to index 2.',
+      caption: '`"cat"` already sits at index `2`. A new key, `"bat"`, is about to be inserted, and it also hashes to index `2`.',
     },
     {
       state: {
@@ -461,7 +497,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Linear probing checks index 2 first: occupied by "cat", so "bat" can\'t go there.',
+      caption: 'Linear probing checks index `2` first: occupied by `"cat"`, so `"bat"` can\'t go there.',
     },
     {
       state: {
@@ -474,7 +510,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Linear probing steps forward by 1 to index 3, which is free, so "bat" lands there.',
+      caption: 'Linear probing steps forward by `1` to index `3`, which is free, so `"bat"` lands there.',
     },
     {
       state: {
@@ -488,7 +524,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'A third key, "rat", also hashes to index 2, landing in the same cluster of occupied slots as "cat" and "bat".',
+      caption: 'A third key, `"rat"`, also hashes to index `2`, landing in the same cluster of occupied slots as `"cat"` and `"bat"`.',
     },
     {
       state: {
@@ -501,7 +537,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Linear probing has to step past both "cat" and "bat" before reaching the free slot at index 4: linear probing tends to grow long clusters like this.',
+      caption: 'Linear probing has to step past both `"cat"` and `"bat"` before reaching the free slot at index `4`: linear probing tends to grow long clusters like this.',
     },
     {
       state: {
@@ -516,7 +552,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A fresh 7-slot table with quadratic probing: a new key, \"bat\", also hashes to index 1, where \"cat\" already sits.",
+      caption: "A fresh 7-slot table with quadratic probing: a new key, `\"bat\"`, also hashes to index `1`, where `\"cat\"` already sits.",
     },
     {
       state: {
@@ -526,7 +562,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Quadratic probing's first jump adds 1² = 1, checking index 2. If that were also full, the next jump would add 2² = 4, then 3² = 9, spreading probes out instead of walking one by one.",
+      caption: "Quadratic probing's first jump adds `1**2 = 1`, checking index `2`. If that were also full, the next jump would add `2**2 = 4`, then `3**2 = 9`, spreading probes out instead of walking one by one.",
     },
     {
       state: {
@@ -536,7 +572,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Index 2 is free, so "bat" lands there after just one quadratic jump.',
+      caption: 'Index `2` is free, so `"bat"` lands there after just one quadratic jump.',
     },
     {
       state: {
@@ -546,7 +582,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Double hashing takes a different approach: a second hash function produces the step size itself, here 3, instead of always using 1 or squared jumps.",
+      caption: "Double hashing takes a different approach: a second hash function produces the step size itself, here `3`, instead of always using `1` or squared jumps.",
     },
     {
       state: {
@@ -556,7 +592,7 @@ const probingUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Adding that step, 1 + 3 = 4, lands the new key at index 4, a jump size unique to this key's own second hash.",
+      caption: "Adding that step, `1 + 3 = 4`, lands the new key at index `4`, a jump size unique to this key's own second hash.",
     },
   ],
   ladder: [
@@ -574,7 +610,7 @@ const probingUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Index 3 and 4 are both taken; index 5 is the first free slot walking forward.",
+          caption: "Index `3` and `4` are both taken; index `5` is the first free slot walking forward.",
         },
       ],
       options: [
@@ -594,7 +630,7 @@ const probingUnit: Unit = {
           nodes: [{ id: "b5", label: "new key", tag: "index 5", x: 5, y: 1, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "The new key walks past index 3 and 4, both occupied, and settles into the first free slot at index 5.",
+        caption: "The new key walks past index `3` and `4`, both occupied, and settles into the first free slot at index `5`.",
       },
       reviewStep: 3,
     },
@@ -607,7 +643,7 @@ const probingUnit: Unit = {
             nodes: [{ id: "i", label: "index i, occupied", tag: "collision", x: 2, y: 1, shape: "box", emphasis: "new" }],
             arrows: [],
           },
-          caption: "Quadratic probing checks i + 1², then i + 2², then i + 3², using increasing squares as the jump size.",
+          caption: "Quadratic probing checks `i + 1**2`, then `i + 2**2`, then `i + 3**2`, using increasing squares as the jump size.",
         },
       ],
       options: [
@@ -627,7 +663,7 @@ const probingUnit: Unit = {
           nodes: [{ id: "i9", label: "i + 9", tag: "third probe", x: 5, y: 1, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "The sequence of jumps is 1, 4, 9: squares of 1, 2, 3, so the third probe checks index i + 9.",
+        caption: "The sequence of jumps is `1, 4, 9`: squares of `1, 2, 3`, so the third probe checks index `i + 9`.",
       },
       reviewStep: 7,
     },
@@ -655,8 +691,21 @@ const probingUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write quadratic_probe(start, attempt, table_size) that returns the index for the given attempt number using quadratic probing: start + attempt squared, wrapped with modulo.",
+      prompt:
+        "Given a starting index `start`, an `attempt` number, and a hash table size `table_size`, return the next index to probe using quadratic probing: `start + attempt ** 2`, wrapped with `% table_size`.",
+      difficulty: "Medium",
+      examples: [
+        { input: "start = 1, attempt = 1, table_size = 7", output: "2", explanation: "`(1 + 1**2) % 7 == 2`." },
+        {
+          input: "start = 1, attempt = 3, table_size = 7",
+          output: "3",
+          explanation: "`(1 + 3**2) % 7 == 10 % 7 == 3`, wrapping past the end of the table.",
+        },
+      ],
+      constraints: ["`attempt >= 1`", "`table_size > 0`", "the result must satisfy `0 <= index < table_size`"],
+      bigO: { answer: "O(1)", explain: "Squaring `attempt`, adding, and taking `%` are all constant-time arithmetic operations." },
       starter: "def quadratic_probe(start, attempt, table_size):\n    # attempt squared is the jump size\n    pass\n",
+      solution: "def quadratic_probe(start, attempt, table_size):\n    return (start + attempt ** 2) % table_size\n",
       tests: [
         { name: "first probe jumps by 1", code: "assert quadratic_probe(1, 1, 7) == 2, \"quadratic_probe(1, 1, 7) should be 2: (1 + 1**2) % 7\"" },
         { name: "second probe jumps by 4", code: "assert quadratic_probe(1, 2, 7) == 5, \"quadratic_probe(1, 2, 7) should be 5: (1 + 2**2) % 7\"" },
@@ -725,7 +774,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A 4-slot table holds 2 keys, so its load factor, entries divided by capacity, is 0.5.",
+      caption: "A 4-slot table holds `2` keys, so its load factor, entries divided by capacity, is `0.5`.",
     },
     {
       state: {
@@ -737,7 +786,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Inserting "c" brings the count to 3, pushing the load factor up to 0.75.',
+      caption: 'Inserting `"c"` brings the count to `3`, pushing the load factor up to `0.75`.',
     },
     {
       state: {
@@ -750,7 +799,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Inserting "d" fills the table completely: load factor 1.0, past the typical resize threshold of around 0.7.',
+      caption: 'Inserting `"d"` fills the table completely: load factor `1.0`, past the typical resize threshold of around `0.7`.',
     },
     {
       state: {
@@ -759,7 +808,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Crossing the threshold triggers a resize: a brand new, bigger table is allocated, here doubled to 8 slots.",
+      caption: "Crossing the threshold triggers a resize: a brand new, bigger table is allocated, here doubled to `8` slots.",
     },
     {
       state: {
@@ -775,7 +824,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "The new 8-slot table starts empty; every existing key must now be rehashed into it, since modulo 8 gives different indices than modulo 4 did.",
+      caption: "The new 8-slot table starts empty; every existing key must now be rehashed into it, since `% 8` gives different indices than `% 4` did.",
     },
     {
       state: {
@@ -788,7 +837,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Each key is rehashed with the new table size: "a", "b", "c", "d" land in fresh spots that have nothing to do with their old indices in the 4-slot table.',
+      caption: 'Each key is rehashed with the new table size: `"a"`, `"b"`, `"c"`, `"d"` land in fresh spots that have nothing to do with their old indices in the 4-slot table.',
     },
     {
       state: {
@@ -801,7 +850,7 @@ const resizeAndFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "After the resize, the load factor drops back down to 0.5, with plenty of room before the next resize is needed.",
+      caption: "After the resize, the load factor drops back down to `0.5`, with plenty of room before the next resize is needed.",
     },
   ],
   ladder: [
@@ -814,7 +863,7 @@ const resizeAndFunctionsUnit: Unit = {
             nodes: [{ id: "info", label: "6 entries, 8 slots", tag: "table", x: 3, y: 1, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "Load factor is entries divided by total slots.",
+          caption: "Load factor is `entries / slots`.",
         },
       ],
       options: [
@@ -834,7 +883,7 @@ const resizeAndFunctionsUnit: Unit = {
           nodes: [{ id: "lf", label: "0.75, over threshold", tag: "load factor", x: 3, y: 1, shape: "frame", emphasis: "error" }],
           arrows: [],
         },
-        caption: "6 / 8 = 0.75, which is past the common 0.7 threshold, so this table would trigger a resize.",
+        caption: "`6 / 8 = 0.75`, which is past the common `0.7` threshold, so this table would trigger a resize.",
       },
       reviewStep: 2,
     },
@@ -847,7 +896,7 @@ const resizeAndFunctionsUnit: Unit = {
             nodes: [{ id: "old", label: "hash(key) % 4", tag: "old index math", x: 3, y: 1, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "Every key's bucket index was computed using modulo the OLD table size, 4.",
+          caption: "Every key's bucket index was computed using modulo the OLD table size, `4`.",
         },
       ],
       options: [
@@ -865,7 +914,7 @@ const resizeAndFunctionsUnit: Unit = {
           nodes: [{ id: "newh", label: "hash(key) % 8", tag: "new index math", x: 3, y: 1, shape: "frame", emphasis: "active" }],
           arrows: [],
         },
-        caption: "Each key must be rehashed with the new table size, since modulo 8 generally scatters keys to different buckets than modulo 4 did.",
+        caption: "Each key must be rehashed with the new table size, since `% 8` generally scatters keys to different buckets than `% 4` did.",
       },
       reviewStep: 5,
     },
@@ -948,7 +997,7 @@ const applyHashUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'A list of words needs to be turned into a count of how many times each one appears, using a dictionary as the hash table underneath.',
+      caption: 'A list of `words` needs to be turned into a count of how many times each one appears, using a dictionary as the hash table underneath.',
     },
     {
       state: {
@@ -957,16 +1006,28 @@ const applyHashUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'Under the hood, the dictionary hashes each word to find its bucket instantly: "the" appears twice, "cat" once, with no manual searching required.',
+      caption: 'Under the hood, the dictionary hashes each word to find its bucket instantly: `"the"` appears twice, `"cat"` once, with no manual searching required.',
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Write word_counts(words) that returns a dictionary mapping each word to how many times it appears in the list words. Then write simple_hash(s, size) that hashes a string by summing the ord() value of each character and reducing it with modulo size.",
+        "Given a list of strings `words`, return a dictionary mapping each word to the number of times it appears in `words`. Then, given a string `s` and a table size `size`, return `simple_hash(s, size)`: the sum of `ord(c)` for every character `c` in `s`, reduced with `% size`.",
+      difficulty: "Medium",
+      examples: [
+        { input: "words = [\"the\", \"cat\", \"the\"]", output: "{\"the\": 2, \"cat\": 1}" },
+        { input: "s = \"cat\", size = 7", output: "sum(ord(c) for c in \"cat\") % 7" },
+      ],
+      constraints: [
+        "`words` may be empty, in which case the result is `{}`",
+        "`simple_hash` must return a value satisfying `0 <= result < size`",
+      ],
+      bigO: { fn: "word_counts", answer: "O(n)", explain: "`word_counts` makes one pass over `words`, so its cost grows linearly with the list's length." },
       starter:
         "def word_counts(words):\n    # return a dict: word -> count\n    pass\n\ndef simple_hash(s, size):\n    # sum ord(c) for each character c in s, then reduce with modulo size\n    pass\n",
+      solution:
+        "def word_counts(words):\n    counts = {}\n    for word in words:\n        if word in counts:\n            counts[word] += 1\n        else:\n            counts[word] = 1\n    return counts\n\ndef simple_hash(s, size):\n    total = 0\n    for c in s:\n        total += ord(c)\n    return total % size\n",
       tests: [
         {
           name: "counts each word",

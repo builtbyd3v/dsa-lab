@@ -14,7 +14,7 @@ const defCallUnit: Unit = {
         nodes: [{ id: "fn", label: "square(x)", tag: "function", x: 2, y: 1, shape: "frame", emphasis: "new" }],
         arrows: [],
       },
-      caption: "def square(x): return x * x builds a function machine. Defining it doesn't run anything yet.",
+      caption: "`def square(x): return x * x` builds a function machine. Defining it doesn't run anything yet.",
     },
     {
       state: {
@@ -24,7 +24,7 @@ const defCallUnit: Unit = {
         ],
         arrows: [{ from: "fn", to: "call", emphasis: "active" }],
       },
-      caption: "Calling square(5) feeds 5 into the machine: a new frame is pushed with x bound to 5.",
+      caption: "Calling `square(5)` feeds `5` into the machine: a new frame is pushed with `x` bound to `5`.",
     },
     {
       state: {
@@ -34,7 +34,7 @@ const defCallUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Inside the frame, x * x computes 25 from the value that was fed in.",
+      caption: "Inside the frame, `x * x` computes `25` from the value that was fed in.",
     },
     {
       state: {
@@ -44,14 +44,14 @@ const defCallUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "return sends 25 out of the frame, which then pops off the stack, into the box named result.",
+      caption: "`return` sends `25` out of the frame, which then pops off the stack, into the box named `result`.",
     },
     {
       state: {
         nodes: [{ id: "fn2", label: "greet(name)", tag: "function", x: 2, y: 1, shape: "frame", emphasis: "new" }],
         arrows: [],
       },
-      caption: "def greet(name): print(\"Hello, \" + name) builds a different kind of machine: one with no return statement at all.",
+      caption: "`def greet(name): print(\"Hello, \" + name)` builds a different kind of machine: one with no `return` statement at all.",
     },
     {
       state: {
@@ -62,7 +62,7 @@ const defCallUnit: Unit = {
         ],
         arrows: [{ from: "call2", to: "printed", emphasis: "active" }],
       },
-      caption: 'greet("Sam") prints "Hello, Sam" as a side effect while its frame is running.',
+      caption: '`greet("Sam")` prints `"Hello, Sam"` as a side effect while its frame is running.',
     },
     {
       state: {
@@ -72,7 +72,7 @@ const defCallUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'greet\'s frame pops without ever hitting a return statement, so greeting = greet("Sam") ends up holding None.',
+      caption: '`greet`\'s frame pops without ever hitting a `return` statement, so `greeting = greet("Sam")` ends up holding `None`.',
     },
   ],
   ladder: [
@@ -82,7 +82,7 @@ const defCallUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "n", label: "5", tag: "n", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-          caption: "bar(5) is called with n bound to 5.",
+          caption: "`bar(5)` is called with `n` bound to `5`.",
         },
       ],
       options: [
@@ -99,7 +99,7 @@ const defCallUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "x", label: "6", tag: "x", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-        caption: "bar(5) prints 10 as a side effect, then returns 6, which gets stored in x and printed next.",
+        caption: "`bar(5)` prints `10` as a side effect, then returns `6`, which gets stored in `x` and printed next.",
       },
       reviewStep: 6,
     },
@@ -123,7 +123,8 @@ const defCallUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write rectangle_area(width, height) that returns the area of a rectangle: width times height.",
+      prompt:
+        "Given a rectangle's `width` and `height`, implement `rectangle_area(width, height)` that returns the rectangle's area (`width` times `height`).",
       starter: "def rectangle_area(width, height):\n    # your code here\n    pass\n",
       tests: [
         { name: "4 by 5 is 20", code: "assert rectangle_area(4, 5) == 20, \"rectangle_area(4, 5) should be 20: 4 * 5\"" },
@@ -134,6 +135,14 @@ const defCallUnit: Unit = {
         },
       ],
       reviewStep: 2,
+      difficulty: "Easy",
+      examples: [
+        { input: "width = 4, height = 5", output: "20", explanation: "`4 * 5 = 20`." },
+        { input: "width = 0, height = 5", output: "0", explanation: "Anything times `0` is `0`." },
+      ],
+      constraints: ["`width` and `height` are non-negative numbers.", "Either side may be an `int` or a `float`."],
+      bigO: { answer: "O(1)", explain: "`rectangle_area` does a single multiplication regardless of the input values." },
+      solution: "def rectangle_area(width, height):\n    return width * height\n",
     },
   ],
   recall: [
@@ -189,7 +198,7 @@ const callStackUnit: Unit = {
         nodes: [{ id: "main", label: "main()", tag: "locals: none", x: 2, y: 5, shape: "frame", emphasis: "new" }],
         arrows: [],
       },
-      caption: "main() is called, pushing its frame onto the stack. It's the only frame there, at the bottom.",
+      caption: "`main()` is called, pushing its frame onto the stack. It's the only frame there, at the bottom.",
     },
     {
       state: {
@@ -199,7 +208,7 @@ const callStackUnit: Unit = {
         ],
         arrows: [{ from: "main", to: "f", emphasis: "active" }],
       },
-      caption: "Inside main, calling f() pushes a new frame on top. main's frame pauses underneath and waits.",
+      caption: "Inside `main`, calling `f()` pushes a new frame on top. `main`'s frame pauses underneath and waits.",
     },
     {
       state: {
@@ -210,7 +219,7 @@ const callStackUnit: Unit = {
         ],
         arrows: [{ from: "f", to: "g", emphasis: "active" }],
       },
-      caption: "Inside f, val = g() calls g(). Its frame stacks on top of f's, which sits on top of main's: three frames deep.",
+      caption: "Inside `f`, `val = g()` calls `g()`. Its frame stacks on top of `f`'s, which sits on top of `main`'s: three frames deep.",
     },
     {
       state: {
@@ -221,7 +230,7 @@ const callStackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Inside g, return 100 computes the value g is about to send back to whoever called it.",
+      caption: "Inside `g`, `return 100` computes the value `g` is about to send back to whoever called it.",
     },
     {
       state: {
@@ -231,7 +240,7 @@ const callStackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "g returns 100, and its frame is popped off the stack immediately: g's local scope is gone for good. f resumes with val holding 100.",
+      caption: "`g` returns `100`, and its frame is popped off the stack immediately: `g`'s local scope is gone for good. `f` resumes with `val` holding `100`.",
     },
     {
       state: {
@@ -241,21 +250,21 @@ const callStackUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "f computes val + 1, which comes out to 101.",
+      caption: "`f` computes `val + 1`, which comes out to `101`.",
     },
     {
       state: {
         nodes: [{ id: "main", label: "main()", tag: "result = 101", x: 2, y: 5, shape: "frame", emphasis: "active" }],
         arrows: [],
       },
-      caption: "f returns 101 and its own frame pops too, taking val with it. main resumes with result holding 101.",
+      caption: "`f` returns `101` and its own frame pops too, taking `val` with it. `main` resumes with `result` holding `101`.",
     },
     {
       state: {
         nodes: [{ id: "printed", label: "101", tag: "printed by main", x: 2, y: 5, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "main prints 101, then finishes. Its own frame pops as well, leaving the call stack empty.",
+      caption: "`main` prints `101`, then finishes. Its own frame pops as well, leaving the call stack empty.",
     },
   ],
   ladder: [
@@ -269,7 +278,7 @@ const callStackUnit: Unit = {
             nodes: [{ id: "outer", label: "outer()", tag: "locals: none", x: 2, y: 5, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "outer() begins; its frame is pushed first, at the bottom.",
+          caption: "`outer()` begins; its frame is pushed first, at the bottom.",
         },
       ],
       options: [
@@ -293,7 +302,7 @@ const callStackUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "Three frames deep: outer at the bottom, middle in the middle, inner on top and actively running.",
+        caption: "Three frames deep: `outer` at the bottom, `middle` in the middle, `inner` on top and actively running.",
       },
       reviewStep: 2,
     },
@@ -307,7 +316,7 @@ const callStackUnit: Unit = {
             nodes: [{ id: "helper", label: "helper()", tag: "z = 99", x: 2, y: 3, shape: "frame", emphasis: "new" }],
             arrows: [],
           },
-          caption: "Inside helper's frame, z holds 99, about to be returned.",
+          caption: "Inside `helper`'s frame, `z` holds `99`, about to be returned.",
         },
       ],
       options: [
@@ -325,7 +334,7 @@ const callStackUnit: Unit = {
           nodes: [{ id: "main2", label: "main2()", tag: "result = 99", x: 2, y: 5, shape: "frame", emphasis: "active" }],
           arrows: [],
         },
-        caption: "helper's frame is gone, z along with it. main2 resumes holding only what it captured: result = 99.",
+        caption: "`helper`'s frame is gone, `z` along with it. `main2` resumes holding only what it captured: `result = 99`.",
       },
       reviewStep: 4,
     },
@@ -350,7 +359,7 @@ const callStackUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write double(n) that returns n * 2, and double_twice(n) that calls double twice in a row, feeding the first call's return value into the second, and returns that final result.",
+        "Implement `double(n)`, which returns `n * 2`, and `double_twice(n)`, which returns the result of calling `double` on `n` and then calling `double` again on that result (chaining the first call's return value into the second call).",
       starter:
         "def double(n):\n    # your code here\n    pass\n\ndef double_twice(n):\n    # call double twice, using the first call's return value as the second call's input\n    pass\n",
       tests: [
@@ -365,6 +374,15 @@ const callStackUnit: Unit = {
         },
       ],
       reviewStep: 6,
+      difficulty: "Medium",
+      examples: [
+        { input: "n = 3", output: "double(3) = 6, double_twice(3) = 12", explanation: "`double(3)` is `6`, then `double(6)` is `12`." },
+        { input: "n = 0", output: "double_twice(0) = 0", explanation: "Doubling `0` twice stays `0`." },
+      ],
+      constraints: ["`n` is an `int`.", "`double_twice` must call `double` twice, chaining the first return value into the second call."],
+      bigO: { fn: "double_twice", answer: "O(1)", explain: "`double` and `double_twice` each do a fixed, constant number of multiplications." },
+      solution:
+        "def double(n):\n    return n * 2\n\ndef double_twice(n):\n    return double(double(n))\n",
     },
   ],
   recall: [
@@ -432,7 +450,7 @@ const scopeUnit: Unit = {
         nodes: [{ id: "gx", label: '"outside"', tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: 'x = "outside" at the top level creates a variable living in the global scope.',
+      caption: '`x = "outside"` at the top level creates a variable living in the global scope.',
     },
     {
       state: {
@@ -442,7 +460,7 @@ const scopeUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "def show_local(): defines a function machine. It hasn't run yet, so no local x exists.",
+      caption: "`def show_local():` defines a function machine. It hasn't run yet, so no local `x` exists.",
     },
     {
       state: {
@@ -452,7 +470,7 @@ const scopeUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "show_local() is called, pushing its own frame. So far it has no local variables.",
+      caption: "`show_local()` is called, pushing its own frame. So far it has no local variables.",
     },
     {
       state: {
@@ -462,7 +480,7 @@ const scopeUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: 'x = "inside" inside the function creates a brand new local x, a completely separate box from the global x above.',
+      caption: '`x = "inside"` inside the function creates a brand new local `x`, a completely separate box from the global `x` above.',
     },
     {
       state: {
@@ -472,21 +490,21 @@ const scopeUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "print(x) inside the function reads the local x and prints 'inside', shadowing the global x, which sits untouched above.",
+      caption: "`print(x)` inside the function reads the local `x` and prints `'inside'`, shadowing the global `x`, which sits untouched above.",
     },
     {
       state: {
         nodes: [{ id: "gx", label: '"outside"', tag: "x (global)", x: 2, y: 1, shape: "box" }],
         arrows: [],
       },
-      caption: "show_local() returns; its frame pops, and the local x is destroyed along with it.",
+      caption: "`show_local()` returns; its frame pops, and the local `x` is destroyed along with it.",
     },
     {
       state: {
         nodes: [{ id: "gx", label: '"outside"', tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "active" }],
         arrows: [],
       },
-      caption: "print(x) at the top level now reads the global x, still 'outside'. It was never touched by the function's local shadow.",
+      caption: "`print(x)` at the top level now reads the global `x`, still `'outside'`. It was never touched by the function's local shadow.",
     },
   ],
   ladder: [
@@ -496,7 +514,7 @@ const scopeUnit: Unit = {
       steps: [
         {
           state: { nodes: [{ id: "gx", label: "10", tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "new" }], arrows: [] },
-          caption: "x = 10 lives in the global scope, before show() runs.",
+          caption: "`x = 10` lives in the global scope, before `show()` runs.",
         },
       ],
       options: [
@@ -513,7 +531,7 @@ const scopeUnit: Unit = {
       },
       revealStep: {
         state: { nodes: [{ id: "gx", label: "10", tag: "x (global)", x: 2, y: 1, shape: "box", emphasis: "active" }], arrows: [] },
-        caption: "show() prints 20 using its own local x; once it returns, that local x is gone, and the final print(x) reads the global x, still 10.",
+        caption: "`show()` prints `20` using its own local `x`; once it returns, that local `x` is gone, and the final `print(x)` reads the global `x`, still `10`.",
       },
       reviewStep: 4,
     },
@@ -541,7 +559,7 @@ const scopeUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write remove_duplicates(items) that returns a NEW list with duplicates removed from items (keep the first occurrence of each value, preserve order), without modifying items itself at all.",
+        "Given a list `items`, implement `remove_duplicates(items)` that returns a NEW list with duplicates removed, keeping each value's first occurrence and preserving order. The returned list must be a different object from `items`, and `items` itself must not be mutated.",
       starter: "def remove_duplicates(items):\n    # return a new list; do not mutate items\n    pass\n",
       tests: [
         {
@@ -561,6 +579,27 @@ const scopeUnit: Unit = {
         },
       ],
       reviewStep: 6,
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "items = `[1, 2, 2, 3, 1]`",
+          output: "`[1, 2, 3]`",
+          explanation: "Each value's first appearance is kept, in order; later duplicates are dropped.",
+        },
+        {
+          input: "items = `[4, 5]`",
+          output: "a NEW list equal to `[4, 5]`",
+          explanation: "The result must be `is not items`, and `items` must remain unchanged after the call.",
+        },
+      ],
+      constraints: [
+        "`items` is a list of hashable values (e.g. `int`, `str`).",
+        "Must not mutate `items` in place.",
+        "Must return a brand new list object, not `items` itself.",
+      ],
+      bigO: { answer: "O(n)", explain: "`remove_duplicates` scans every element of `items` once to build the deduplicated result." },
+      solution:
+        "def remove_duplicates(items):\n    result = []\n    for item in items:\n        if item not in result:\n            result.append(item)\n    return result\n",
     },
   ],
   recall: [
@@ -620,7 +659,7 @@ const applyFunctionsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Tax is computed with price * 1.08 written out three separate times. If the tax rate ever changes, all three places need editing.",
+      caption: "Tax is computed with `price * 1.08` written out three separate times. If the tax rate ever changes, all three places need editing.",
     },
     {
       state: {
@@ -636,14 +675,14 @@ const applyFunctionsUnit: Unit = {
           { from: "fn", to: "item3", emphasis: "active" },
         ],
       },
-      caption: "Refactored into one with_tax(price) function, all three call sites reuse it. Now the tax rate lives in exactly one place.",
+      caption: "Refactored into one `with_tax(price)` function, all three call sites reuse it. Now the tax rate lives in exactly one place.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Refactor the repeated tax math into a function with_tax(price) that returns price multiplied by 1.08. Then write compute_totals() that uses with_tax for prices 12.00, 8.00, and 20.00, returning them as a list [total1, total2, total3].",
+        "Refactor the repeated tax math into `with_tax(price)`, which returns `price` multiplied by `1.08`. Then implement `compute_totals()`, which calls `with_tax` for the prices `12.00`, `8.00`, and `20.00` and returns the results as a list `[total1, total2, total3]`.",
       starter:
         "def with_tax(price):\n    # your code here\n    pass\n\ndef compute_totals():\n    # use with_tax for each price below, don't repeat the tax math\n    pass\n",
       tests: [
@@ -662,6 +701,22 @@ const applyFunctionsUnit: Unit = {
         },
       ],
       reviewStep: 1,
+      difficulty: "Medium",
+      examples: [
+        { input: "price = 12.00", output: "12.96", explanation: "`with_tax(12.00)` is `12.00 * 1.08`." },
+        {
+          input: "compute_totals()",
+          output: "`[12.96, 8.64, 21.6]`",
+          explanation: "Each of `12.00`, `8.00`, `20.00` is run through the same `with_tax` function.",
+        },
+      ],
+      constraints: [
+        "`with_tax` must be the single place the `1.08` tax rate is applied.",
+        "`compute_totals` must call `with_tax` for each price rather than repeating the multiplication.",
+      ],
+      bigO: { fn: "compute_totals", answer: "O(1)", explain: "`compute_totals` calls `with_tax` a fixed three times, so its work doesn't grow with input." },
+      solution:
+        "def with_tax(price):\n    return price * 1.08\n\ndef compute_totals():\n    return [with_tax(12.00), with_tax(8.00), with_tax(20.00)]\n",
     },
   ],
   recall: [

@@ -14,7 +14,7 @@ const nodesAndLinksUnit: Unit = {
         nodes: [{ id: "head", label: "None", tag: "head", x: 0, y: 1, shape: "box" }],
         arrows: [],
       },
-      caption: "An empty linked list is just a head pointer set to None: no nodes exist yet.",
+      caption: "An empty linked list is just a `head` pointer set to `None`: no nodes exist yet.",
     },
     {
       state: {
@@ -24,7 +24,7 @@ const nodesAndLinksUnit: Unit = {
         ],
         arrows: [{ from: "head", to: "n0", emphasis: "active" }],
       },
-      caption: "Node(10) creates a box holding 10, and head's arrow now points at it instead of None.",
+      caption: "`Node(10)` creates a box holding `10`, and `head`'s arrow now points at it instead of `None`.",
     },
     {
       state: {
@@ -38,7 +38,7 @@ const nodesAndLinksUnit: Unit = {
           { from: "n0", to: "n1", emphasis: "active" },
         ],
       },
-      caption: "n0.next = n1 draws a new arrow from the first node to the second; that is what linking means.",
+      caption: "`n0.next = n1` draws a new arrow from the first node to the second; that is what linking means.",
     },
     {
       state: {
@@ -54,7 +54,7 @@ const nodesAndLinksUnit: Unit = {
           { from: "n1", to: "n2", emphasis: "active" },
         ],
       },
-      caption: "n1.next = n2 extends the chain again: three nodes now connected by two arrows.",
+      caption: "`n1.next = n2` extends the chain again: three nodes now connected by two arrows.",
     },
     {
       state: {
@@ -72,7 +72,7 @@ const nodesAndLinksUnit: Unit = {
           { from: "n2", to: "none", emphasis: "active" },
         ],
       },
-      caption: "The last node's next arrow points at None, marking where the list ends.",
+      caption: "The last node's `next` arrow points at `None`, marking where the list ends.",
     },
     {
       state: {
@@ -90,7 +90,7 @@ const nodesAndLinksUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "Traversal starts by pointing a separate variable cur at head, the very first node.",
+      caption: "Traversal starts by pointing a separate variable `cur` at `head`, the very first node.",
     },
     {
       state: {
@@ -108,7 +108,7 @@ const nodesAndLinksUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "cur = cur.next follows the arrow forward, moving the pointer from n0 to n1.",
+      caption: "`cur = cur.next` follows the arrow forward, moving the pointer from `n0` to `n1`.",
     },
   ],
   ladder: [
@@ -129,7 +129,7 @@ const nodesAndLinksUnit: Unit = {
               { from: "b", to: "c" },
             ],
           },
-          caption: "head names the first node; next follows one arrow at a time.",
+          caption: "`head` names the first node; `next` follows one arrow at a time.",
         },
       ],
       options: [
@@ -154,7 +154,7 @@ const nodesAndLinksUnit: Unit = {
             { from: "b", to: "c" },
           ],
         },
-        caption: "head.next follows one arrow to reach the second node, whose value is 8.",
+        caption: "`head.next` follows one arrow to reach the second node, whose value is `8`.",
       },
       reviewStep: 6,
     },
@@ -200,16 +200,37 @@ const nodesAndLinksUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write a function list_length(head) that returns the number of nodes in a singly linked list, starting from head, by walking next until you reach None.",
-      starter: [
+        "Given the `head` of a singly linked list, return the number of nodes in the list by walking `next` pointers until you reach `None`.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`head = None`", output: "`0`", explanation: "An empty list has no nodes to count." },
+        { input: "`head = Node(1, Node(2, Node(3)))`", output: "`3`" },
+      ],
+      constraints: ["`0 <= number of nodes <= 10^4`", "`head` may be `None`"],
+      bigO: { answer: "O(n)", explain: "One pass over the list, following `next` from `head` until it hits `None`." },
+      hidden: [
         "class Node:",
         "    def __init__(self, value, next=None):",
         "        self.value = value",
         "        self.next = next",
+      ].join("\n"),
+      starter: [
+        "# Node(value, next=None) is provided",
         "",
         "def list_length(head):",
         "    # return the number of nodes from head to the end",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "# Node(value, next=None) is provided",
+        "",
+        "def list_length(head):",
+        "    count = 0",
+        "    cur = head",
+        "    while cur is not None:",
+        "        count += 1",
+        "        cur = cur.next",
+        "    return count",
       ].join("\n"),
       tests: [
         {
@@ -285,7 +306,7 @@ const sllInsertUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "Start with a three-node list: 10, 20, 30, ending at None.",
+      caption: "Start with a three-node list: `10`, `20`, `30`, ending at `None`.",
     },
     {
       state: {
@@ -302,7 +323,7 @@ const sllInsertUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "To insert 5 at the head, first create the new node off to the side, unconnected.",
+      caption: "To insert `5` at the head, first create the new node off to the side, unconnected.",
     },
     {
       state: {
@@ -320,7 +341,7 @@ const sllInsertUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "newHead.next = n0 must happen first: point the new node at the old head before anything else changes.",
+      caption: "`newHead.next = n0` must happen first: point the new node at the old head before anything else changes.",
     },
     {
       state: {
@@ -338,7 +359,7 @@ const sllInsertUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "Only now does head move to point at the new node; the insert is complete and nothing was lost.",
+      caption: "Only now does `head` move to point at the new node; the insert is complete and nothing was lost.",
     },
     {
       state: {
@@ -355,7 +376,7 @@ const sllInsertUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "To insert 15 between the first and second nodes, again create it unconnected first.",
+      caption: "To insert `15` between the first and second nodes, again create it unconnected first.",
     },
     {
       state: {
@@ -371,7 +392,7 @@ const sllInsertUnit: Unit = {
           { from: "n0", to: "mid", emphasis: "error" },
         ],
       },
-      caption: "Wrong order: setting n0.next = mid first overwrites the only arrow to n1, losing the rest of the list.",
+      caption: "Wrong order: setting `n0.next = mid` first overwrites the only arrow to `n1`, losing the rest of the list.",
     },
     {
       state: {
@@ -389,7 +410,7 @@ const sllInsertUnit: Unit = {
           { from: "mid", to: "n1", emphasis: "active" },
         ],
       },
-      caption: "Correct order: mid.next = n1 is set first, while n0 still safely points at n1 too.",
+      caption: "Correct order: `mid.next = n1` is set first, while `n0` still safely points at `n1` too.",
     },
     {
       state: {
@@ -407,7 +428,7 @@ const sllInsertUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "Now n0.next = mid finishes the swap: the list reads 5, 10, 15, 20, 30, with nothing lost.",
+      caption: "Now `n0.next = mid` finishes the swap: the list reads `5, 10, 15, 20, 30`, with nothing lost.",
     },
     {
       state: {
@@ -426,7 +447,7 @@ const sllInsertUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "To insert 40 at the tail, create the new node, then find the current last node before None.",
+      caption: "To insert `40` at the tail, create the new node, then find the current last node before `None`.",
     },
     {
       state: {
@@ -446,7 +467,7 @@ const sllInsertUnit: Unit = {
           { from: "n2", to: "newTail", emphasis: "active" },
         ],
       },
-      caption: "n2.next = newTail extends the chain; the list now ends 5, 10, 15, 20, 30, 40, then None.",
+      caption: "`n2.next = newTail` extends the chain; the list now ends `5, 10, 15, 20, 30, 40`, then `None`.",
     },
   ],
   ladder: [
@@ -463,7 +484,7 @@ const sllInsertUnit: Unit = {
             ],
             arrows: [{ from: "prev", to: "nxt" }],
           },
-          caption: "new_node is created off to the side, not yet wired into the chain.",
+          caption: "`new_node` is created off to the side, not yet wired into the chain.",
         },
       ],
       options: [
@@ -488,7 +509,7 @@ const sllInsertUnit: Unit = {
             { from: "prev", to: "new", emphasis: "active" },
           ],
         },
-        caption: "new_node.next is set first, grabbing the rest of the list, then prev.next moves to point at new_node.",
+        caption: "`new_node.next` is set first, grabbing the rest of the list, then `prev.next` moves to point at `new_node`.",
       },
       reviewStep: 6,
     },
@@ -553,8 +574,19 @@ const sllInsertUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write insert_after(prev, new_node) that inserts new_node right after prev in a singly linked list, being careful about pointer order so no nodes are lost.",
-      starter: [
+        "Given a node `prev` in a singly linked list and a new, unlinked node `new_node`, insert `new_node` so it sits immediately after `prev`. Set `new_node`'s `next` before touching `prev`'s `next` so no nodes after `prev` are lost.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "`prev = Node(1) -> Node(3)`, `new_node = Node(2)`",
+          output: "`prev -> new_node -> Node(3)`",
+          explanation: "`new_node.next` must capture `prev.next` before `prev.next` is reassigned to `new_node`.",
+        },
+        { input: "`prev = Node(1)` (`prev.next` is `None`), `new_node = Node(2)`", output: "`prev -> new_node -> None`" },
+      ],
+      constraints: ["`prev` is never `None`", "`new_node` starts unlinked (`new_node.next` is irrelevant beforehand)"],
+      bigO: { answer: "O(1)", explain: "Wiring `new_node.next` and `prev.next` is two pointer reassignments, no traversal needed." },
+      hidden: [
         "def _viz(head):",
         "    nodes = []",
         "    arrows = []",
@@ -575,11 +607,21 @@ const sllInsertUnit: Unit = {
         "    def __init__(self, value, next=None):",
         "        self.value = value",
         "        self.next = next",
+      ].join("\n"),
+      starter: [
+        "# Node(value, next=None) is provided",
         "",
         "def insert_after(prev, new_node):",
         "    # wire new_node into the list right after prev",
         "    # careful: set new_node.next before touching prev.next",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "# Node(value, next=None) is provided",
+        "",
+        "def insert_after(prev, new_node):",
+        "    new_node.next = prev.next",
+        "    prev.next = new_node",
       ].join("\n"),
       tests: [
         {
@@ -657,7 +699,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "Start with list 10, 20, 30, ending at None.",
+      caption: "Start with list `10, 20, 30`, ending at `None`.",
     },
     {
       state: {
@@ -673,7 +715,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "To remove the middle node (20), first identify prev (10) and the target node (20).",
+      caption: "To remove the middle node (`20`), first identify `prev` (`10`) and the target node (`20`).",
     },
     {
       state: {
@@ -689,7 +731,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "prev.next = target.next bypasses the removed node: n0 now points straight to n2.",
+      caption: "`prev.next = target.next` bypasses the removed node: `n0` now points straight to `n2`.",
     },
     {
       state: {
@@ -704,7 +746,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "With no arrow pointing at it anymore, node 20 is unreachable garbage; the list is now 10, 30.",
+      caption: "With no arrow pointing at it anymore, node `20` is unreachable garbage; the list is now `10, 30`.",
     },
     {
       state: {
@@ -720,7 +762,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "Now consider removing the head itself: start again with 10, 20, 30.",
+      caption: "Now consider removing the head itself: start again with `10, 20, 30`.",
     },
     {
       state: {
@@ -735,7 +777,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "head = head.next moves the head pointer forward one node; node 10 is left with nothing pointing at it.",
+      caption: "`head = head.next` moves the head pointer forward one node; node `10` is left with nothing pointing at it.",
     },
     {
       state: {
@@ -749,7 +791,7 @@ const sllRemoveUnit: Unit = {
           { from: "n2", to: "none" },
         ],
       },
-      caption: "The list is now just 20, 30: removing the head only ever requires moving the head pointer, no bypass arrow needed.",
+      caption: "The list is now just `20, 30`: removing the head only ever requires moving the `head` pointer, no bypass arrow needed.",
     },
   ],
   ladder: [
@@ -769,7 +811,7 @@ const sllRemoveUnit: Unit = {
               { from: "target", to: "after" },
             ],
           },
-          caption: "target is the node right after prev, the one being removed.",
+          caption: "`target` is the node right after `prev`, the one being removed.",
         },
       ],
       options: [
@@ -791,7 +833,7 @@ const sllRemoveUnit: Unit = {
           ],
           arrows: [{ from: "prev", to: "after", emphasis: "active" }],
         },
-        caption: "prev.next = prev.next.next bypasses target: prev now points straight at what used to follow it.",
+        caption: "`prev.next = prev.next.next` bypasses `target`: `prev` now points straight at what used to follow it.",
       },
       reviewStep: 2,
     },
@@ -843,8 +885,19 @@ const sllRemoveUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write remove_after(prev) that removes the node right after prev in a singly linked list. Assume prev always has a next node.",
-      starter: [
+        "Given a node `prev` in a singly linked list, remove the node immediately after `prev` by bypassing it, so `prev.next` skips directly to whatever followed the removed node. Assume `prev` always has a `next` node.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "`prev = Node(1) -> Node(2) -> Node(3)`",
+          output: "`prev -> Node(3)`",
+          explanation: "The node holding `2` is bypassed and becomes unreachable.",
+        },
+        { input: "`prev = Node(1) -> Node(2)` (`prev.next.next` is `None`)", output: "`prev.next` is `None`" },
+      ],
+      constraints: ["`prev.next` is never `None`"],
+      bigO: { answer: "O(1)", explain: "Bypassing the target node is a single `prev.next` reassignment, no traversal needed." },
+      hidden: [
         "def _viz(head):",
         "    nodes = []",
         "    arrows = []",
@@ -865,10 +918,19 @@ const sllRemoveUnit: Unit = {
         "    def __init__(self, value, next=None):",
         "        self.value = value",
         "        self.next = next",
+      ].join("\n"),
+      starter: [
+        "# Node(value, next=None) is provided",
         "",
         "def remove_after(prev):",
         "    # bypass the node right after prev",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "# Node(value, next=None) is provided",
+        "",
+        "def remove_after(prev):",
+        "    prev.next = prev.next.next",
       ].join("\n"),
       tests: [
         {
@@ -946,7 +1008,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n2", to: "n1", label: "prev" },
         ],
       },
-      caption: "A doubly linked list gives every node two arrows: next forward and prev backward.",
+      caption: "A doubly linked list gives every node two arrows: `next` forward and `prev` backward.",
     },
     {
       state: {
@@ -962,7 +1024,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n2", to: "n1", label: "prev", emphasis: "active" },
         ],
       },
-      caption: "Because each node also has prev, you can walk backward from tail to head just as easily as forward.",
+      caption: "Because each node also has `prev`, you can walk backward from `tail` to `head` just as easily as forward.",
     },
     {
       state: {
@@ -979,7 +1041,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n2", to: "n0", label: "next", emphasis: "active" },
         ],
       },
-      caption: "In a circular list, the tail's next arrow loops back to head instead of pointing at None.",
+      caption: "In a circular list, the tail's `next` arrow loops back to `head` instead of pointing at `None`.",
     },
     {
       state: {
@@ -997,7 +1059,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n0", to: "n2", label: "prev", emphasis: "active" },
         ],
       },
-      caption: "A circular doubly linked list closes the loop in both directions: head.prev reaches tail directly.",
+      caption: "A circular doubly linked list closes the loop in both directions: `head.prev` reaches `tail` directly.",
     },
     {
       state: {
@@ -1013,7 +1075,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "A dummy node sits before the real head, holding no meaningful value of its own.",
+      caption: "A `dummy` node sits before the real head, holding no meaningful value of its own.",
     },
     {
       state: {
@@ -1031,7 +1093,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "With a dummy node, inserting at the front is just insert_after(dummy): no special head case needed.",
+      caption: "With a `dummy` node, inserting at the front is just `insert_after(dummy)`: no special head case needed.",
     },
     {
       state: {
@@ -1047,7 +1109,7 @@ const dllAndVariantsUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "Traversal always begins at dummy.next, never at dummy itself: the dummy is a placeholder, not real data.",
+      caption: "Traversal always begins at `dummy.next`, never at `dummy` itself: the `dummy` is a placeholder, not real data.",
     },
   ],
   ladder: [
@@ -1067,7 +1129,7 @@ const dllAndVariantsUnit: Unit = {
               { from: "b", to: "c" },
             ],
           },
-          caption: "In a normal list, node 3's next would be None; circular lists do something different.",
+          caption: "In a normal list, node `3`'s `next` would be `None`; circular lists do something different.",
         },
       ],
       options: [
@@ -1093,7 +1155,7 @@ const dllAndVariantsUnit: Unit = {
             { from: "c", to: "a", emphasis: "active" },
           ],
         },
-        caption: "Node 3's next loops back to node 1, the head, closing the circle.",
+        caption: "Node `3`'s `next` loops back to node `1`, the `head`, closing the circle.",
       },
       reviewStep: 2,
     },
@@ -1133,17 +1195,44 @@ const dllAndVariantsUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write is_circular(head) that returns True if a linked list loops back on itself instead of ending at None, and False if it terminates normally. Assume it has at most 50 nodes, so walking that many steps is safe.",
-      starter: [
+        "Given the `head` of a singly linked list, return `True` if the list loops back on itself instead of ending at `None`, and `False` if it terminates normally. Assume the list has at most `50` nodes, so walking that many steps is always safe.",
+      difficulty: "Medium",
+      examples: [
+        { input: "`head = Node(1, Node(2, None))`", output: "`False`", explanation: "The list ends at `None`." },
+        {
+          input: "`b = Node(1); c = Node(2); b.next = c; c.next = b`",
+          output: "`True`",
+          explanation: "The list loops back to `b` and never reaches `None`.",
+        },
+      ],
+      constraints: ["`0 <= number of nodes <= 50`", "if the list loops, it loops back to some earlier node in the chain"],
+      bigO: { answer: "O(n)", explain: "Walking `next` pointers step by step to check for `None` or a repeat visits each node once." },
+      hidden: [
         "class Node:",
         "    def __init__(self, value, next=None):",
         "        self.value = value",
         "        self.next = next",
+      ].join("\n"),
+      starter: [
+        "# Node(value, next=None) is provided",
         "",
         "def is_circular(head):",
         "    # walk up to 50 steps; if you hit None, it's not circular",
         "    # if you never hit None, it loops",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "# Node(value, next=None) is provided",
+        "",
+        "def is_circular(head):",
+        "    cur = head",
+        "    steps = 0",
+        "    while cur is not None:",
+        "        cur = cur.next",
+        "        steps += 1",
+        "        if steps > 50:",
+        "            return True",
+        "    return False",
       ].join("\n"),
       tests: [
         {
@@ -1211,7 +1300,7 @@ const applyListsUnit: Unit = {
         nodes: [{ id: "head", label: "None", tag: "head", x: 0, y: 1, shape: "box" }],
         arrows: [],
       },
-      caption: "We'll build a list from scratch using append: start with head = None, meaning empty.",
+      caption: "We'll build a list from scratch using `append`: start with `head = None`, meaning empty.",
     },
     {
       state: {
@@ -1225,15 +1314,29 @@ const applyListsUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "Each append call finds the current tail and attaches one more node, growing the chain in order.",
+      caption: "Each `append` call finds the current tail and attaches one more node, growing the chain in order.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Implement a singly linked list: a Node class with value and next, an append(head, value) function that adds a new node to the end and returns the head, and a to_list(head) function that returns the values as a plain Python list, in order.",
-      starter: [
+        "Implement a singly linked list from scratch: a `Node` class storing `value` and `next`, an `append(head, value)` function that adds a new node to the end of the list and returns the (possibly new) `head`, and a `to_list(head)` function that returns the list's values as a plain Python list, in order.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "`head = None; head = append(head, 1); head = append(head, 2); head = append(head, 3)`",
+          output: "`to_list(head) == [1, 2, 3]`",
+        },
+        {
+          input: "`h = append(None, 5)`",
+          output: "`to_list(h) == [5]`",
+          explanation: "Appending to an empty list (`head=None`) creates the first node and becomes the new `head`.",
+        },
+      ],
+      constraints: ["`0 <= number of appends <= 10^3`", "`head` starts as `None` for an empty list"],
+      bigO: { fn: "append", answer: "O(n)", explain: "`append` walks to the current tail and `to_list` walks the whole chain, each visiting every node." },
+      hidden: [
         "def _viz(head):",
         "    nodes = []",
         "    arrows = []",
@@ -1249,7 +1352,8 @@ const applyListsUnit: Unit = {
         "        cur = cur.next",
         "        i += 1",
         "    return {\"nodes\": nodes, \"arrows\": arrows}",
-        "",
+      ].join("\n"),
+      starter: [
         "class Node:",
         "    def __init__(self, value):",
         "        # store value and next",
@@ -1263,6 +1367,30 @@ const applyListsUnit: Unit = {
         "def to_list(head):",
         "    # return a plain Python list of values in order",
         "    pass",
+      ].join("\n"),
+      solution: [
+        "class Node:",
+        "    def __init__(self, value):",
+        "        self.value = value",
+        "        self.next = None",
+        "",
+        "def append(head, value):",
+        "    new_node = Node(value)",
+        "    if head is None:",
+        "        return new_node",
+        "    cur = head",
+        "    while cur.next is not None:",
+        "        cur = cur.next",
+        "    cur.next = new_node",
+        "    return head",
+        "",
+        "def to_list(head):",
+        "    values = []",
+        "    cur = head",
+        "    while cur is not None:",
+        "        values.append(cur.value)",
+        "        cur = cur.next",
+        "    return values",
       ].join("\n"),
       tests: [
         {

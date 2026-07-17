@@ -17,7 +17,7 @@ const boxesUnit: Unit = {
         nodes: [{ id: "age", label: "12", tag: "age", x: 1, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "age = 12 creates a box holding 12, labeled age.",
+      caption: "`age = 12` creates a box holding `12`, labeled `age`.",
     },
     {
       state: {
@@ -27,7 +27,7 @@ const boxesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "name = \"Sam\" creates a second, separate box next to the first.",
+      caption: "`name = \"Sam\"` creates a second, separate box next to the first.",
     },
     {
       state: {
@@ -37,7 +37,7 @@ const boxesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "age = age + 1 first reads what's inside the age box.",
+      caption: "`age = age + 1` first reads what's inside the `age` box.",
     },
     {
       state: {
@@ -47,7 +47,7 @@ const boxesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "The box now holds 13. Same box, new contents, old value gone.",
+      caption: "The box now holds `13`. Same box, new contents, old value gone.",
     },
     {
       state: {
@@ -58,7 +58,7 @@ const boxesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "buddy_age = age copies the value 13 into a brand new box.",
+      caption: "`buddy_age = age` copies the value `13` into a brand new box.",
     },
     {
       state: {
@@ -69,7 +69,7 @@ const boxesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Changing age to 20 does not touch buddy_age. They are separate boxes.",
+      caption: "Changing `age` to `20` does not touch `buddy_age`. They are separate boxes.",
     },
   ],
   ladder: [
@@ -83,7 +83,7 @@ const boxesUnit: Unit = {
             nodes: [{ id: "score", label: "5", tag: "score", x: 2, y: 1, shape: "box", emphasis: "new" }],
             arrows: [],
           },
-          caption: "score = 5 puts 5 in a box labeled score.",
+          caption: "`score = 5` puts `5` in a box labeled `score`.",
         },
       ],
       options: [
@@ -101,7 +101,7 @@ const boxesUnit: Unit = {
           nodes: [{ id: "score", label: "10", tag: "score", x: 2, y: 1, shape: "box", emphasis: "new" }],
           arrows: [],
         },
-        caption: "score now holds 10: the box's old value was read, doubled, then written back in.",
+        caption: "`score` now holds `10`: the box's old value was read, doubled, then written back in.",
       },
       reviewStep: 3,
     },
@@ -146,7 +146,18 @@ const boxesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "A recipe needs 3 eggs, 2 cups of flour, and bakes at 350 degrees. Create three variables: eggs, flour, and oven_temp, holding those numbers.",
+        "A recipe needs `3` eggs, `2` cups of flour, and bakes at `350` degrees. Create three variables, `eggs`, `flour`, and `oven_temp`, holding those numbers.",
+      difficulty: "Easy",
+      examples: [
+        {
+          input: "eggs = 3, flour = 2, oven_temp = 350",
+          output: "eggs == 3, flour == 2, oven_temp == 350",
+          explanation: "Each variable simply holds the matching number from the recipe.",
+        },
+      ],
+      constraints: ["`eggs`, `flour`, and `oven_temp` must be numbers, not strings"],
+      bigO: { answer: "O(1)", explain: "Creating three fixed variables does a constant amount of work, no matter what." },
+      solution: "eggs = 3\nflour = 2\noven_temp = 350\n",
       starter: "# create eggs, flour, and oven_temp below\n",
       tests: [
         { name: "eggs is 3", code: "assert eggs == 3, \"eggs should be 3: re-check the recipe amount\"" },
@@ -209,7 +220,7 @@ const typesUnit: Unit = {
         nodes: [{ id: "n", label: "7", tag: "n : int", x: 2, y: 1, shape: "box", emphasis: "new" }],
         arrows: [],
       },
-      caption: "n = 7 makes an int box. The tag shows the value's type.",
+      caption: "`n = 7` makes an `int` box. The tag shows the value's type.",
     },
     {
       state: {
@@ -219,7 +230,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "p = 7.0 looks similar but the decimal point makes it a float box.",
+      caption: "`p = 7.0` looks similar but the decimal point makes it a `float` box.",
     },
     {
       state: {
@@ -230,7 +241,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "w = \"7\" is text, not a number, even though it looks like one. That makes it a str box.",
+      caption: "`w = \"7\"` is text, not a number, even though it looks like one. That makes it a `str` box.",
     },
     {
       state: {
@@ -241,7 +252,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "type(n) inspects the box and reports its shape without changing it.",
+      caption: "`type(n)` inspects the box and reports its shape without changing it.",
     },
     {
       state: {
@@ -252,7 +263,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "a // b is floor division: it drops the remainder and stays an int.",
+      caption: "`a // b` is floor division: it drops the remainder and stays an `int`.",
     },
     {
       state: {
@@ -264,7 +275,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "a / b is true division: it keeps the remainder as a decimal, always producing a float.",
+      caption: "`a / b` is true division: it keeps the remainder as a decimal, always producing a `float`.",
     },
     {
       state: {
@@ -274,7 +285,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "int(\"5\") converts the text \"5\" into the number 5, a new box with a new shape.",
+      caption: "`int(\"5\")` converts the text `\"5\"` into the number `5`, a new box with a new shape.",
     },
     {
       state: {
@@ -285,7 +296,7 @@ const typesUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "num + 2 works because num is now an int; total holds 7.",
+      caption: "`num + 2` works because `num` is now an `int`; `total` holds `7`.",
     },
   ],
   ladder: [
@@ -301,7 +312,7 @@ const typesUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "// is floor division: divide, then drop anything after the decimal point.",
+          caption: "`//` is floor division: divide, then drop anything after the decimal point.",
         },
       ],
       options: [
@@ -323,7 +334,7 @@ const typesUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "7 // 2 is 3: the remainder 1 is dropped, and the result stays an int.",
+        caption: "`7 // 2` is `3`: the remainder `1` is dropped, and the result stays an `int`.",
       },
       reviewStep: 4,
     },
@@ -347,7 +358,15 @@ const typesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write a function celsius_to_fahrenheit(c) that converts Celsius to Fahrenheit using f = c * 9 / 5 + 32. It should return a float.",
+        "Given a Celsius temperature `c`, implement `celsius_to_fahrenheit(c)` that converts it to Fahrenheit using `f = c * 9 / 5 + 32`. Return the result as a `float`.",
+      difficulty: "Easy",
+      examples: [
+        { input: "c = 0", output: "32.0", explanation: "Freezing point of water in Fahrenheit." },
+        { input: "c = 100", output: "212.0", explanation: "Boiling point of water in Fahrenheit." },
+      ],
+      constraints: ["the return value must be a `float`, even when the result is a whole number"],
+      bigO: { answer: "O(1)", explain: "`celsius_to_fahrenheit` does one fixed arithmetic computation regardless of input size." },
+      solution: "def celsius_to_fahrenheit(c):\n    return c * 9 / 5 + 32\n",
       starter: "def celsius_to_fahrenheit(c):\n    # your code here\n    pass\n",
       tests: [
         {
@@ -419,7 +438,7 @@ const referencesUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "a = [1, 2] creates one list object. The variable a is an arrow pointing at it, not a copy of it.",
+      caption: "`a = [1, 2]` creates one list object. The variable `a` is an arrow pointing at it, not a copy of it.",
     },
     {
       state: {
@@ -435,7 +454,7 @@ const referencesUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "b = a does not build a new list. It draws a second arrow at the same object.",
+      caption: "`b = a` does not build a new list. It draws a second arrow at the same object.",
     },
     {
       state: {
@@ -451,7 +470,7 @@ const referencesUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "b.append(3) looks up b, follows its arrow, and finds the very same object a also points at.",
+      caption: "`b.append(3)` looks up `b`, follows its arrow, and finds the very same object `a` also points at.",
     },
     {
       state: {
@@ -469,7 +488,7 @@ const referencesUnit: Unit = {
           { from: "n1", to: "n2", emphasis: "active" },
         ],
       },
-      caption: "The one shared object grows a third slot. Since a and b point at the same object, a sees the 3 too.",
+      caption: "The one shared object grows a third slot. Since `a` and `b` point at the same object, `a` sees the `3` too.",
     },
     {
       state: {
@@ -487,7 +506,7 @@ const referencesUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "print(a) shows [1, 2, 3]. Both arrows lead to the same three-slot object, so both names see all three.",
+      caption: "`print(a)` shows `[1, 2, 3]`. Both arrows lead to the same three-slot object, so both names see all three.",
     },
     {
       state: {
@@ -503,7 +522,7 @@ const referencesUnit: Unit = {
           { from: "n1", to: "n2" },
         ],
       },
-      caption: "Now compare: c = list(a) instead. First, here is a alone, unchanged, with its three slots.",
+      caption: "Now compare: `c = list(a)` instead. First, here is `a` alone, unchanged, with its three slots.",
     },
     {
       state: {
@@ -526,7 +545,7 @@ const referencesUnit: Unit = {
           { from: "m1", to: "m2" },
         ],
       },
-      caption: "list(a) builds a brand new object with copied values. c points at its own object, separate from a's.",
+      caption: "`list(a)` builds a brand new object with copied values. `c` points at its own object, separate from `a`'s.",
     },
     {
       state: {
@@ -551,7 +570,7 @@ const referencesUnit: Unit = {
           { from: "m2", to: "m3", emphasis: "active" },
         ],
       },
-      caption: "c.append(4) only grows c's own object. a's object still has just 1, 2, 3.",
+      caption: "`c.append(4)` only grows `c`'s own object. `a`'s object still has just `1, 2, 3`.",
     },
   ],
   ladder: [
@@ -573,7 +592,7 @@ const referencesUnit: Unit = {
               { from: "n0", to: "n1" },
             ],
           },
-          caption: "a and b both point at the same list object.",
+          caption: "`a` and `b` both point at the same list object.",
         },
       ],
       options: [
@@ -602,7 +621,7 @@ const referencesUnit: Unit = {
             { from: "n1", to: "n2" },
           ],
         },
-        caption: "print(a) shows [1, 2, 3]: a and b share one object, so a sees b's change.",
+        caption: "`print(a)` shows `[1, 2, 3]`: `a` and `b` share one object, so `a` sees `b`'s change.",
       },
       reviewStep: 3,
     },
@@ -627,7 +646,7 @@ const referencesUnit: Unit = {
               { from: "m0", to: "m1" },
             ],
           },
-          caption: "list(a) made c point at a separate, freshly copied object.",
+          caption: "`list(a)` made `c` point at a separate, freshly copied object.",
         },
       ],
       options: [
@@ -657,7 +676,7 @@ const referencesUnit: Unit = {
             { from: "m1", to: "m2" },
           ],
         },
-        caption: "print(a) still shows [1, 2]: c's object is separate, so growing c never touches a's object.",
+        caption: "`print(a)` still shows `[1, 2]`: `c`'s object is separate, so growing `c` never touches `a`'s object.",
       },
       reviewStep: 7,
     },
@@ -688,9 +707,28 @@ const referencesUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write two functions on a list of numbers. add_one_inplace(nums) should append 1 to nums directly (mutates it, returns nothing useful). add_one_new(nums) should return a NEW list equal to nums with 1 appended, leaving nums untouched.",
+        "Given a list of numbers `nums`, implement two functions. `add_one_inplace(nums)` should append `1` to `nums` directly, mutating it in place and returning nothing meaningful. `add_one_new(nums)` should return a NEW list equal to `nums` with `1` appended, leaving `nums` untouched.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "nums = [1, 2]; add_one_inplace(nums)",
+          output: "nums == [1, 2, 1]",
+          explanation: "add_one_inplace mutates the same list object it was given.",
+        },
+        {
+          input: "nums = [1, 2]; result = add_one_new(nums)",
+          output: "result == [1, 2, 1], nums == [1, 2]",
+          explanation: "add_one_new returns a fresh list and leaves nums unchanged.",
+        },
+      ],
+      constraints: ["`add_one_inplace` must not create a new list", "`add_one_new` must not mutate `nums`"],
+      bigO: { fn: "add_one_new", answer: "O(n)", explain: "`add_one_new` must copy every element of `nums` into a fresh list before appending." },
+      hidden:
+        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}",
+      solution:
+        "def add_one_inplace(nums):\n    nums.append(1)\n\ndef add_one_new(nums):\n    return nums + [1]\n",
       starter:
-        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef add_one_inplace(nums):\n    # mutate nums directly\n    pass\n\ndef add_one_new(nums):\n    # return a new list, do not touch nums\n    pass\n",
+        "def add_one_inplace(nums):\n    # mutate nums directly\n    pass\n\ndef add_one_new(nums):\n    # return a new list, do not touch nums\n    pass\n",
       tests: [
         {
           name: "inplace mutates the original",
@@ -771,7 +809,7 @@ const applyVariablesUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "cart holds prices as floats: [4.50, 2.25]. One object, one arrow from cart.",
+      caption: "`cart` holds prices as floats: `[4.50, 2.25]`. One object, one arrow from `cart`.",
     },
     {
       state: {
@@ -787,16 +825,35 @@ const applyVariablesUnit: Unit = {
           { from: "n0", to: "n1" },
         ],
       },
-      caption: "backup = cart looks like a safety copy, but it's just a second arrow to the same object: the bug to avoid.",
+      caption: "`backup = cart` looks like a safety copy, but it's just a second arrow to the same object: the bug to avoid.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "checkout(cart) should return the total of all prices in cart WITHOUT changing cart itself. Then, separately, add_item(cart, price) should add price into cart directly (mutate it) and return nothing meaningful. Write both, being careful that checkout never mutates its input and that a 'backup' you make of cart before checkout stays correct even if cart changes later.",
+        "Given a shopping cart `cart` (a list of prices), implement `checkout(cart)` to return the total of all prices WITHOUT changing `cart` itself. Separately, implement `add_item(cart, price)` to add `price` into `cart` directly, mutating it, and returning nothing meaningful. Be careful that `checkout` never mutates its input, and that a `backup` made of `cart` before checkout stays correct even if `cart` changes later.",
+      difficulty: "Medium",
+      examples: [
+        {
+          input: "cart = [4.50, 2.25, 5.25]; total = checkout(cart)",
+          output: "total == 12.0, cart == [4.50, 2.25, 5.25]",
+          explanation: "checkout sums the prices and leaves cart unchanged.",
+        },
+        {
+          input: "cart = [4.50, 2.25]; backup = list(cart); add_item(cart, 5.25)",
+          output: "cart == [4.50, 2.25, 5.25], backup == [4.50, 2.25]",
+          explanation: "add_item mutates cart in place; backup, made with list(cart), is unaffected.",
+        },
+      ],
+      constraints: ["`checkout` must not mutate `cart`", "`add_item` must mutate the same list object it was given"],
+      bigO: { fn: "checkout", answer: "O(n)", explain: "`checkout` must add up every price in `cart`, so its work grows with the cart's length." },
+      hidden:
+        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}",
+      solution:
+        "def checkout(cart):\n    total = 0\n    for price in cart:\n        total += price\n    return total\n\ndef add_item(cart, price):\n    cart.append(price)\n",
       starter:
-        "def _viz(name, xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0} for i, v in enumerate(xs)]\n    nodes.insert(0, {\"id\": \"var\", \"label\": name, \"x\": 0, \"y\": 1, \"shape\": \"box\", \"tag\": \"variable\"})\n    arrows = [{\"from\": \"var\", \"to\": \"n0\"}] + [{\"from\": f\"n{i}\", \"to\": f\"n{i+1}\"} for i in range(len(xs) - 1)]\n    return {\"nodes\": nodes, \"arrows\": arrows}\n\ndef checkout(cart):\n    # return the sum of prices, do not mutate cart\n    pass\n\ndef add_item(cart, price):\n    # mutate cart in place by adding price\n    pass\n",
+        "def checkout(cart):\n    # return the sum of prices, do not mutate cart\n    pass\n\ndef add_item(cart, price):\n    # mutate cart in place by adding price\n    pass\n",
       tests: [
         {
           name: "checkout totals correctly",

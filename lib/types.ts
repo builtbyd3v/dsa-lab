@@ -67,13 +67,35 @@ export interface FillinRung {
   reviewStep: number;
 }
 
+export interface RungExample {
+  input: string;        // e.g. "nums = [1, 2, 3]"
+  output: string;       // e.g. "[1, 2, 3, 1]"
+  explanation?: string;
+}
+
+export type BigO = "O(1)" | "O(log n)" | "O(n)" | "O(n log n)" | "O(n²)";
+
+export interface BigOQuiz {
+  fn?: string;          // function the question targets, when the rung defines several
+  answer: BigO;
+  explain: string;  // one line: why this is the complexity
+}
+
 export interface WriteRung {
   kind: "write" | "apply";
   prompt: string;
   starter: string;      // starter Python code
+  // Fully-implemented helper code (e.g. viz builders) prepended to the user's
+  // code at run time but never shown in the editor.
+  hidden?: string;
   tests: CodeTest[];
   vizExpr?: string;
   reviewStep: number;
+  difficulty?: "Easy" | "Medium" | "Hard";
+  examples?: RungExample[];
+  constraints?: string[];
+  bigO?: BigOQuiz;
+  solution?: string;    // canonical passing solution, revealed after repeated fails
 }
 
 export type Rung = PredictRung | FillinRung | WriteRung;

@@ -135,7 +135,7 @@ const bigOUnit: Unit = {
             ],
             arrows: [{ from: "outer", to: "inner", label: "nested", emphasis: "active" }],
           },
-          caption: "One loop runs inside another, and both range over the full length of arr.",
+          caption: "One loop runs inside another, and both range over the full length of `arr`.",
         },
       ],
       options: [
@@ -156,7 +156,7 @@ const bigOUnit: Unit = {
           ],
           arrows: [{ from: "outer", to: "inner", label: "n x n", emphasis: "active" }],
         },
-        caption: "For each of the n outer passes, the inner loop runs n times too, giving n x n = O(n^2) total comparisons.",
+        caption: "For each of the `n` outer passes, the inner loop runs `n` times too, giving `n x n = O(n^2)` total comparisons.",
       },
       reviewStep: 6,
     },
@@ -380,7 +380,7 @@ const binarySearchUnit: Unit = {
             ],
             arrows: [{ from: "lo", to: "a0" }, { from: "hi", to: "a2" }],
           },
-          caption: "The window narrowed to lo=0, hi=2, which spans indices 0, 1, 2.",
+          caption: "The window narrowed to `lo=0, hi=2`, which spans indices `0`, `1`, `2`.",
         },
       ],
       options: [
@@ -402,16 +402,25 @@ const binarySearchUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "mid = (0 + 2) // 2 = 1, pointing at value 4, an exact match for target.",
+        caption: "`mid = (0 + 2) // 2 = 1`, pointing at value `4`, an exact match for `target`.",
       },
       reviewStep: 2,
     },
     {
       kind: "write",
       prompt:
-        "Write binary_search(arr, target) that returns the index of target in the sorted list arr, or -1 if it is not present.",
+        "Given a sorted list `arr` and a value `target`, return the index of `target` in `arr`, or `-1` if it is not present.",
+      difficulty: "Medium",
+      examples: [
+        { input: "arr = [1, 3, 5, 7, 9, 11], target = 9", output: "4" },
+        { input: "arr = [2, 4, 6, 8, 10], target = 7", output: "-1", explanation: "`7` does not appear in `arr`." },
+      ],
+      constraints: ["`arr` is sorted in ascending order", "`0 <= len(arr) <= 10^4`"],
+      bigO: { answer: "O(log n)", explain: "Each step halves the `lo`/`hi` search window instead of scanning every element." },
       starter:
         "def binary_search(arr, target):\n    # your code here\n    pass\n",
+      solution:
+        "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
       tests: [
         {
           name: "finds a middle value",
@@ -638,7 +647,7 @@ const basicSortsUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "2 is the smallest overall and swaps into position 0. 7, 9, and 3 shuffle around each other but remain unsorted after just one pass.",
+        caption: "`2` is the smallest overall and swaps into position `0`. `7`, `9`, and `3` shuffle around each other but remain unsorted after just one pass.",
       },
       reviewStep: 3,
     },
@@ -846,7 +855,7 @@ const fastSortsUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "9 is chosen as the pivot; every other value gets compared against it.",
+          caption: "`9` is chosen as the pivot; every other value gets compared against it.",
         },
       ],
       options: [
@@ -870,7 +879,7 @@ const fastSortsUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "Since every other value (5, 2, 8, 1) is less than the pivot 9, none move; the pivot is already in its correct final spot at the end.",
+        caption: "Since every other value (`5, 2, 8, 1`) is less than the pivot `9`, none move; the pivot is already in its correct final spot at the end.",
       },
       reviewStep: 2,
     },
@@ -1069,7 +1078,7 @@ const specialSortsUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "Look only at each number's ones digit: 3, 5, 2, 4.",
+          caption: "Look only at each number's ones digit: `3, 5, 2, 4`.",
         },
       ],
       options: [
@@ -1087,7 +1096,7 @@ const specialSortsUnit: Unit = {
           nodes: [{ id: "result", label: "12, 23, 34, 45", x: 1, y: 1, shape: "frame", emphasis: "new" }],
           arrows: [],
         },
-        caption: "Ones digits are 2, 3, 4, 5 for 12, 23, 34, 45 respectively; reading buckets 0-9 in order gives exactly that sequence.",
+        caption: "Ones digits are `2, 3, 4, 5` for `12, 23, 34, 45` respectively; reading buckets `0-9` in order gives exactly that sequence.",
       },
       reviewStep: 2,
     },
@@ -1166,9 +1175,24 @@ const applyAnalysisUnit: Unit = {
     {
       kind: "apply",
       prompt:
-        "Write insertion_sort(arr) that sorts arr in place using insertion sort and returns it, and merge_sorted(a, b) that merges two already-sorted lists a and b into one sorted list, zipper-style, without using Python's built-in sort.",
+        "Given a list `arr`, implement `insertion_sort(arr)` so it sorts `arr` in place using insertion sort and returns it, without using Python's built-in sort. Also implement `merge_sorted(a, b)` so it merges two already-sorted lists `a` and `b` into one sorted list, zipper-style.",
+      difficulty: "Medium",
+      examples: [
+        { input: "arr = [6, 2, 9, 4]", output: "[2, 4, 6, 9]", explanation: "`insertion_sort(arr)` sorts in place and returns `arr`." },
+        {
+          input: "a = [1, 4, 7], b = [2, 3, 9]",
+          output: "[1, 2, 3, 4, 7, 9]",
+          explanation: "`merge_sorted(a, b)` zips the two sorted lists together.",
+        },
+      ],
+      constraints: ["`0 <= len(arr) <= 10^3`", "`a` and `b` are each already sorted in ascending order"],
+      bigO: { fn: "insertion_sort", answer: "O(n²)", explain: "`insertion_sort`'s shifting loop dominates: each of the `n` elements can shift back through the whole sorted prefix." },
+      hidden:
+        "def _viz(xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0, \"shape\": \"circle\", \"emphasis\": \"new\"} for i, v in enumerate(xs)]\n    return {\"nodes\": nodes, \"arrows\": []}",
       starter:
-        "def _viz(xs):\n    nodes = [{\"id\": f\"n{i}\", \"label\": repr(v), \"x\": i, \"y\": 0, \"shape\": \"circle\", \"emphasis\": \"new\"} for i, v in enumerate(xs)]\n    return {\"nodes\": nodes, \"arrows\": []}\n\ndef insertion_sort(arr):\n    # sort arr in place using the shifting technique, then return it\n    pass\n\ndef merge_sorted(a, b):\n    # merge two already-sorted lists into one sorted list\n    pass\n",
+        "def insertion_sort(arr):\n    # sort arr in place using the shifting technique, then return it\n    pass\n\ndef merge_sorted(a, b):\n    # merge two already-sorted lists into one sorted list\n    pass\n",
+      solution:
+        "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n    return arr\n\ndef merge_sorted(a, b):\n    result = []\n    i = j = 0\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            result.append(a[i])\n            i += 1\n        else:\n            result.append(b[j])\n            j += 1\n    result.extend(a[i:])\n    result.extend(b[j:])\n    return result\n",
       tests: [
         {
           name: "insertion_sort sorts a typical list",

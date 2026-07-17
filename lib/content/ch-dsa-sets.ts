@@ -18,7 +18,7 @@ const setAdtUnit: Unit = {
         nodes: [{ id: "m0", label: "5", x: 1, y: 1, shape: "circle", emphasis: "new" }],
         arrows: [],
       },
-      caption: "add(5) puts 5 into the set; sets store each distinct value only once.",
+      caption: "`add(5)` puts `5` into the set; sets store each distinct value only once.",
     },
     {
       state: {
@@ -28,7 +28,7 @@ const setAdtUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "add(8) inserts a second, different value alongside the first.",
+      caption: "`add(8)` inserts a second, different value alongside the first.",
     },
     {
       state: {
@@ -39,7 +39,7 @@ const setAdtUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "add(5) again has no effect: the set already contains 5, so the duplicate attempt is rejected.",
+      caption: "`add(5)` again has no effect: the set already contains `5`, so the duplicate attempt is rejected.",
     },
     {
       state: {
@@ -49,7 +49,7 @@ const setAdtUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "8 in myset checks membership by looking for a match; since 8 is present, this is True.",
+      caption: "`8 in myset` checks membership by looking for a match; since `8` is present, this is `True`.",
     },
     {
       state: {
@@ -60,7 +60,7 @@ const setAdtUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "99 in myset finds no match: the query value isn't stored anywhere in the set, so this is False.",
+      caption: "`99 in myset` finds no match: the query value isn't stored anywhere in the set, so this is `False`.",
     },
   ],
   ladder: [
@@ -76,7 +76,7 @@ const setAdtUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "myset already contains 3 and 7 before add(3) runs.",
+          caption: "`myset` already contains `3` and `7` before `add(3)` runs.",
         },
       ],
       options: [
@@ -98,7 +98,7 @@ const setAdtUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "add(3) bounces off since 3 is already present; myset stays exactly {3, 7}.",
+        caption: "`add(3)` bounces off since `3` is already present; `myset` stays exactly `{3, 7}`.",
       },
       reviewStep: 3,
     },
@@ -125,8 +125,22 @@ const setAdtUnit: Unit = {
     {
       kind: "write",
       prompt:
-        "Write add_unique(my_set, value) that adds value to my_set only if it is not already present, returning True if it was added or False if it was already there (a duplicate).",
+        "Given a set `my_set` and a `value`, add `value` to `my_set` only if it is not already present. Return `True` if it was added, or `False` if it was already there (a duplicate).",
+      difficulty: "Easy",
+      examples: [
+        { input: "`my_set = {1, 2}`, `value = 3`", output: "`True`, `my_set` becomes `{1, 2, 3}`" },
+        { input: "`my_set = {1, 2}`, `value = 2`", output: "`False`, `my_set` stays `{1, 2}`" },
+      ],
+      constraints: ["`0 <= len(my_set) <= 10^4`"],
+      bigO: { answer: "O(1)", explain: "Checking membership in and adding to a hash-backed `set` are both constant-time on average." },
       starter: ["def add_unique(my_set, value):", "    pass"].join("\n"),
+      solution: [
+        "def add_unique(my_set, value):",
+        "    if value in my_set:",
+        "        return False",
+        "    my_set.add(value)",
+        "    return True",
+      ].join("\n"),
       tests: [
         {
           name: "new value is added",
@@ -200,7 +214,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Set A holds 1, 2, 3. Set B holds 3, 4, 5, sharing the value 3 with A.",
+      caption: "Set `A` holds `1, 2, 3`. Set `B` holds `3, 4, 5`, sharing the value `3` with `A`.",
     },
     {
       state: {
@@ -214,7 +228,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Union combines every value from both sets, so every member of A and B is a candidate.",
+      caption: "Union combines every value from both sets, so every member of `A` and `B` is a candidate.",
     },
     {
       state: {
@@ -233,7 +247,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A | B is {1, 2, 3, 4, 5}: the shared value 3 appears only once in the result.",
+      caption: "`A | B` is `{1, 2, 3, 4, 5}`: the shared value `3` appears only once in the result.",
     },
     {
       state: {
@@ -247,7 +261,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Intersection keeps only values that appear in both sets: here, that means checking for 3 in both.",
+      caption: "Intersection keeps only values that appear in both sets: here, that means checking for `3` in both.",
     },
     {
       state: {
@@ -262,7 +276,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A & B is {3}: the only value common to both sets.",
+      caption: "`A & B` is `{3}`: the only value common to both sets.",
     },
     {
       state: {
@@ -276,7 +290,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "Difference A - B keeps values in A that are NOT in B, so 3 is excluded since B also has it.",
+      caption: "Difference `A - B` keeps values in `A` that are NOT in `B`, so `3` is excluded since `B` also has it.",
     },
     {
       state: {
@@ -292,7 +306,7 @@ const setOperationsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A - B is {1, 2}: everything in A except the value it shares with B.",
+      caption: "`A - B` is `{1, 2}`: everything in `A` except the value it shares with `B`.",
     },
   ],
   ladder: [
@@ -312,7 +326,7 @@ const setOperationsUnit: Unit = {
             ],
             arrows: [],
           },
-          caption: "A and B share the values 2 and 3.",
+          caption: "`A` and `B` share the values `2` and `3`.",
         },
       ],
       options: [
@@ -339,7 +353,7 @@ const setOperationsUnit: Unit = {
           ],
           arrows: [],
         },
-        caption: "A & B is {2, 3}: exactly the values present in both sets.",
+        caption: "`A & B` is `{2, 3}`: exactly the values present in both sets.",
       },
       reviewStep: 4,
     },
@@ -365,8 +379,17 @@ const setOperationsUnit: Unit = {
     },
     {
       kind: "write",
-      prompt: "Write shared_elements(a, b) that returns the set of values present in both list a and list b, using Python sets.",
+      prompt:
+        "Given two lists `a` and `b`, return the set of values present in both, using Python sets.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`a = [1, 2, 3]`, `b = [2, 3, 4]`", output: "`{2, 3}`" },
+        { input: "`a = [1, 2]`, `b = [3, 4]`", output: "`set()`", explanation: "No values are shared, so the result is empty." },
+      ],
+      constraints: ["`0 <= len(a), len(b) <= 10^4`"],
+      bigO: { answer: "O(n)", explain: "Building sets from `a` and `b` and intersecting them each take time proportional to their combined length." },
       starter: ["def shared_elements(a, b):", "    pass"].join("\n"),
+      solution: ["def shared_elements(a, b):", "    return set(a) & set(b)"].join("\n"),
       tests: [
         {
           name: "finds common values",
@@ -439,7 +462,7 @@ const applySetsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "A raw list can contain duplicates, like 1, 2, 2, 3, 1: five items, some repeated.",
+      caption: "A raw list can contain duplicates, like `1, 2, 2, 3, 1`: five items, some repeated.",
     },
     {
       state: {
@@ -455,15 +478,29 @@ const applySetsUnit: Unit = {
         ],
         arrows: [],
       },
-      caption: "set(the_list) collapses it down to distinct values only: 1, 2, 3, with no order guaranteed.",
+      caption: "`set(the_list)` collapses it down to distinct values only: `1, 2, 3`, with no order guaranteed.",
     },
   ],
   ladder: [
     {
       kind: "apply",
       prompt:
-        "Write two functions. dedupe(items) should return a list of the distinct values in items, using a set internally, in any order. common_elements(a, b) should return a list of values that appear in both a and b, also using sets, in any order.",
+        "Implement two functions. `dedupe(items)` should return a list of the distinct values in `items`, using a set internally, in any order. `common_elements(a, b)` should return a list of values that appear in both `a` and `b`, also using sets, in any order.",
+      difficulty: "Easy",
+      examples: [
+        { input: "`dedupe([1, 2, 2, 3, 1])`", output: "`[1, 2, 3]`", explanation: "Order is not guaranteed; only the distinct values matter." },
+        { input: "`common_elements([1, 2, 3], [2, 3, 4])`", output: "`[2, 3]`" },
+      ],
+      constraints: ["`0 <= len(items) <= 10^4`", "`0 <= len(a), len(b) <= 10^4`"],
+      bigO: { fn: "dedupe", answer: "O(n)", explain: "`dedupe` and `common_elements` each build sets and iterate their inputs once, proportional to input size." },
       starter: ["def dedupe(items):", "    pass", "", "def common_elements(a, b):", "    pass"].join("\n"),
+      solution: [
+        "def dedupe(items):",
+        "    return list(set(items))",
+        "",
+        "def common_elements(a, b):",
+        "    return list(set(a) & set(b))",
+      ].join("\n"),
       tests: [
         {
           name: "dedupe removes repeats",
